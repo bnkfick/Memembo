@@ -6,7 +6,7 @@ import CreateGame from './components/games/CreateGame'
 import PlayGame   from './components/games/PlayGame'
 import Search     from './components/games/Search'
 import NoMatch    from "./NoMatch"
-
+import "./App.css";
 
 
 class App extends Component {
