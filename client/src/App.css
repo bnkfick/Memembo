@@ -1,4 +1,22 @@
-body {
+/* body {
+    color:white;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+a {
+  color: white;
+}
+
+.navbar-toggler-icon {
+  color: white !important;
+} */
+/* body {
     margin:100px;
     font-family: Arial, Helvetica, sans-serif;
     background: #333;
@@ -7,10 +25,10 @@ body {
     line-height: 1.5;
     text-align: left;
     width: 90%;
-}
+} */
 
-a {
+/* a {
     font-size: 1.2em;
     color: #aeaeae;
     text-decoration: none;
-}
+} */
