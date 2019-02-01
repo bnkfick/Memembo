@@ -30,18 +30,48 @@ export default class CreateGame extends Component {
       <StyledContainer>
         <Form>
             <FormGroup row>
-                <Label for="gameCategory" sm={2}>Game Category:</Label>
-                <Col sm={10}>
+                <Label for="gameGroup" sm={2}>Game Group:</Label>
+                <Col sm={4}>
                     <Input  type="select" 
-                            name="gameCategory" 
-                            id="gameCategory" />
+                            name="gameGroup" 
+                            id="gameGroup" 
+                            required
+                    >
+                        <option>Coding</option>
+                        <option>Food & Drink</option>
+                        <option>Geography</option>
+                        <option>Language</option>
+                        <option>Law</option>
+                        <option>Math</option>
+                        <option>Politics</option>
+                        <option>Science</option>
+                        <option>Create New Group</option>
+
+                    </Input>
+                </Col>
+                <Col sm={4}>
+                    <Input  type="text" 
+                            name="gameGroup" 
+                            id="gameGroup"
+                            placeHolder="New Group" 
+                    />
+                </Col>
+                <Col sm={2}>
+                    <Button>+</Button>
                 </Col>
             </FormGroup>
 
             <FormGroup row>
-                <Label for="exampleSelectMulti" sm={2}>Target Audience:</Label>
-                <Col sm={10}>
-                    <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple />
+                <Label for="audience" sm={2}>Target Audience: (Select Multiple if Needed)</Label>
+                <Col sm={4}>
+                    <Input type="select" name="audience" id="audience" multiple required>
+                        <option>All Ages</option>
+                        <option>Pre-K</option>
+                        <option>Middle School | Jr. High</option>
+                        <option>Highschool</option>
+                        <option>College</option>
+                        <option>Adult</option>
+                    </Input>
                 </Col>
             </FormGroup>
             
@@ -51,57 +81,96 @@ export default class CreateGame extends Component {
                     <Input  type="text" 
                             name="gameName" 
                             id="gameName" 
-                            placeholder="Enter fun name for your game."
+                            placeholder="Create a Name for Your Game."
+                            required
+                    />
+                </Col>
+            </FormGroup>
+            
+            
+
+            <FormGroup row>
+                <Label for="gameCategories" sm={2}>Game Categories:</Label>
+                <Col sm={10}>
+                    <Input  type="text" 
+                            name="gameCategories" 
+                            id="gameCategories" 
+                            placeholder="Create categories for your game, separated by commas. (Required)"
+                            required
+                    />
+                </Col>
+            </FormGroup>
+            
+            <FormGroup row>
+                <Label for="gameCategoryType" sm={2}>Game Category Type:</Label>
+                <Col sm={10}>
+                    <Input  type="text" 
+                            name="gameCategoryType" 
+                            id="gameCategoryType" 
+                            placeholder="Create a category type for your game categories. (If Needed) eg: "
+                            required
                     />
                 </Col>
             </FormGroup>
 
             <FormGroup row>
-                    <Label for="easyInstructions" sm={2}>Easy Game Instructions:</Label>
-                    <h3>Click on Cards that are `VODKA`</h3>
-                    <Col sm={4}>
-                    {/* <FormText color="muted">
-                    This is some placeholder block-level help text for the above input.
-                    It's a bit lighter and easily wraps to a new line.
-                    </FormText> */}
+                <Label for="cardDetailsType" sm={2}>Card Detail Type:</Label>
+                <Col sm={10}>
                     <Input  type="text" 
-                            name="easyInstructions" 
-                            id="easyInstructions" 
-                            placeholder="Click on cards that are...(must be true or false)" />
+                            name="cardDetailsType" 
+                            id="cardDetailsType" 
+                            placeholder="Create a card detail type. (Required)"
+                            required
+                    />
+                </Col>
+            </FormGroup>
+
+            
+
+            <FormGroup row>
+                <Label for="gameCategoryType" sm={2}>Easy Game Instructions:</Label>
+                <Col sm={10}>
+                    <h4>
+                    Click on Cards that are [gameCategories] [gameCategoryType]</h4>
+                </Col>
+                <Col sm={{ size: 10, offset: 2 }}>
+                Dynamicaly render the instructions here for each [gameCategories] & [cardDetailsType] created.
                 </Col>
             </FormGroup>
 
             <FormGroup row>
                 <Label for="advancedInstructions" sm={2}>Advanced Game Instructions:</Label>
                 <Col sm={10}>
-                    {/* <FormText color="muted">
-                    This is some placeholder block-level help text for the above input.
-                    It's a bit lighter and easily wraps to a new line.
-                    </FormText> */}
-                    <Input  type="text" 
-                            name="advancedInstructions" 
-                            id="advancedInstructions" 
-                            placeholder="Enter the name of item pictured on card" />
+                    <h4>
+                        Enter the NAME of each [gameCategories] [gameCategoryType]
+                    </h4>
+                </Col>
+                <Col sm={{ size: 10, offset: 2 }}>
+                Dynamicaly render the instructions here for each [gameCategories] & [cardDetailsType] created.
                 </Col>
             </FormGroup>
 
             <FormGroup row>
                 <Label for="expertInstructions" sm={2}>Expert Game Instructions:</Label>
                 <Col sm={10}>
-                    {/* <FormText color="muted">
-                    This is some placeholder block-level help text for the above input.
-                    It's a bit lighter and easily wraps to a new line.
-                    </FormText> */}
-                    <Input  type="text" 
-                            name="expertInstructions" 
-                            id="expertInstructions" 
-                            placeholder="Enter the details of item pictured on card" />
+                    <h4>
+                        Select the correct [cardDetailsType] for each [gameCategories]
+                    </h4>
+                </Col>
+                <Col sm={{ size: 10, offset: 2 }}>
+                Dynamicaly render the instructions here for each [cardDetailsType],[gameCategories] & [cardDetailsType] created.
+                </Col>
+            </FormGroup>
+
+            <FormGroup row>
+                <Col sm={{ size: 10, offset: 2 }}>
+                    <StyledButton>Save & Continue</StyledButton>
                 </Col>
             </FormGroup>
             
             <FormGroup row>
                 <Label for="createCard" sm={2}>Create Cards:</Label>
-                <Col sm={3}>
+                <Col sm={6}>
                     <CardForm />
                 </Col>
                 <Col sm={3}>
@@ -123,34 +192,7 @@ export default class CreateGame extends Component {
                 </Col>
                 
             </FormGroup>
-            <FormGroup row>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-            </FormGroup>
-            <FormGroup row>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-            </FormGroup>
+            
             
         
             
