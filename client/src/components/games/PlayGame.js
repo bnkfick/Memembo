@@ -9,6 +9,9 @@ const StyledContainer = styled(Container)`
     margin-top: 5rem;
     width: 100%;
 `
+const easyInstructions = "Click on cards that are ";
+const advancedInstructions = "Enter the Name of each ";
+const expertInstructions = "Select the correct ingredients for each ";
 
 class PlayGame extends React.Component {
 
@@ -53,11 +56,6 @@ class PlayGame extends React.Component {
 
         }
     };
-
-
-    // easyInstructions: "Click on cards that are ["Vodka Drink", "Whiskey Drink", "Gin Drink"],
-    // advancedInstructions: "Enter the Name of each ["Vodka Drink", "Whiskey Drink", "Gin Drink"]",
-    // expertInstructions: "Select the correct ingredients for each ["Vodka Drink", "Whiskey Drink", "Gin Drink"]",
 
     checkHighScore = (currentScore) => {
         //-- Already incremented if correct answer, but not setState yet --//
