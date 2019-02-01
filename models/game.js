@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
+  gameCategory: { type: String, required: true },
+  audience: { type: Array, required: true },
   gameName: { type: String, required: true, unique: true },
-  gameCategories: { type: Array, required: true },
+  cardCategories: { type: Array, required: true },
   cards: [
     {
       type: Schema.Types.ObjectId,
