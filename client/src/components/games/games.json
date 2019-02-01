@@ -9,6 +9,7 @@
     "gameCategoryType": "",
     "cardArray":  [    
                     {
+                    "id": 1,
                     "name": "Green",
                     "src": "Url",
                     "detailType": "word in espanol",
@@ -17,6 +18,7 @@
                     "clicked": false
                     },
                     {
+                    "id": 2,
                     "name": "Five",
                     "src": "Url",
                     "detailType": "word in espanol",
@@ -25,6 +27,7 @@
                     "clicked": false
                     },
                     {
+                    "id": 2,
                     "name": "Air Plane",
                     "src": "Url",
                     "detailType": "word in espanol",
