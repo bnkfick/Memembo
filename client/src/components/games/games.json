@@ -1,0 +1,36 @@
+{
+    "gameCategory": "Language",
+    "audience": ["Pre-K", "Grade School"],
+    "gameName": "Learn Your Colors in English & Spanish!",
+    "easyInstructions": "Click on cards that are a color",
+    "advancedInstructions": "Spell the Name of each color in English",
+    "expertInstructions": "Spell the Name of each color in Spanish",
+    "gameCategories": ["Color", "Number", "Vehicle"],
+    "gameCategoryType": "",
+    "cardArray":  [    
+                    {
+                    "name": "Green",
+                    "src": "Url",
+                    "detailType": "word in espanol",
+                    "details": ["Verde"],
+                    "category": "Color",
+                    "clicked": false
+                    },
+                    {
+                    "name": "Five",
+                    "src": "Url",
+                    "detailType": "word in espanol",
+                    "details": ["Cinco"],
+                    "category": "Number",
+                    "clicked": false
+                    },
+                    {
+                    "name": "Air Plane",
+                    "src": "Url",
+                    "detailType": "word in espanol",
+                    "details": ["Avion"],
+                    "category": "Color",
+                    "clicked": false
+                    }
+                ]
+}
