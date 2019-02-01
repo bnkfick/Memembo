@@ -10,8 +10,8 @@ Games = [
                 "Enter the name of each `Whiskey` `drink`.",
                 "Enter the name of each `Mammal` `animal`."
                 "Enter the name of each `Number`."
-        // expertInstructions: "Select the correct {detailType} for each [Pick one from gameCategories] {gameCategoryType}",
-                "Select the correct `ingredients` for each `Gin` `cocktail`"
+        // expertInstructions: "Select the correct {cardDetailsType} for each [Pick one from gameCategories] {gameCategoryType}",
+                "Select the correct `recipe` for each `Gin` `cocktail`"
                 "Select the correct `scientific name` for each `Amphibian` `animal`."
                 "Select the correct `word in espanol` for each `Vehicle`."
     // Game 1++++++++++++++++++++++++++++++++++
@@ -22,11 +22,11 @@ Games = [
         gameName: "So You Think You're a Mixologist?",
         gameCategories: ["Vodka", "Whiskey", "Gin"],
         gameCategoryType: "cocktail",
+        cardDetailsType: "recipe",
         cardArray:  [    
                 {
                 name: "Sazerac",
                 src: "Url",
-                detailType: "ingredients",
                 details: ["String", "String", "String"],
                 category: "Whiskey",//Select by populating game.gameCategories into selection field
                 clicked: false
@@ -34,7 +34,6 @@ Games = [
                 {
                 name: "Old Fashioned",
                 src: "Url",
-                detailType: "ingredients",
                 details: ["String", "String", "String"],
                 category: "Whiskey",
                 clicked: false
@@ -42,7 +41,6 @@ Games = [
                 {
                 name: "Moscow Mule",
                 src: "Url",
-                detailType: "ingredients",
                 details: ["String", "String", "String"],
                 category: "Vodka",
                 clicked: false
@@ -60,11 +58,11 @@ Games = [
         gameName: "Meet Your Mammals",
         gameCategories: ["Mammal", "Marsupial", "Amphibian"],
         gameCategoryType: "animal",
+        cardDetailsType: "scientific name"
         cardArray:  [    
                         {
                         name: "Polar Bear",
                         src: "Url",
-                        detailType: "scientific name",
                         details: ["Ursus Maritimus"],
                         category: "Mammal",
                         clicked: false
@@ -72,7 +70,6 @@ Games = [
                         {
                         name: "Kangaroo",
                         src: "Url",
-                        detailType: "scientific name",
                         details: ["Macropodidae"],
                         category: "Marsupial",
                         clicked: false
@@ -80,7 +77,6 @@ Games = [
                         {
                         name: "Raccoon",
                         src: "Url",
-                        detailType: "scientific name",
                         details: ["Procyonidae"],
                         category: "Mammal",
                         clicked: false
@@ -100,11 +96,11 @@ Games = [
         expertInstructions: "Spell the Name of each color in Spanish",
         gameCategories: ["Color", "Number", "Vehicle"],
         gameCategoryType: "",
+        cardDetailsType: "word in espanol"
         cardArray:  [    
                         {
                         name: "Green",
                         src: "Url",
-                        detailType: "word in espanol",
                         details: ["Verde"],
                         category: "Color",
                         clicked: false
@@ -112,7 +108,6 @@ Games = [
                         {
                         name: "Five",
                         src: "Url",
-                        detailType: "word in espanol",
                         details: ["Cinco"],
                         category: "Number",
                         clicked: false
@@ -120,7 +115,6 @@ Games = [
                         {
                         name: "Air Plane",
                         src: "Url",
-                        detailType: "word in espanol",
                         details: ["Avion"],
                         category: "Color",
                         clicked: false
