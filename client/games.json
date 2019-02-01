@@ -1,0 +1,128 @@
+Games = [
+    
+    // Instructions  will be conditionally rendered by clicking on Beginner, Advanced, Expert buttons.  
+    // Selectable cardCategory buttons will determine what to match in beginner level and display for advanced and expert 
+        // easyInstructions: "Click on cards that are a [Pick one from gameCategories] {gameCategoryType}",
+                "Click on cards that are a `Vodka` `cocktail`.",
+                "Click on cards that are a `Marsupial` `animal`.",
+                "Click on cards that are a `Color`."
+        // advancedInstructions: "Enter the Name of each [Pick one from gameCategories] {gameCategoryType}",
+                "Enter the name of each `Whiskey` `drink`.",
+                "Enter the name of each `Mammal` `animal`."
+                "Enter the name of each `Number`."
+        // expertInstructions: "Select the correct {cardDetailsType} for each [Pick one from gameCategories] {gameCategoryType}",
+                "Select the correct `recipe` for each `Gin` `cocktail`"
+                "Select the correct `scientific name` for each `Amphibian` `animal`."
+                "Select the correct `word in espanol` for each `Vehicle`."
+    // Game 1++++++++++++++++++++++++++++++++++
+                
+    {
+        gameGroup: "Food & Drink",
+        audience: "adults"
+        gameName: "So You Think You're a Mixologist?",
+        gameCategories: ["Vodka", "Whiskey", "Gin"],
+        gameCategoryType: "cocktail",
+        cardDetailsType: "recipe",
+        cardArray:  [    
+                {
+                name: "Sazerac",
+                src: "Url",
+                details: ["String", "String", "String"],
+                category: "Whiskey",//Select by populating game.gameCategories into selection field
+                clicked: false
+                },
+                {
+                name: "Old Fashioned",
+                src: "Url",
+                details: ["String", "String", "String"],
+                category: "Whiskey",
+                clicked: false
+                },
+                {
+                name: "Moscow Mule",
+                src: "Url",
+                details: ["String", "String", "String"],
+                category: "Vodka",
+                clicked: false
+                },
+                {
+                Additional drinks...
+                },
+                ]
+    },
+    
+    // Game 2++++++++++++++++++++++++++++++++++ 
+    {
+        gameCategory: "Science",
+        audience: ["All Ages"]
+        gameName: "Meet Your Mammals",
+        gameCategories: ["Mammal", "Marsupial", "Amphibian"],
+        gameCategoryType: "animal",
+        cardDetailsType: "scientific name"
+        cardArray:  [    
+                        {
+                        name: "Polar Bear",
+                        src: "Url",
+                        details: ["Ursus Maritimus"],
+                        category: "Mammal",
+                        clicked: false
+                        },
+                        {
+                        name: "Kangaroo",
+                        src: "Url",
+                        details: ["Macropodidae"],
+                        category: "Marsupial",
+                        clicked: false
+                        },
+                        {
+                        name: "Raccoon",
+                        src: "Url",
+                        details: ["Procyonidae"],
+                        category: "Mammal",
+                        clicked: false
+                        },
+                        {
+                        Additional animals...
+                        },
+                    ]
+    },
+    // Game 3++++++++++++++++++++++++++++++++++
+    {
+        gameCategory: "Language",
+        audience: ["Pre-K", "Grade School"]
+        gameName: "Learn Your Colors in English & Spanish!",
+        easyInstructions: "Click on cards that are a color",
+        advancedInstructions: "Spell the Name of each color in English",
+        expertInstructions: "Spell the Name of each color in Spanish",
+        gameCategories: ["Color", "Number", "Vehicle"],
+        gameCategoryType: "",
+        cardDetailsType: "word in espanol"
+        cardArray:  [    
+                        {
+                        name: "Green",
+                        src: "Url",
+                        details: ["Verde"],
+                        category: "Color",
+                        clicked: false
+                        },
+                        {
+                        name: "Five",
+                        src: "Url",
+                        details: ["Cinco"],
+                        category: "Number",
+                        clicked: false
+                        },
+                        {
+                        name: "Air Plane",
+                        src: "Url",
+                        details: ["Avion"],
+                        category: "Color",
+                        clicked: false
+                        },
+                        {
+                        Additional cards...
+                        },
+                    ]
+    },
+    
+]
