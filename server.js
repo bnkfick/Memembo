@@ -1,10 +1,14 @@
 const express = require("express");
-const path = require("path");
-const PORT = process.env.PORT || 3001;
+
+const mongoose = require("mongoose");
+const logger = require("morgan");
+const routes = require("./routes")
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 // Require all models
-const db = require("./models");
+// const db = require("./models");
+
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -14,13 +18,24 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 } 
 
-// Define API routes here
+// Use morgan logger for logging requests
+app.use(logger("dev"));
+
+// Add routes, both API and view
+app.use(routes);
+
+//If deployed, use the deployed database.  Otherwise use the local mongo database
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/memoryGame"
+
+mongoose
+  .connect(MONGODB_URI, { useNewUrlParser: true })
+  .then(() => console.log('MongoDB Connected...'))
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
