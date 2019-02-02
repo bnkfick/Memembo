@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import API from "../utils/API"
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import CardForm from '../components/games/CardForm'
-import CardItem from '../components/games/CardItem'
+import CardForm from '../components/games/CardForm';
+import CardItem from '../components/games/CardItem';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
@@ -25,7 +26,97 @@ const StyledButton = styled(Button)`
 
 
 export default class CreateGame extends Component {
-  render() {
+    state = {
+        games: [],
+        cards: [],
+        gameGroup: "",
+        audience: [],
+        gameName: "",
+        gameCategories: [],
+        gameCategoryType: "",
+        cardDetailsType: "",
+
+        src: "",
+        cardName: "",
+        details: [],
+        category: ""
+    }
+    
+    componentDidMount() {
+        this.loadGames();
+        this.loadCards();
+    };
+
+    loadGames = () => {
+        API.getGames()
+            .then(res =>
+                this.setState({ games: res.data, gameGroup: "", audience: [], gameName: "", gameCategories: [], gameCategoryType: "", cardDetailsType: "" })
+            )
+            .catch(err => console.log(err))
+    };
+    
+    loadCards = () => {
+        API.getCards()
+            .then(res =>
+                this.setState({ cards: res.data, src: "", cardName: "", details: [], category: "" })
+            )
+            .catch(err => console.log(err))
+    };
+
+    deleteCard = id => {
+        API.deleteCard(id)
+            .then(res => this.loadCards())
+            .catch(err => console.log(err));
+    };
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({ [name]: value });
+    };
+
+
+    // https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react
+    handleSelectChange = event => {
+        const { name } = event.target
+        const options = event.target.options;
+        const value = [];
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+                value.push(options[i].value);
+            }
+        }
+        this.setState({ [name]: value})
+    }
+
+    handleGameSubmit = event => {
+        event.preventDefault();
+        if (this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType) {
+            API.saveGame({
+                gameGroup: this.state.gameGroup,
+                audience: this.state.audience,
+                gameName: this.state.gameName,
+                gameCategories: this.state.gameCategories,
+                gameCategoryType: this.state.gameCategoryType,
+                cardDetailsType: this.state.cardDetailsType,
+            })
+                .then(res => this.loadGames())
+                .catch(err => console.log(err));
+        }
+    };
+
+    handleCardSubmit = event => {
+        event.preventDefault();
+        if (this.state.src && this.state.cardName && this.state.details && this.state.category) {
+            API.saveCard({
+                src: this.state.src,
+                cardName: this.state.cardName,
+                details: this.state.details,
+                category: this.state.category
+            })
+        }
+    }
+  
+    render() {
     return (
       <StyledContainer>
         <Form>
@@ -36,6 +127,8 @@ export default class CreateGame extends Component {
                             name="gameGroup" 
                             id="gameGroup" 
                             required
+                            value={this.state.gameGroup}
+                            onChange={this.handleSelectChange}
                     >
                         <option>Coding</option>
                         <option>Food & Drink</option>
@@ -49,7 +142,7 @@ export default class CreateGame extends Component {
 
                     </Input>
                 </Col>
-                <Col sm={4}>
+                {/* <Col sm={4}>
                     <Input  type="text" 
                             name="gameGroup" 
                             id="gameGroup"
@@ -58,13 +151,19 @@ export default class CreateGame extends Component {
                 </Col>
                 <Col sm={2}>
                     <Button>+</Button>
-                </Col>
+                </Col> */}
             </FormGroup>
 
             <FormGroup row>
                 <Label for="audience" sm={2}>Target Audience: (Select Multiple if Needed)</Label>
                 <Col sm={4}>
-                    <Input type="select" name="audience" id="audience" multiple required>
+                        <Input type="select"
+                                name="audience"
+                                id="audience"
+                                multiple required
+                                value={this.state.audience}
+                                onChange={this.handleSelectChange}
+                        >
                         <option>All Ages</option>
                         <option>Pre-K</option>
                         <option>Middle School | Jr. High</option>
@@ -83,6 +182,8 @@ export default class CreateGame extends Component {
                             id="gameName" 
                             placeholder="Create a Name for Your Game."
                             required
+                            value={this.state.gameName}
+                            onChange={this.handleInputChange}
                     />
                 </Col>
             </FormGroup>
@@ -97,6 +198,8 @@ export default class CreateGame extends Component {
                             id="gameCategories" 
                             placeholder="Create categories for your game, separated by commas. (Required)"
                             required
+                            value={this.state.gameCategories}
+                            onChange={this.handleInputChange}
                     />
                 </Col>
             </FormGroup>
@@ -107,8 +210,9 @@ export default class CreateGame extends Component {
                     <Input  type="text" 
                             name="gameCategoryType" 
                             id="gameCategoryType" 
-                            placeholder="Create a category type for your game categories. (If Needed) eg: "
-                            required
+                            placeholder="Create a category type for your game categories. (If Needed)"
+                            value={this.state.gameCategoryType}
+                            onChange={this.handleInputChange}
                     />
                 </Col>
             </FormGroup>
@@ -121,6 +225,8 @@ export default class CreateGame extends Component {
                             id="cardDetailsType" 
                             placeholder="Create a card detail type. (Required)"
                             required
+                            value={this.state.cardDetailsType}
+                            onChange={this.handleInputChange}
                     />
                 </Col>
             </FormGroup>
@@ -131,10 +237,10 @@ export default class CreateGame extends Component {
                 <Label for="gameCategoryType" sm={2}>Easy Game Instructions:</Label>
                 <Col sm={10}>
                     <h4>
-                    Click on Cards that are [gameCategories] [gameCategoryType]</h4>
+                            Click on Cards that are a [gameCategories] [gameCategoryType].</h4>
                 </Col>
                 <Col sm={{ size: 10, offset: 2 }}>
-                Dynamicaly render the instructions here for each [gameCategories] & [cardDetailsType] created.
+                        Click on Cards that are a {this.state.gameCategories} {this.state.gameCategoryType}.
                 </Col>
             </FormGroup>
 
@@ -146,7 +252,7 @@ export default class CreateGame extends Component {
                     </h4>
                 </Col>
                 <Col sm={{ size: 10, offset: 2 }}>
-                Dynamicaly render the instructions here for each [gameCategories] & [cardDetailsType] created.
+                Enter the NAME of each {this.state.gameCategories} {this.state.gameCategoryType}.
                 </Col>
             </FormGroup>
 
@@ -158,13 +264,17 @@ export default class CreateGame extends Component {
                     </h4>
                 </Col>
                 <Col sm={{ size: 10, offset: 2 }}>
-                Dynamicaly render the instructions here for each [cardDetailsType],[gameCategories] & [cardDetailsType] created.
+                Select the correct {this.state.cardDetailsType} for each {this.state.gameCategories}
                 </Col>
             </FormGroup>
 
             <FormGroup row>
                 <Col sm={{ size: 10, offset: 2 }}>
-                    <StyledButton>Save & Continue</StyledButton>
+                        <StyledButton
+                            disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
+                            onClick={this.handleGameSubmit}
+                        >Save & Continue
+                        </StyledButton>
                 </Col>
             </FormGroup>
             
