@@ -1,9 +1,11 @@
 import React from "react";
-import CardItem from "./CardItem";
-import MsgBar from "../layout/MsgBar";
+import CardItem from "../components/games/CardItem";
+import MsgBar from "../components/layout/MsgBar";
+import API from "../utils/API";
 import gameObj from "./games.json";
 import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
+
 
 const StyledContainer = styled(Container)`
     margin-top: 5rem;
@@ -71,33 +73,24 @@ class PlayGame extends React.Component {
     }
 
     componentDidMount() {
-        console.log("========================================componentDidMount");
-        const game = this.getGame();
-        console.log("========================================componentDidMount");
-        console.log(game);
-        let tiles = game.cardArray;
-        console.log(tiles);
-        game.tiles = this.shuffle(tiles);
-
-        console.log(tiles);
-        this.setState({
-            game: game
-        });
+        this.getGame("5c55fb75ded50b007c0da713");
     }
 
 
-    getGame = () => {
-        console.log("getGame()");
-        const game = gameObj;
-        console.log(game);
-        return game;
+    getGame = (id) => {
+        console.log("getGame");
+        console.log(id);
 
-        //   API.getGame().then(res =>  { 
-        //     console.log(res);
-        //     this.setState({
-        //     game: res.data
-        //   })}) 
-        //   .catch(err => console.log(err));
+
+        API.getGame(id).then(res => {
+            this.setState({
+                game: res.data
+            })
+            console.log(this.state.game);
+            console.log(this.state.game.cardArray);
+            
+        })
+            .catch(err => console.log(err));
 
     }
 
@@ -148,24 +141,34 @@ class PlayGame extends React.Component {
     }
 
 
+    isEmpty = (obj) => {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
 
     render() {
 
-        if (this.state.game.cardArray === undefined) {
+
+        if ( this.isEmpty(this.state.game) ) {
             return (<h1>...loading</h1>)
         }
-
+        console.log("NOT EMPTY");
+        console.log(this.state.game);
+        console.log("card array NOT EMPTY");
+        console.log(this.state.game.cardArray);
+        console.log(this.state.game.cardArray.length);
         return (
             <>
-            <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg}></MsgBar>
-
+                <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg}></MsgBar>
                 <StyledContainer>
                     <Row>
-                    {this.state.game.cardArray.map(tile, i => {
-                        
+                    {   
+                        this.state.game.cardArray.map((tile, index) => {
                         return (
-                            
-                            <Col sm={3} key={`col-${i}`}>
+                            <Col sm={3} key={`col-${index}`}>
                                 <CardItem
                                     key={tile.id}
                                     name={tile.name}
@@ -177,13 +180,14 @@ class PlayGame extends React.Component {
                                 />
                             </Col>)
                         })
-                    }
+                    } 
                     </Row>
                 </StyledContainer>
 
             </>
         );
     }
+    
 
 }
 
