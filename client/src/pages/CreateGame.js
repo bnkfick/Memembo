@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import CardForm from './CardForm'
-import CardItem from './CardItem'
+import CardForm from '../components/games/CardForm'
+import CardItem from '../components/games/CardItem'
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
