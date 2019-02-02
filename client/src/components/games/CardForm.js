@@ -43,7 +43,7 @@ const CardForm = (props) => {
                 <Input  type="select" 
                         name="category" 
                         id="category" 
-                        placeholder="Details"
+                        placeholder="category"
                 >
                     <option>[gameCategories-1]</option>
                     <option>[gameCategories-2]</option>
