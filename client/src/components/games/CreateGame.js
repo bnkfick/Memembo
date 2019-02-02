@@ -57,8 +57,9 @@ export default class CreateGame extends Component {
             </FormGroup>
 
             <FormGroup row>
-                <Label for="easyInstructions" sm={2}>Easy Game Instructions:</Label>
-                    <Col sm={10}>
+                    <Label for="easyInstructions" sm={2}>Easy Game Instructions:</Label>
+                    <h3>Click on Cards that are `VODKA`</h3>
+                    <Col sm={4}>
                     {/* <FormText color="muted">
                     This is some placeholder block-level help text for the above input.
                     It's a bit lighter and easily wraps to a new line.
