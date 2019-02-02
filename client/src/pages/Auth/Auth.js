@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
 import API from "../../utils/API";
-import "./Auth.scss"
+// import "./Auth.scss"
 
 class Auth extends Component {
 
