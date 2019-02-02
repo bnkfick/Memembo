@@ -3,10 +3,6 @@ import Search from './Search';
 import { Link }       from 'react-router-dom'
 import SignedInLinks  from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
-
-//https://github.com/reactstrap/reactstrap
-// https://reactstrap.github.io/components/navbar/
-
 import { Row, Col, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import styled from 'styled-components';
 
@@ -45,20 +41,11 @@ export default class Header extends Component {
         <Navbar color="dark" dark>
           <StyledRow>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-             
             {/* <NavbarSearch> */}
               <Search />
             {/* </NavbarSearch> */}
-             
-           
              <StyledNavbarBrand href="/">M&#477;&#8901;mem&#8901;bo&#772;</StyledNavbarBrand>
           </StyledRow>
-
-            
-              
-            
-            
-         
 
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
