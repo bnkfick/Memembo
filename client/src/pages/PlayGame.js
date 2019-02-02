@@ -73,7 +73,7 @@ class PlayGame extends React.Component {
     }
 
     componentDidMount() {
-        this.getGame("5c55fb75ded50b007c0da713");
+        this.getGame("5c562b8f0d4fa54a2159d72b");
     }
 
 
@@ -81,14 +81,10 @@ class PlayGame extends React.Component {
         console.log("getGame");
         console.log(id);
 
-
         API.getGame(id).then(res => {
             this.setState({
                 game: res.data
             })
-            console.log(this.state.game);
-            console.log(this.state.game.cardArray);
-            
         })
             .catch(err => console.log(err));
 

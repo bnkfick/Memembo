@@ -9,11 +9,23 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
   findById: function(req, res) {
+    console.log("NEW FINDBYID");
     db.Game
-      .findById(req.params.id)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    .findById(req.params.id)
+    // Specify that we want to populate the retrieved game with any associated cards
+    .populate("cardArray")
+    .then(dbGame => {
+      // If the Game is found, send it to the client with any associated Cards
+      console.log(dbGame);
+      res.json(dbGame);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
+    });
+    
   },
   create: function(req, res) {
     db.Game
