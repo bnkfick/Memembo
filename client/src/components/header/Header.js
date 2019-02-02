@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import Search from '../games/Search';
+import Search from './Search';
 import { Link }       from 'react-router-dom'
 import SignedInLinks  from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
-
-//https://github.com/reactstrap/reactstrap
-// https://reactstrap.github.io/components/navbar/
-
 import { Row, Col, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import styled from 'styled-components';
 
@@ -16,9 +12,13 @@ const StyledRow = styled.div `
   flex-direction: row;
   justify-content: space-between;
 `
-// const NavbarSearch = styled.div `
-// margin:0 1rem !important;
-// `
+const StyledNavbarBrand = styled(NavbarBrand)`
+  color: rgb(232, 216, 255);
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 0.35rem;
+  padding: 0;
+`
 
 export default class Header extends Component {
   constructor(props) {
@@ -41,28 +41,19 @@ export default class Header extends Component {
         <Navbar color="dark" dark>
           <StyledRow>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-             
             {/* <NavbarSearch> */}
               <Search />
             {/* </NavbarSearch> */}
-             
-           
-             <NavbarBrand href="/" className="text-right">MEMEMBO</NavbarBrand>
+             <StyledNavbarBrand href="/">M&#477;&#8901;mem&#8901;bo&#772;</StyledNavbarBrand>
           </StyledRow>
-
-            
-              
-            
-            
-         
 
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink href="#">Dashboard</NavLink>
+                <NavLink href="/">Dashboard</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/create">Create Game</NavLink>
+                <NavLink href="/create-game">Create Game</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="#">LogIn/LogOut</NavLink>

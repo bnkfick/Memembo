@@ -152,16 +152,16 @@ db.Card
   .remove({})
   .then(() => db.Card.collection.insertMany(cardSeed))
   .then(data => {
-    console.log(data.result.n + " records inserted!");
+    console.log(data.result.n + " cards inserted!");
     console.log(data.insertedIds);
     for (let key in data.insertedIds) {
-      gameSeed.cards.push(data.insertedIds[key]);
+      gameSeed.cardArray.push(data.insertedIds[key]);
     }
     db.Game
       .remove({})
       .then(() => db.Game.collection.insertOne(gameSeed))
       .then(data => {
-        console.log(data.result.n + "records inserted!");
+        console.log(data.result.n + " games inserted!");
         process.exit(0);
       })
       .catch(err => {
