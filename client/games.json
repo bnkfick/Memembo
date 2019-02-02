@@ -3,17 +3,17 @@ Games = [
     // Instructions  will be conditionally rendered by clicking on Beginner, Advanced, Expert buttons.  
     // Selectable cardCategory buttons will determine what to match in beginner level and display for advanced and expert 
         // easyInstructions: "Click on cards that are a [Pick one from gameCategories] {gameCategoryType}",
-                "Click on cards that are a `Vodka` `cocktail`.",
-                "Click on cards that are a `Marsupial` `animal`.",
-                "Click on cards that are a `Color`."
+                // "Click on cards that are a `Vodka` `cocktail`.",
+                // "Click on cards that are a `Marsupial` `animal`.",
+                // "Click on cards that are a `Color`."
         // advancedInstructions: "Enter the Name of each [Pick one from gameCategories] {gameCategoryType}",
-                "Enter the name of each `Whiskey` `drink`.",
-                "Enter the name of each `Mammal` `animal`."
-                "Enter the name of each `Number`."
+                // "Enter the name of each `Whiskey` `drink`.",
+                // "Enter the name of each `Mammal` `animal`."
+                // "Enter the name of each `Number`."
         // expertInstructions: "Select the correct {cardDetailsType} for each [Pick one from gameCategories] {gameCategoryType}",
-                "Select the correct `recipe` for each `Gin` `cocktail`"
-                "Select the correct `scientific name` for each `Amphibian` `animal`."
-                "Select the correct `word in espanol` for each `Vehicle`."
+                // "Select the correct `recipe` for each `Gin` `cocktail`"
+                // "Select the correct `scientific name` for each `Amphibian` `animal`."
+                // "Select the correct `word in espanol` for each `Vehicle`."
     // Game 1++++++++++++++++++++++++++++++++++
                 
     {
