@@ -17,29 +17,42 @@ const CardForm = (props) => {
         <CardBody>
             <FormGroup row>
                 <Input  type="text" 
-                        name="itemImage" 
-                        id="itemImage" 
+                        name="src" 
+                        id="src" 
                         placeholder="Image URL"
                 />
             </FormGroup>
             
             <FormGroup row>
                 <Input  type="text" 
-                        name="itemName" 
-                        id="itemName" 
+                        name="cardName" 
+                        id="cardName" 
                         placeholder="Item Name"
                 />
             </FormGroup>
             
             <FormGroup row>
                 <Input  type="text" 
-                        name="itemDetail" 
-                        id="itemDetail" 
-                        placeholder="Item Detail"
+                        name="details" 
+                        id="details" 
+                        placeholder="Details"
                 />
             </FormGroup>
+
+            <FormGroup row>
+                <Input  type="select" 
+                        name="category" 
+                        id="category" 
+                        placeholder="Details"
+                >
+                    <option>[gameCategories-1]</option>
+                    <option>[gameCategories-2]</option>
+                    <option>[gameCategories-3]</option>
+                    <option>[gameCategories-4]</option>
+                </Input>
+            </FormGroup>
             
-            <Row>
+            {/* <Row>
                 <Col sm={6}>
                     <FormGroup check>
                         <Label check>
@@ -56,7 +69,7 @@ const CardForm = (props) => {
                         </Label>
                     </FormGroup>
                 </Col>
-            </Row>
+            </Row> */}
           {/* <Button>Button</Button> */}
         </CardBody>
       </StyledCard>

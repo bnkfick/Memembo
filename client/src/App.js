@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Header     from './components/layout/Header'
-import Dashboard  from './components/dashboard/Dashboard'
-import CreateGame from './components/games/CreateGame'
+import Header     from './components/header/Header'
+import Dashboard  from './pages/Dashboard'
+import CreateGame from './pages/CreateGame'
+import NoMatch from "./pages/NoMatch"
+//import PlayGame from ".pages/PlayGame"
 import PlayGame   from './components/games/PlayGame'
-import Search     from './components/games/Search'
-import NoMatch    from "./NoMatch"
+import Search     from './components/header/Search'
+
 import "./App.css";
 import styled from 'styled-components'
 
@@ -15,14 +17,14 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div className="App">
+      <div>
         <Header />
         <Switch>
           <Route exact path='/' component={ Dashboard } />
           <Route exact path='/dashboard' component={ Dashboard } />
-          <Route exact path='/create' component={ CreateGame } />
+          <Route exact path='/create-game' component={ CreateGame } />
           <Route exact path='/play/:id' component={ PlayGame } />
-          <Route exact path='/search' component={ Search } />
+          {/* <Route exact path='/search' component={ Search } /> */}
           <Route component={NoMatch} />
         </Switch>
       </div>
