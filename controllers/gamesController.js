@@ -16,6 +16,7 @@ module.exports = {
     // Specify that we want to populate the retrieved game with any associated cards
     .populate("cardArray")
     .then(dbGame => {
+      console.log(dbGame);
       // If the Game is found, send it to the client with any associated Cards
       res.json(dbGame);
     })

@@ -2,7 +2,6 @@ import React from "react";
 import CardItem from "../components/games/CardItem";
 import MsgBar from "../components/layout/MsgBar";
 import API from "../utils/API";
-import gameObj from "./games.json";
 import { Container, Row, Col, Button } from 'reactstrap';
 import styled from 'styled-components';
 
@@ -35,21 +34,23 @@ class PlayGame extends React.Component {
 
     state = {
         game: {},
-        level: "",
+        level: "1",
         score: 0,
         highScore: 0,
         msg: ""
     };
 
 
-    tileCardClick = clickedId => {
+    tileCardClick = (clickedId, category) => {
+        console.log(clickedId);
+        console.log(category);
 
-        this.shuffle(this.state.game.tiles);
-
-        const updatedTiles = [...gameObj.tiles];
-        let tileIdx = gameObj.tiles.findIndex(tile => tile.id === clickedId);
-
-        if (this.state.game.tiles[tileIdx].clicked === true) {
+        const updatedTiles = [...this.state.game.cardArray];
+        console.log(updatedTiles);
+        let tileIdx = updatedTiles.findIndex(tile => tile._id === clickedId);
+        console.log(tileIdx);
+        if (this.state.game.cardArray[tileIdx].clicked === true) {
+            console.log("You've clicked this already");
             this.setState({
                 msg: "You've clicked that Tile already. Try Again."
             });
@@ -98,23 +99,26 @@ class PlayGame extends React.Component {
         console.log(id);
 
         API.getGame(id).then(res => {
+            let array = this.shuffle(res.data.cardArray);
+            let dbgame = res.data;
+            dbgame.cardArray = array;
             this.setState({
-                game: res.data
+                game: dbgame
             })
         })
-            .catch(err => console.log(err));
+        .catch(err => console.log(err));
     }
 
     resetGame = () => {
-        const game = game;
-        const updatedTiles = game.cardArray;
-
-        updatedTiles.map(card => {
+        // == Make a deep copy of an object
+        let newGame = JSON.parse(JSON.stringify(this.state.game));
+        console.log(newGame);
+        newGame.cardArray.map(card => {
             card.clicked = false;
         });
 
         this.setState({
-            tiles: updatedTiles,
+            game: newGame,
             score: 0
         });
         return true;
@@ -122,6 +126,8 @@ class PlayGame extends React.Component {
 
     setLevel = (event, level) => {
         event.preventDefault();
+        console.log("++++++++++++++++++++++++++++++");
+        console.log(level);
         if (level === null || level === "") {
             this.setState({
                 level: "1"
@@ -131,8 +137,6 @@ class PlayGame extends React.Component {
                 level
             })
         }
-
-
     }
 
     //================================================/
@@ -141,6 +145,7 @@ class PlayGame extends React.Component {
     // http://sedition.com/perl/javascript-fy.html
     //===============================================/
     shuffle = (array) => {
+
         var currentIndex = array.length, temporaryValue, randomIndex;
 
         // While there remain elements to shuffle...
@@ -178,26 +183,37 @@ class PlayGame extends React.Component {
         return (
             <>
                 <StyledContainer>
-                    <StyledButton level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledButton>
-                    <StyledButton level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledButton>
-                    <StyledButton level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
+                    <StyledButton key="level-1" level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledButton>
+                    <StyledButton key="level-2" level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledButton>
+                    <StyledButton key="level-3" level={this.EXPERT}   onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
                 </StyledContainer>
                 <StyledContainer>
-                <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg}></MsgBar>
+
+                    Click on the cards that are
+                    {
+                        this.state.game.gameCategories.map(category => {
+                            return (<> {category} </>)
+                        }
+
+                        )}
+                    {this.state.game.gameCategoryType}
+                    <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg}></MsgBar>
                 </StyledContainer>
                 <StyledContainer>
                     <Row>
                         {
-                            this.state.game.cardArray.map((tile, index) => {
+                            this.state.game.cardArray.map((card, index) => {
                                 return (
                                     <Col sm={3} key={`col-${index}`}>
                                         <CardItem
-                                            key={tile.id}
-                                            name={tile.name}
-                                            details={tile.details}
-                                            image={tile.src}
-                                            category={tile.category}
-                                            clicked={tile.clicked}
+                                            id={card._id}
+                                            key={card._id}
+                                            name={card.cardName}
+                                            level={this.state.level}
+                                            details={card.details}
+                                            image={card.src}
+                                            category={card.category}
+                                            clicked={card.clicked}
                                             handleClick={this.tileCardClick}
                                         />
                                     </Col>)

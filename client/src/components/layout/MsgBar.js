@@ -4,7 +4,6 @@ import React from "react";
 function MsgBar(props) {
   return (
     <div className="msgbar">
-      <div className="box-1">Clicky Game</div>
       <div className="box-2">{props.msg}</div>
       <div className="box-3">
         <div className="nested">
