@@ -4,7 +4,7 @@ import { Row, Col, Card, CardImg, CardText, CardBody,
 import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
-background-color: rgb(25, 9, 45);
+        background-color: rgb(25, 9, 45);
         border: 1px solid white;
 
 `

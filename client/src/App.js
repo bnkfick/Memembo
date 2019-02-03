@@ -7,7 +7,7 @@ import NoMatch from "./pages/NoMatch"
 import Auth from './pages/Auth'
 import Profile from './pages/Profile';
 //import PlayGame from ".pages/PlayGame"
-import PlayGame   from './components/games/PlayGame'
+import PlayGame   from './pages/PlayGame'
 import Search     from './components/header/Search'
 
 import "./App.css";
@@ -25,6 +25,7 @@ class App extends Component {
           <Route exact path='/' component={ Dashboard } />
           <Route exact path='/dashboard' component={ Dashboard } />
           <Route exact path='/create-game' component={ CreateGame } />
+          <Route exact path='/play/' component={ PlayGame } />
           <Route exact path='/play/:id' component={ PlayGame } />
           <Route exact path='/login' render={(props) => <Auth {...props} action="login" />} />
           <Route exact path="/signup" render={(props) => <Auth {...props} action="signup" />} />
