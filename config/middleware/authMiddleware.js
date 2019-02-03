@@ -7,6 +7,7 @@ const auth = {
             next();
         } else {
             console.log('user not authenticated');
+            console.log(req.body);
             res.redirect('/api/users/unauthorized');
         }
     },

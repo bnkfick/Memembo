@@ -10,6 +10,7 @@ router.post("/login", passport.authenticate("local", {
     failureFlash : true
 }), function (req, res, next) {
     console.log("sign in successful");
+    console.log(req.user);
     res.json({
         user: req.user,
         loggedIn: true
@@ -34,6 +35,7 @@ router.post("/signup", function(req, res, next) {
             newUser.save(function(err) {
                 if (err) throw err;
                 console.log("user saved!");
+
                 //redirects to the login route as a post route *307*
                 res.redirect(307, "/api/users/login");
             });

@@ -18,14 +18,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(flash());
 app.use(express.static("public"));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(session({
-  secret: "not secret",
+  secret: "keyboard cat",
   resave: false,
   saveUninitialize: true,
   // cookie: {secure: true}
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
