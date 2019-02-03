@@ -37,6 +37,7 @@ class PlayGame extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.select = this.select.bind(this);
+
         this.state = {
             dropdownOpen: false,
             value: "this kind of",
@@ -193,6 +194,16 @@ class PlayGame extends React.Component {
         }
     }
 
+    shuffleClick = () => {
+            // == Make a deep copy of an object
+        let gameCopy = JSON.parse(JSON.stringify(this.state.game));
+        console.log(gameCopy);
+        gameCopy.cardArray = this.shuffle(gameCopy.cardArray);
+        this.setState({
+            game: gameCopy,
+        });
+        return true;
+    }
     //================================================/
     // Mix up the images inside the array 
     // Fisher-Yates (aka Knuth) Shuffle
@@ -229,15 +240,14 @@ class PlayGame extends React.Component {
 
     render() {
 
-
         if (this.isEmpty(this.state.game)) {
             return (<h1>...loading</h1>)
         }
 
         return (
             <>
-                <StyledContainer>
 
+                <StyledContainer>
                     <StyledButton color="success" className={
                         this.state.level === "1"
                             ? "active"
@@ -292,12 +302,9 @@ class PlayGame extends React.Component {
                         }
                     </Row>
                 </StyledContainer>
-
             </>
         );
     }
-
-
 }
 
 export default PlayGame;
