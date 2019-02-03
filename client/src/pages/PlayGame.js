@@ -3,13 +3,29 @@ import CardItem from "../components/games/CardItem";
 import MsgBar from "../components/layout/MsgBar";
 import API from "../utils/API";
 import gameObj from "./games.json";
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import styled from 'styled-components';
 
 
 const StyledContainer = styled(Container)`
     margin-top: 5rem;
     width: 100%;
+    text-align: center;
+`
+const StyledButton = styled(Button)`
+    background-color: rgb(48, 19, 84);
+    border: 1px solid rgb(25, 9, 45);
+    font-size: 1.5rem;
+    margin: 1rem;
+    width: 20%;
+    /* margin-left: 0 !important;
+    padding-left: 0 !important; */
+
+    &:hover{
+        background-color: rgb(25, 9, 45);
+        border: 1px solid white;
+        /* transform: scale(1.12); */
+    }
 `
 const easyInstructions = "Click on cards that are ";
 const advancedInstructions = "Enter the Name of each ";
@@ -19,6 +35,7 @@ class PlayGame extends React.Component {
 
     state = {
         game: {},
+        level: "",
         score: 0,
         highScore: 0,
         msg: ""
@@ -78,7 +95,6 @@ class PlayGame extends React.Component {
 
 
     getGame = (id) => {
-        console.log("getGame");
         console.log(id);
 
         API.getGame(id).then(res => {
@@ -87,7 +103,6 @@ class PlayGame extends React.Component {
             })
         })
             .catch(err => console.log(err));
-
     }
 
     resetGame = () => {
@@ -105,9 +120,17 @@ class PlayGame extends React.Component {
         return true;
     };
 
-    checkState = () => {
-        console.log("checkState");
-        console.log(this.state.game.cardArray);
+    setLevel = (event, level) => {
+        event.preventDefault();
+        if (level === null || level === "") {
+            this.setState({
+                level: "1"
+            });
+        } else {
+            this.setState({
+                level
+            })
+        }
 
 
     }
@@ -138,8 +161,8 @@ class PlayGame extends React.Component {
 
 
     isEmpty = (obj) => {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key))
                 return false;
         }
         return true;
@@ -148,42 +171,45 @@ class PlayGame extends React.Component {
     render() {
 
 
-        if ( this.isEmpty(this.state.game) ) {
+        if (this.isEmpty(this.state.game)) {
             return (<h1>...loading</h1>)
         }
-        console.log("NOT EMPTY");
-        console.log(this.state.game);
-        console.log("card array NOT EMPTY");
-        console.log(this.state.game.cardArray);
-        console.log(this.state.game.cardArray.length);
+
         return (
             <>
+                <StyledContainer>
+                    <StyledButton level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledButton>
+                    <StyledButton level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledButton>
+                    <StyledButton level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
+                </StyledContainer>
+                <StyledContainer>
                 <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg}></MsgBar>
+                </StyledContainer>
                 <StyledContainer>
                     <Row>
-                    {   
-                        this.state.game.cardArray.map((tile, index) => {
-                        return (
-                            <Col sm={3} key={`col-${index}`}>
-                                <CardItem
-                                    key={tile.id}
-                                    name={tile.name}
-                                    details={tile.details}
-                                    image={tile.src}
-                                    category={tile.category}
-                                    clicked={tile.clicked}
-                                    handleClick={this.tileCardClick}
-                                />
-                            </Col>)
-                        })
-                    } 
+                        {
+                            this.state.game.cardArray.map((tile, index) => {
+                                return (
+                                    <Col sm={3} key={`col-${index}`}>
+                                        <CardItem
+                                            key={tile.id}
+                                            name={tile.name}
+                                            details={tile.details}
+                                            image={tile.src}
+                                            category={tile.category}
+                                            clicked={tile.clicked}
+                                            handleClick={this.tileCardClick}
+                                        />
+                                    </Col>)
+                            })
+                        }
                     </Row>
                 </StyledContainer>
 
             </>
         );
     }
-    
+
 
 }
 

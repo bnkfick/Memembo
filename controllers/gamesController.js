@@ -11,14 +11,12 @@ module.exports = {
   },
 
   findById: function(req, res) {
-    console.log("NEW FINDBYID");
     db.Game
     .findById(req.params.id)
     // Specify that we want to populate the retrieved game with any associated cards
     .populate("cardArray")
     .then(dbGame => {
       // If the Game is found, send it to the client with any associated Cards
-      console.log(dbGame);
       res.json(dbGame);
     })
     .catch(function(err) {
