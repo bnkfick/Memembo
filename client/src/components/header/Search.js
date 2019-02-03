@@ -36,7 +36,7 @@ const Search = () => {
                     placeholder="Search Games"
                 />
                 <InputGroupAddon addonType="append">
-                <SearchButton ><i class="fa fa-search" aria-hidden="true"></i></SearchButton>
+                <SearchButton ><i className="fa fa-search" aria-hidden="true"></i></SearchButton>
                 </InputGroupAddon>
             </StyledInputGroup>
         </>

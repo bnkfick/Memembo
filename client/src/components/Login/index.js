@@ -12,6 +12,10 @@ function Login(props) {
             ) : (<></>)}
             <Form>
                 <FormGroup>
+                    <Label for="username">Username</Label>
+                    <Input type="text" name="username" id="username" placeholder="username" value={props.username} onChange={props.handleInputChange} />
+                </FormGroup>
+                <FormGroup>
                     <Label for="password">Password</Label>
                     <Input type="password" name="password" id="password" placeholder="password" value={props.password} onChange={props.handleInputChange} />
                 </FormGroup>

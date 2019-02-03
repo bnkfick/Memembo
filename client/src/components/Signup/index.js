@@ -18,7 +18,7 @@ class Signup extends Component {
     validateUsername() {
         if(this.props.username.length > 1 && !this.state.validUsername) {
             this.setState({
-                falidUsername: true
+                validUsername: true
             });
         }
         if(this.props.username.length <1 && this.state.validUsername) {
