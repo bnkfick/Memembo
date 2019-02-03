@@ -42,7 +42,7 @@ class PlayGame extends React.Component {
             dropdownOpen: false,
             value: "this kind of",
             game: {},
-            level: "1",
+            level: "1", // defaults to beginner level
             selectedCategory: '',
             score: 0,
             highScore: 0,
@@ -247,6 +247,7 @@ class PlayGame extends React.Component {
         return (
             <>
 
+                {/* === THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
                 <StyledContainer>
                     <StyledButton color="success" className={
                         this.state.level === "1"
@@ -261,9 +262,11 @@ class PlayGame extends React.Component {
                             ? "active"
                             : ''} key="level-3" level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
                 </StyledContainer>
+                {/* === END THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
 
+                {/* ===================  DISPLAY THE INSTRUCTIONS  =================== */}
+                {/* ============ EMBEDDED MSGBAR WITH SCORE AND THE TOP SCORE ======== */}
                 <StyledContainer>
-
                     Click on the cards that are{' '}
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret color="primary">
@@ -278,8 +281,12 @@ class PlayGame extends React.Component {
                         </DropdownMenu>
                     </ButtonDropdown>{' '}
                     {this.state.game.gameCategoryType}
+                    {/* =================== DISPLAY THE SCORE AND THE TOP SCORE =================== */}
                     <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg} msgcolor={this.state.msgcolor}></MsgBar>
                 </StyledContainer>
+
+
+                {/* =================== DISPLAY THE GAME CARDS =================== */}
                 <StyledContainer>
                     <Row>
                         {
@@ -301,7 +308,9 @@ class PlayGame extends React.Component {
                             })
                         }
                     </Row>
-                </StyledContainer>
+                </StyledContainer>         
+                {/* =================== END DISPLAY THE GAME CARDS =================== */}
+
             </>
         );
     }
