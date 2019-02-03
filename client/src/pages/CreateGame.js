@@ -71,7 +71,14 @@ export default class CreateGame extends Component {
 
     handleInputChange = event => {
         const { name, value } = event.target;
-        this.setState({ [name]: value });
+        console.log([name]);
+        console.log([value]);
+        if([name][0] === 'gameCategories') {
+            let gameCategories = ([value][0].split(",")).map(function(a){return a.trim()});
+            this.setState({gameCategories: gameCategories});
+        } else {
+            this.setState({ [name]: value });
+        }
     };
 
 
@@ -85,11 +92,13 @@ export default class CreateGame extends Component {
                 value.push(options[i].value);
             }
         }
+
         this.setState({ [name]: value})
     }
 
     handleGameSubmit = event => {
         event.preventDefault();
+
         if (this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType) {
             API.saveGame({
                 gameGroup: this.state.gameGroup,

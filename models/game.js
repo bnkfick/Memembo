@@ -8,6 +8,7 @@ const gameSchema = new Schema({
   gameCategories: { type: Array, required: true },
   gameCategoryType: { type: String, default: "" },
   cardDetailsType: { type: String, required: true },
+  username: { type: String, required: false },
   cardArray: [
     {
       type: Schema.Types.ObjectId,

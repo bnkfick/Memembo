@@ -28,7 +28,17 @@ const usersSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now()
-    }
+    },
+    highScore: {
+        type: Number,
+        required: false,
+    },
+    gameArray: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Game"
+        }
+    ]
 });
 
 usersSchema.methods.generateHash = function(password) {
