@@ -26,6 +26,8 @@ export default {
     logout: function() {
         return axios.get("/api/users/logout");
     },
+
+    
     // Gets all games
     getGames: function() {
         return axios.get("/api/games");

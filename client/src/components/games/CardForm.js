@@ -1,6 +1,5 @@
 import React from 'react';
-import { Row, Col, Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
+import { Card, CardBody, FormGroup, Input, } from 'reactstrap';
 import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
