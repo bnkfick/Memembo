@@ -23,7 +23,8 @@ class App extends Component {
           <Route exact path='/' component={ Dashboard } />
           <Route exact path='/dashboard' component={ Dashboard } />
           <Route exact path='/create-game' component={ CreateGame } />
-          <Route exact path='/play' component={ PlayGame } />
+          <Route exact path='/play/' component={ PlayGame } />
+          <Route exact path='/play/:id' component={ PlayGame } />
           {/* <Route exact path='/search' component={ Search } /> */}
           <Route component={NoMatch} />
         </Switch>

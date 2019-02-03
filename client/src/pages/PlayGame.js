@@ -167,7 +167,12 @@ class PlayGame extends React.Component {
     }
 
     componentDidMount() {
-        this.getGame("5c562b8f0d4fa54a2159d72b");
+        let id = undefined;
+        if (this.props.match.params) {
+            id = this.props.match.params.id;
+        }
+
+        this.getGame(id);
     }
 
 
