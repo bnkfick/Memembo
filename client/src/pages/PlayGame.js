@@ -124,33 +124,6 @@ class PlayGame extends React.Component {
                 })
             }
         }
-
-        // if (this.state.game.cardArray[tileIdx].clicked === true) {
-        //     console.log("You've clicked this already");
-        //     this.setState({
-        //         msg: "You've clicked that Tile already. Try Again."
-        //     });
-        //     this.resetGame();
-        // } else {
-        //     let newScore = this.state.score;
-        //     newScore++;
-        //     if (newScore === updatedTiles.length) {
-        //         this.setState({
-        //             msg: "WINNER! That's the best possible score!",
-        //             highScore: this.checkHighScore(newScore),
-        //         });
-        //         this.resetGame();
-        //     } else {
-        //         updatedTiles[tileIdx].clicked = true;
-        //         this.setState({
-        //             msg: "+1 You haven't clicked that Tile before!",
-        //             score: newScore,
-        //             highScore: this.checkHighScore(newScore),
-        //             tiles: updatedTiles
-        //         })
-        //     }
-
-        // }
     };
 
     checkHighScore = (currentScore) => {
@@ -159,8 +132,8 @@ class PlayGame extends React.Component {
 
         if (currentScore < this.state.highScore) {
             return this.state.highScore;
-        } else if (this.state.hightScore === 12) {
-            return 12;
+        } else if (this.state.hightScore === this.state.game.cardArray.length) {
+            return this.state.game.cardArray.length;
         } else {
             return newHiScore;
         }
