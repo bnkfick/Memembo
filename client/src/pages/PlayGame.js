@@ -2,7 +2,7 @@ import React from "react";
 import CardItem from "../components/games/CardItem";
 import MsgBar from "../components/layout/MsgBar";
 import API from "../utils/API";
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, Dropdown,  DropdownItem } from 'reactstrap';
 import styled from 'styled-components';
 
 
@@ -12,18 +12,19 @@ const StyledContainer = styled(Container)`
     text-align: center;
 `
 const StyledButton = styled(Button)`
-    background-color: rgb(48, 19, 84);
-    border: 1px solid rgb(25, 9, 45);
     font-size: 1.5rem;
-    margin: 1rem;
+    margin: .5rem;
     width: 20%;
     /* margin-left: 0 !important;
     padding-left: 0 !important; */
 
     &:hover{
-        background-color: rgb(25, 9, 45);
         border: 1px solid white;
         /* transform: scale(1.12); */
+    }
+
+    .active {
+        cursor: not-allowed;
     }
 `
 const easyInstructions = "Click on cards that are ";
@@ -31,10 +32,25 @@ const advancedInstructions = "Enter the Name of each ";
 const expertInstructions = "Select the correct ingredients for each ";
 
 class PlayGame extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            dropdownOpen: false
+        };
+    }
+
+    toggle() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
 
     state = {
         game: {},
         level: "1",
+        selectedCategory: '',
         score: 0,
         highScore: 0,
         msg: ""
@@ -106,7 +122,7 @@ class PlayGame extends React.Component {
                 game: dbgame
             })
         })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
     }
 
     resetGame = () => {
@@ -183,19 +199,36 @@ class PlayGame extends React.Component {
         return (
             <>
                 <StyledContainer>
-                    <StyledButton key="level-1" level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledButton>
-                    <StyledButton key="level-2" level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledButton>
-                    <StyledButton key="level-3" level={this.EXPERT}   onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
+
+                    <StyledButton color="success" className={
+                        this.state.level === "1"
+                            ? "active"
+                            : ''} key="level-1" level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledButton>{' '}
+                    <StyledButton color="warning" className={
+                        this.state.level === "2"
+                            ? "active"
+                            : ''} key="level-2" level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledButton>{' '}
+                    <StyledButton color="danger" className={
+                        this.state.level === "3"
+                            ? "active"
+                            : ''} key="level-3" level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
                 </StyledContainer>
+
                 <StyledContainer>
 
                     Click on the cards that are
-                    {
-                        this.state.game.gameCategories.map(category => {
-                            return (<> {category} </>)
-                        }
-
-                        )}
+                    <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <DropdownToggle caret color="primary">
+                            this kind of
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            {
+                                this.state.game.gameCategories.map(category => {
+                                    return (<DropdownItem>{category}</DropdownItem>)
+                                })
+                            }
+                        </DropdownMenu>
+                    </ButtonDropdown>
                     {this.state.game.gameCategoryType}
                     <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg}></MsgBar>
                 </StyledContainer>

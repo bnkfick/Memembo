@@ -7,7 +7,7 @@ const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
     border: 1px solid white;
     max-width: 15rem;
-    border: ${ props => props.clicked ? "1px solid palevioletred" : "1px solid white"};
+    border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
 `
 
 const displayDetails = (props) => {
