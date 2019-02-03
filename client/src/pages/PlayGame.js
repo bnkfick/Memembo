@@ -2,12 +2,12 @@ import React from "react";
 import CardItem from "../components/games/CardItem";
 import MsgBar from "../components/layout/MsgBar";
 import API from "../utils/API";
-import { Container, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, Dropdown,  DropdownItem } from 'reactstrap';
+import { Container, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import styled from 'styled-components';
 
 
 const StyledContainer = styled(Container)`
-    margin-top: 5rem;
+    margin-top: 2rem;
     width: 100%;
     text-align: center;
 `
@@ -36,8 +36,17 @@ class PlayGame extends React.Component {
         super(props);
 
         this.toggle = this.toggle.bind(this);
+        this.select = this.select.bind(this);
         this.state = {
-            dropdownOpen: false
+            dropdownOpen: false,
+            value: "this kind of",
+            game: {},
+            level: "1",
+            selectedCategory: '',
+            score: 0,
+            highScore: 0,
+            msg: "",
+            msgcolor: "info"
         };
     }
 
@@ -47,50 +56,101 @@ class PlayGame extends React.Component {
         });
     }
 
-    state = {
-        game: {},
-        level: "1",
-        selectedCategory: '',
-        score: 0,
-        highScore: 0,
-        msg: ""
-    };
+    select(event) {
+        console.log(event.target);
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen,
+            value: event.target.innerText,
+            selectedCategory: event.target.innerText
+        });
+    }
 
-
-    tileCardClick = (clickedId, category) => {
+    cardClick = (clickedId, category) => {
         console.log(clickedId);
         console.log(category);
 
+        // == If no catergory has been selected, prompt the user ==/
+        if (this.state.selectedCategory === '') {
+            this.setState({
+                msg: "Select a Category to Play",
+                msgcolor: "warning"
+            })
+            return;
+        }
+        // == Copy cardArray to flip clicked flag ==/
         const updatedTiles = [...this.state.game.cardArray];
         console.log(updatedTiles);
+        // == Get the index of the clicked card
         let tileIdx = updatedTiles.findIndex(tile => tile._id === clickedId);
         console.log(tileIdx);
+        // check if this tile has been clicked before
+        // == If the tile has already been clicked, prompt the user
         if (this.state.game.cardArray[tileIdx].clicked === true) {
             console.log("You've clicked this already");
             this.setState({
-                msg: "You've clicked that Tile already. Try Again."
+                msg: "You've clicked that Tile already. Try Again.",
+                msgcolor: "warning"
+            });
+            return;
+        }
+
+        //disable click if click===true
+        //check if this tile is the correct category
+        if (category !== this.state.selectedCategory) {
+            console.log("Wrong Answer");
+            this.setState({
+                msg: "Wrong Answer. Try Again.",
+                msgcolor: "danger"
             });
             this.resetGame();
         } else {
             let newScore = this.state.score;
             newScore++;
-            if (newScore === 12) {
+            if (newScore === updatedTiles.length) {
                 this.setState({
                     msg: "WINNER! That's the best possible score!",
+                    msgcolor: "success",
                     highScore: this.checkHighScore(newScore),
                 });
                 this.resetGame();
             } else {
                 updatedTiles[tileIdx].clicked = true;
                 this.setState({
-                    msg: "+1 You haven't clicked that Tile before!",
+                    msg: "+1 Good Answer!",
+                    msgcolor: "success",
                     score: newScore,
                     highScore: this.checkHighScore(newScore),
                     tiles: updatedTiles
                 })
             }
-
         }
+
+        // if (this.state.game.cardArray[tileIdx].clicked === true) {
+        //     console.log("You've clicked this already");
+        //     this.setState({
+        //         msg: "You've clicked that Tile already. Try Again."
+        //     });
+        //     this.resetGame();
+        // } else {
+        //     let newScore = this.state.score;
+        //     newScore++;
+        //     if (newScore === updatedTiles.length) {
+        //         this.setState({
+        //             msg: "WINNER! That's the best possible score!",
+        //             highScore: this.checkHighScore(newScore),
+        //         });
+        //         this.resetGame();
+        //     } else {
+        //         updatedTiles[tileIdx].clicked = true;
+        //         this.setState({
+        //             msg: "+1 You haven't clicked that Tile before!",
+        //             score: newScore,
+        //             highScore: this.checkHighScore(newScore),
+        //             tiles: updatedTiles
+        //         })
+        //     }
+
+        // }
     };
 
     checkHighScore = (currentScore) => {
@@ -216,21 +276,21 @@ class PlayGame extends React.Component {
 
                 <StyledContainer>
 
-                    Click on the cards that are
+                    Click on the cards that are{' '}
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret color="primary">
-                            this kind of
+                            {this.state.value}
                         </DropdownToggle>
                         <DropdownMenu>
                             {
                                 this.state.game.gameCategories.map(category => {
-                                    return (<DropdownItem>{category}</DropdownItem>)
+                                    return (<DropdownItem onClick={this.select}>{category}</DropdownItem>)
                                 })
                             }
                         </DropdownMenu>
-                    </ButtonDropdown>
+                    </ButtonDropdown>{' '}
                     {this.state.game.gameCategoryType}
-                    <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg}></MsgBar>
+                    <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg} msgcolor={this.state.msgcolor}></MsgBar>
                 </StyledContainer>
                 <StyledContainer>
                     <Row>
@@ -247,7 +307,7 @@ class PlayGame extends React.Component {
                                             image={card.src}
                                             category={card.category}
                                             clicked={card.clicked}
-                                            handleClick={this.tileCardClick}
+                                            handleClick={this.cardClick}
                                         />
                                     </Col>)
                             })

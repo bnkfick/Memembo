@@ -1,8 +1,10 @@
 import React from "react";
+import { Alert } from 'reactstrap';
 import styled from 'styled-components';
 
 const StyledBar = styled.div`
     background-color: #eaeaea;
+    margin-top: 1em;
 `
 
 const Text = styled.div`
@@ -14,7 +16,8 @@ const Text = styled.div`
 const Score = styled.div`
     background-color: #eaeaea;
     text-align: right;
-    padding: 1em;
+    padding-right: 1em;
+    padding-bottom: .5em;
     color: #333;
 `
 
@@ -22,11 +25,10 @@ const Score = styled.div`
 function MsgBar(props) {
   return (
     <StyledBar>
-      <Text>{props.msg}</Text>
-        <Score>
-          <div>SCORE: {props.score}</div>
-          <div>TOP SCORE: {props.highScore}</div>
-        </Score>
+    <Alert color={props.msgcolor}>{props.msg}</Alert>
+    <Score>
+          <div>SCORE: {props.score} | TOP SCORE: {props.highScore}</div>
+    </Score>
     </StyledBar>
   )
 }
