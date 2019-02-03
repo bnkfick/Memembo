@@ -56,7 +56,7 @@ export default class Header extends Component {
                 <NavLink href="/create-game">Create Game</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">LogIn/LogOut</NavLink>
+                <NavLink href="/login">LogIn/LogOut</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="#">Profile Settings</NavLink>
