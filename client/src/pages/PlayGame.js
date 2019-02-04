@@ -133,7 +133,7 @@ class PlayGame extends React.Component {
 
         if (currentScore < this.state.highScore) {
             return this.state.highScore;
-        } else if (this.state.hightScore === this.state.game.cardArray.length) {
+        } else if (this.state.highScore === this.state.game.cardArray.length) {
             return this.state.game.cardArray.length;
         } else {
             return newHiScore;
