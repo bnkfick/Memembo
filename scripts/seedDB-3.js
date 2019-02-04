@@ -12,7 +12,7 @@ let gameSeed =
   {
     gameGroup: "Language",
     audience: ["Pre-K"],
-    gameName: "Learn Colors, Numbers in English and Spanish",
+    gameName: "Learn Your Colors & Numbers in English & Spanish!",
     gameCategories: ["Color", "Number"],
     gameCategoryType: "",
     cardDetailsType: "word in spanish",
