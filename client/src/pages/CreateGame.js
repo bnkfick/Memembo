@@ -29,7 +29,6 @@ const StyledButton = styled(Button)`
 `
 
 
-
 export default class CreateGame extends Component {
     state = {
         games: [],

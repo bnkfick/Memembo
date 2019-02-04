@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import API from "../../utils/API"
 import { Row, Container, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
 import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
@@ -18,12 +17,7 @@ const StyledButton = styled(Button)`
         /* transform: scale(1.12); */
     }
 `
-// const StyledContainer = styled(Container)`
-//     margin-bottom: 3rem;
-//     border: 1px solid white;
-//     border-radius: 5px;
-//     padding: 1rem;
-// `
+
 const InstructionFormGroup = styled(Col)`
     background-color: rgb(25, 9, 45);
     border-radius: 10px;
@@ -47,31 +41,13 @@ export default class CreateGameForm extends Component {
         cardDetailsType: "",
     }
 
-    componentDidMount() {
-        this.loadGames();
-        this.loadCards();
-    };
-
-    loadGames = () => {
-        API.getGames()
+    loadGame = () => {
+        API.getGame(id)
             .then(res =>
-                this.setState({ games: res.data, gameGroup: "", audience: [], gameName: "", gameCategories: [], gameCategoryType: "", cardDetailsType: "" })
+                this.setState({ games: res.data, gameGroup: res.data.gameGroup, audience: res.data.audience, gameName: res.data.gameName, gameCategories: res.data.gameCategories, gameCategoryType: res.data.gameCategoryType, cardDetailsType: res.data.cardDetailsType})
             )
+            .then(res => console.log(res.data) )
             .catch(err => console.log(err))
-    };
-    
-    loadCards = () => {
-        API.getCards()
-            .then(res =>
-                this.setState({ cards: res.data, src: "", cardName: "", details: [], category: "" })
-            )
-            .catch(err => console.log(err))
-    };
-
-    deleteCard = id => {
-        API.deleteCard(id)
-            .then(res => this.loadCards())
-            .catch(err => console.log(err));
     };
 
     handleInputChange = event => {
@@ -113,7 +89,7 @@ export default class CreateGameForm extends Component {
                 gameCategoryType: this.state.gameCategoryType,
                 cardDetailsType: this.state.cardDetailsType,
             })
-                .then(res => this.loadGames())
+                .then(res => this.loadGame(id))
                 .catch(err => console.log(err));
         }
     };
