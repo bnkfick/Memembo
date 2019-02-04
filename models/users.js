@@ -29,10 +29,12 @@ const usersSchema = new Schema({
         type: Date,
         default: Date.now()
     },
-    highScore: {
-        type: Number,
-        required: false,
-    },
+    highScores: [
+        {
+          type: Array,
+          required: false,
+        }
+    ],
     gameArray: [
         {
           type: Schema.Types.ObjectId,

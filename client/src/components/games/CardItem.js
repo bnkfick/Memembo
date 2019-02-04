@@ -25,7 +25,7 @@ const displayDetails = (props) => {
 const CardItem = (props) => {
   return (
     <div>
-      <StyledCard clicked= { props.clicked.toString() }>
+      {/* <StyledCard clicked= { props.clicked.toString() }> */}
         <CardImg top width="100%" 
         src={ props.image || "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"} 
         alt="Card image cap" 
@@ -38,7 +38,7 @@ const CardItem = (props) => {
 
           {/* <Button>Button</Button> */}
         </CardBody>
-      </StyledCard>
+      {/* </StyledCard> */}
     </div>
   );
 };

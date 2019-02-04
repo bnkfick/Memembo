@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
 import API from "../../utils/API";
-// import "./Auth.scss"
+
 
 class Auth extends Component {
 
@@ -37,6 +37,10 @@ class Auth extends Component {
                         user: user.data.user
                     });
                     console.log("login successful");
+                    this.setState({
+                        username: "",
+                        password: ""
+                    })
                     window.location.href = '/profile';
                 }
                 else if (user.data.message) {
@@ -61,13 +65,21 @@ class Auth extends Component {
                         user: user.data.user
                     });
                     console.log("login successful");
+                    this.setState({
+                        username: "",
+                        password: ""
+                    });
                     window.location.href = '/profile';
                 } else {
                     console.log("Something went wrong:(");
                     console.log(user.data);
                     this.setState({
-                        message: user.data
+                        message: user.data,
+                        username: "",
+                        password: "",
+                        confirmPassword: ""
                     });
+                    
                 }
             });
         }

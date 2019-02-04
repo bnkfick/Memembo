@@ -16,6 +16,7 @@ let gameSeed =
     gameCategories: ["Vodka", "Whiskey", "Gin", "Rum"],
     gameCategoryType: "cocktails",
     cardDetailsType: "recipe",
+    username: "jschmoe",
     cardArray: []
   };
 

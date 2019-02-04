@@ -43,6 +43,12 @@ class Profile extends Component {
                 {this.state.loggedIn ? (
                     <div className="profileBox">
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>
+                        <ul>
+                            <li>Games You've Made: {this.state.user.gameArray}</li>
+                        </ul>
+                        <ul>
+                            <li>High Scores: {this.state.user.highscores}</li>
+                        </ul>
                     </div>
                 ) : (
                     <div className="noUser">
@@ -53,7 +59,6 @@ class Profile extends Component {
                             </>
                         ) : (
                             <p>Loading</p>
-                            // <img id="loadingIcon" src="./assets/images/loading.gif" alt="loading"/>
                         )}
                     </div> 
                 )}
