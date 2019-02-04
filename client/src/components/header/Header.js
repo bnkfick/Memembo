@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search';
-import { Link }       from 'react-router-dom'
-import SignedInLinks  from './SignedInLinks'
-import SignedOutLinks from './SignedOutLinks'
-import { Row, Col, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import styled from 'styled-components';
 
 const StyledRow = styled.div `

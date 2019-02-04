@@ -67,7 +67,7 @@ class PlayGame extends React.Component {
     }
 
     nameCheck = (level, cardName) => {
-        console.log("nameCHeck");
+        console.log("nameCheck");
         console.log(cardName);
     }
 

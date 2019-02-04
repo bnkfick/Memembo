@@ -29,7 +29,7 @@ class GameList extends Component {
                 return (
                 <li>
                         <p>GAME: {game._id}</p>
-                        <a rel="noreferrer noopener" target="_blank" href={`/play/${game._id}`}>
+                        <a href={`/play/${game._id}`}>
                         {game.gameName}
                         </a>
                 </li>
