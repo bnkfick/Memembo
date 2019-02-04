@@ -145,7 +145,7 @@ const cardSeed = [
 ];
 
 db.Card
-  .remove({})
+  .find({})
   .then(() => db.Card.collection.insertMany(cardSeed))
   .then(data => {
     console.log(data.result.n + " cards inserted!");
@@ -154,7 +154,7 @@ db.Card
       gameSeed.cardArray.push(data.insertedIds[key]);
     }
     db.Game
-      .remove({})
+      .find({})
       .then(() => db.Game.collection.insertOne(gameSeed))
       .then(data => {
         console.log(data.result.n + " games inserted!");
