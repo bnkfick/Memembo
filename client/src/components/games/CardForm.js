@@ -1,6 +1,5 @@
 import React from 'react';
-import { Row, Col, Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button, Form, FormGroup, Label, Input, } from 'reactstrap';
+import { Card, CardBody, FormGroup, Input, } from 'reactstrap';
 import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
@@ -12,7 +11,6 @@ const StyledCard = styled(Card)`
 
 const CardForm = (props) => {
   return (
-    <div>
       <StyledCard>
         <CardBody>
             <FormGroup row>
@@ -20,6 +18,7 @@ const CardForm = (props) => {
                         name="src" 
                         id="src" 
                         placeholder="Image URL"
+                        
                 />
             </FormGroup>
             
@@ -51,29 +50,8 @@ const CardForm = (props) => {
                     <option>[gameCategories-4]</option>
                 </Input>
             </FormGroup>
-            
-            {/* <Row>
-                <Col sm={6}>
-                    <FormGroup check>
-                        <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                            True
-                        </Label>
-                    </FormGroup>
-                </Col>
-                <Col sm={6}>
-                    <FormGroup check>
-                        <Label check>
-                            <Input type="radio" name="radio1" />{' '}
-                            False
-                        </Label>
-                    </FormGroup>
-                </Col>
-            </Row> */}
-          {/* <Button>Button</Button> */}
         </CardBody>
       </StyledCard>
-    </div>
   );
 };
 
