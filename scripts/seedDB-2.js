@@ -10,7 +10,7 @@ mongoose.connect(
 
 let gameSeed = 
   {
-    gameGroup: "Artists",
+    gameGroup: "Art",
     audience: ["All"],
     gameName: "Famous Art",
     gameCategories: ["Vincent van Gogh", "Claude Monet", "Leonardo da Vinci", "Edgar Degas"],

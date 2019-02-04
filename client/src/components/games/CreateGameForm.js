@@ -133,14 +133,23 @@ export default class CreateGameForm extends Component {
                                     onChange={this.handleSelectChange}
                                 >
                                     <option>Pick a Group</option>
+                                    <option>Art</option>
                                     <option>Coding</option>
                                     <option>Food & Drink</option>
                                     <option>Geography</option>
+                                    <option>History</option>
                                     <option>Language</option>
                                     <option>Law</option>
                                     <option>Math</option>
+                                    <option>Music</option>
+                                    <option>Parenting</option>
                                     <option>Politics</option>
-                                    <option>Science</option>
+                                    <option>Pop-Culture</option>
+                                    <option>Science-Biology</option>
+                                    <option>Science-Chemistry</option>
+                                    <option>Science-Geology</option>
+                                    <option>Science-Medical</option>
+                                    <option>Science-Zoology</option>
                                     <option>Create New Group</option>
 
                                 </Input>
