@@ -37,11 +37,12 @@ class PlayGame extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.select = this.select.bind(this);
+
         this.state = {
             dropdownOpen: false,
             value: "this kind of",
             game: {},
-            level: "1",
+            level: "1", // defaults to beginner level
             selectedCategory: '',
             score: 0,
             highScore: 0,
@@ -124,33 +125,6 @@ class PlayGame extends React.Component {
                 })
             }
         }
-
-        // if (this.state.game.cardArray[tileIdx].clicked === true) {
-        //     console.log("You've clicked this already");
-        //     this.setState({
-        //         msg: "You've clicked that Tile already. Try Again."
-        //     });
-        //     this.resetGame();
-        // } else {
-        //     let newScore = this.state.score;
-        //     newScore++;
-        //     if (newScore === updatedTiles.length) {
-        //         this.setState({
-        //             msg: "WINNER! That's the best possible score!",
-        //             highScore: this.checkHighScore(newScore),
-        //         });
-        //         this.resetGame();
-        //     } else {
-        //         updatedTiles[tileIdx].clicked = true;
-        //         this.setState({
-        //             msg: "+1 You haven't clicked that Tile before!",
-        //             score: newScore,
-        //             highScore: this.checkHighScore(newScore),
-        //             tiles: updatedTiles
-        //         })
-        //     }
-
-        // }
     };
 
     checkHighScore = (currentScore) => {
@@ -159,8 +133,8 @@ class PlayGame extends React.Component {
 
         if (currentScore < this.state.highScore) {
             return this.state.highScore;
-        } else if (this.state.hightScore === 12) {
-            return 12;
+        } else if (this.state.hightScore === this.state.game.cardArray.length) {
+            return this.state.game.cardArray.length;
         } else {
             return newHiScore;
         }
@@ -220,6 +194,16 @@ class PlayGame extends React.Component {
         }
     }
 
+    shuffleClick = () => {
+            // == Make a deep copy of an object
+        let gameCopy = JSON.parse(JSON.stringify(this.state.game));
+        console.log(gameCopy);
+        gameCopy.cardArray = this.shuffle(gameCopy.cardArray);
+        this.setState({
+            game: gameCopy,
+        });
+        return true;
+    }
     //================================================/
     // Mix up the images inside the array 
     // Fisher-Yates (aka Knuth) Shuffle
@@ -256,15 +240,15 @@ class PlayGame extends React.Component {
 
     render() {
 
-
         if (this.isEmpty(this.state.game)) {
             return (<h1>...loading</h1>)
         }
 
         return (
             <>
-                <StyledContainer>
 
+                {/* === THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
+                <StyledContainer>
                     <StyledButton color="success" className={
                         this.state.level === "1"
                             ? "active"
@@ -278,9 +262,11 @@ class PlayGame extends React.Component {
                             ? "active"
                             : ''} key="level-3" level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
                 </StyledContainer>
+                {/* === END THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
 
+                {/* ===================  DISPLAY THE INSTRUCTIONS  =================== */}
+                {/* ============ EMBEDDED MSGBAR WITH SCORE AND THE TOP SCORE ======== */}
                 <StyledContainer>
-
                     Click on the cards that are{' '}
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                         <DropdownToggle caret color="primary">
@@ -295,8 +281,12 @@ class PlayGame extends React.Component {
                         </DropdownMenu>
                     </ButtonDropdown>{' '}
                     {this.state.game.gameCategoryType}
+                    {/* =================== DISPLAY THE SCORE AND THE TOP SCORE =================== */}
                     <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg} msgcolor={this.state.msgcolor}></MsgBar>
                 </StyledContainer>
+
+
+                {/* =================== DISPLAY THE GAME CARDS =================== */}
                 <StyledContainer>
                     <Row>
                         {
@@ -318,13 +308,12 @@ class PlayGame extends React.Component {
                             })
                         }
                     </Row>
-                </StyledContainer>
+                </StyledContainer>         
+                {/* =================== END DISPLAY THE GAME CARDS =================== */}
 
             </>
         );
     }
-
-
 }
 
 export default PlayGame;
