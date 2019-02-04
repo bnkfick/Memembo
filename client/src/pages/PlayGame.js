@@ -66,6 +66,11 @@ class PlayGame extends React.Component {
         });
     }
 
+    nameCheck = (level, cardName) => {
+        console.log("nameCHeck");
+        console.log(cardName);
+    }
+
     cardClick = (clickedId, category) => {
         console.log(clickedId);
         console.log(category);
@@ -303,6 +308,7 @@ class PlayGame extends React.Component {
                                             category={card.category}
                                             clicked={card.clicked}
                                             handleClick={this.cardClick}
+                                            handleClick2={this.nameCheck}
                                         />
                                     </Col>)
                             })
