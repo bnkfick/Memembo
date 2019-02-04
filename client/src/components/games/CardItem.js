@@ -45,4 +45,3 @@ const CardItem = (props) => {
 };
 
 export default CardItem;
-
