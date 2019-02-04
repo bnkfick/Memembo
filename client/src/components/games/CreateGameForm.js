@@ -17,6 +17,29 @@ const StyledButton = styled(Button)`
         /* transform: scale(1.12); */
     }
 `
+const FormButton =  styled(Container)`
+    background-color: rgb(48, 19, 84);
+    border: 1px solid rgb(25, 9, 45);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    height: 4rem;
+    letter-spacing: 0.3rem;
+    margin-left: -1rem;
+    padding-top: 0.75rem;
+    text-align: center;
+    width: calc(100% + 2rem);
+    
+    &:hover{
+        background-color: rgb(25, 9, 45);
+        border: 1px solid white;
+        cursor: pointer;
+    }
+
+    &:disabled{
+        background-color: rgb(25, 9, 45);
+    }
+        
+`
 
 const InstructionFormGroup = styled(Col)`
     background-color: rgb(25, 9, 45);
@@ -41,14 +64,14 @@ export default class CreateGameForm extends Component {
         cardDetailsType: "",
     }
 
-    loadGame = () => {
-        API.getGame(id)
-            .then(res =>
-                this.setState({ games: res.data, gameGroup: res.data.gameGroup, audience: res.data.audience, gameName: res.data.gameName, gameCategories: res.data.gameCategories, gameCategoryType: res.data.gameCategoryType, cardDetailsType: res.data.cardDetailsType})
-            )
-            .then(res => console.log(res.data) )
-            .catch(err => console.log(err))
-    };
+    // loadGame = () => {
+    //     API.getGame(id)
+    //         .then(res =>
+    //             this.setState({ games: res.data, gameGroup: res.data.gameGroup, audience: res.data.audience, gameName: res.data.gameName, gameCategories: res.data.gameCategories, gameCategoryType: res.data.gameCategoryType, cardDetailsType: res.data.cardDetailsType})
+    //         )
+    //         .then(res => console.log(res.data) )
+    //         .catch(err => console.log(err))
+    // };
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -89,7 +112,7 @@ export default class CreateGameForm extends Component {
                 gameCategoryType: this.state.gameCategoryType,
                 cardDetailsType: this.state.cardDetailsType,
             })
-                .then(res => this.loadGame(id))
+                .then(res => this.loadGame())
                 .catch(err => console.log(err));
         }
     };
@@ -247,15 +270,12 @@ export default class CreateGameForm extends Component {
                     </Col>
                 </Row>
                 
-                <FormGroup row>
-                    <Col sm={{ size: 10, offset: 2 }}>
-                        <StyledButton
-                            disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
-                            onClick={this.handleGameSubmit}
-                        >Save & Continue
-                        </StyledButton>
-                    </Col>
-                </FormGroup>
+                <FormButton
+                    disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
+                    onClick={this.handleGameSubmit}
+                >
+                SAVE GAME SHELL & CONTINUE
+                </FormButton>
             </Form>
             
 

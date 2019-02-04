@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from "../utils/API"
-import { Row, Container, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Row, Container, Col, Button, Form, FormGroup, Label, Input, Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle} from 'reactstrap';
 import CreateGameForm from '../components/games/CreateGameForm';
 import CardForm from '../components/games/CardForm';
 import CardItem from '../components/games/CardItem';
@@ -11,7 +12,7 @@ const StyledContainer = styled(Container)`
     width: 100%;
     border: 1px solid white;
     border-radius: 5px;
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
 `
 const StyledButton = styled(Button)`
     background-color: rgb(48, 19, 84);
@@ -27,8 +28,42 @@ const StyledButton = styled(Button)`
         /* transform: scale(1.12); */
     }
 `
+const FormButton =  styled(Container)`
+    background-color: rgb(48, 19, 84);
+    border: 1px solid rgb(25, 9, 45);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    height: 4rem;
+    letter-spacing: 0.3rem;
+    margin-left: -1rem;
+    padding-top: 0.75rem;
+    text-align: center;
+    width: calc(100% + 2rem);
+    
+    &:hover{
+        background-color: rgb(25, 9, 45);
+        border: 1px solid white;
+        cursor: pointer
+    }
+        
+`
 
-
+const StyledRow = styled(Row)`
+    justify-content: space-evenly;
+`
+const StyledCard = styled(Card)`
+    background-color: rgb(25, 9, 45);
+    border: 1px solid white;
+    width: 80%;
+    margin: auto;
+`
+const StyledCardImg = styled(CardImg)`
+    max-height: 23rem;
+`
+const StyledH5 = styled.h5`
+    margin: 1.5rem auto;
+    text-align: center;
+`
 export default class CreateGame extends Component {
     state = {
         games: [],
@@ -40,26 +75,26 @@ export default class CreateGame extends Component {
         category: ""
     }
     
-    componentDidMount() {
-        this.loadGames();
-        this.loadCards();
-    };
+    // componentDidMount() {
+    //     this.loadGames();
+    //     this.loadCards();
+    // };
 
-    loadGames = () => {
-        API.getGames()
-            .then(res =>
-                this.setState({ games: res.data, gameGroup: "", audience: [], gameName: "", gameCategories: [], gameCategoryType: "", cardDetailsType: "" })
-            )
-            .catch(err => console.log(err))
-    };
+    // loadGames = () => {
+    //     API.getGames()
+    //         .then(res =>
+    //             this.setState({ games: res.data, gameGroup: "", audience: [], gameName: "", gameCategories: [], gameCategoryType: "", cardDetailsType: "" })
+    //         )
+    //         .catch(err => console.log(err))
+    // };
     
-    loadCards = () => {
-        API.getCards()
-            .then(res =>
-                this.setState({ cards: res.data, src: "", cardName: "", details: [], category: "" })
-            )
-            .catch(err => console.log(err))
-    };
+    // loadCards = () => {
+    //     API.getCards()
+    //         .then(res =>
+    //             this.setState({ cards: res.data, src: "", cardName: "", details: [], category: "" })
+    //         )
+    //         .catch(err => console.log(err))
+    // };
 
     deleteCard = id => {
         API.deleteCard(id)
@@ -113,55 +148,120 @@ export default class CreateGame extends Component {
                 <CreateGameForm />
             </StyledContainer>
         
-        <StyledContainer>
-           
-            
-            
-            
-            
-            <Form>
-
-            
-
-            
-
-            
-            
-            <FormGroup row>
-                <Label for="createCard" sm={2}>Create Cards:</Label>
-                <Col sm={6}>
-                    <CardForm />
-                </Col>
-                <Col sm={3}>
-                    <Button>Add Item</Button>
-                </Col>
-            </FormGroup>
-            <FormGroup row>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
-                <Col sm={3}>
-                    <CardItem />
-                </Col>
+            <StyledContainer>
+                <Form>
+                    <Row>
+                        <Col sm={6}>
+                            <FormGroup row>
+                                <Label for="src" sm={4}>Card Image:</Label>
+                                <Col sm={8}>
+                                    <Input
+                                        type="text" 
+                                        name="src" 
+                                        id="src" 
+                                        placeholder="Image URL"
+                                        value={this.state.src}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Col>
+                            </FormGroup>
                 
-            </FormGroup>
-            
-            
-        
-            
-            <FormGroup row>
-                <Col sm={{ size: 10, offset: 2 }}>
-                    <StyledButton>Submit Game</StyledButton>
-                </Col>
-            </FormGroup>
-        </Form>
-    </StyledContainer>
+                            <FormGroup row>
+                                <Label for="cardName" sm={4}>Card Name:</Label>
+                                <Col sm={8}>
+                                    <Input
+                                        type="text" 
+                                        name="cardName" 
+                                        id="cardName" 
+                                        placeholder="Card Name"
+                                        value={this.state.cardName}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Col>
+                            </FormGroup>
+                        
+                            <FormGroup row>
+                                <Label for="details" sm={4}>Card Details:</Label>
+                                <Col sm={8}>
+                                    <Input
+                                        type="textarea" 
+                                        name="details" 
+                                        id="details" 
+                                        placeholder="Card Details"
+                                        value={this.state.details}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup row>
+                                <Label for="gameGroup" sm={4}>Card Category:</Label>
+                                <Col sm={8}>
+                                    <Input
+                                        type="select" 
+                                        name="category" 
+                                        id="category" 
+                                        placeholder="category"
+                                        value={this.state.category}
+                                        onChange={this.handleSelectChange}
+                                    >
+                                        <option>Pick One</option>
+                                        <option>[gameCategories-1]</option>
+                                        <option>[gameCategories-2]</option>
+                                        <option>[gameCategories-3]</option>
+                                        <option>[gameCategories-4]</option>
+                                    </Input>
+                                </Col>
+                            </FormGroup>
+                        </Col>
+                        <Col sm={6}>
+                            <StyledCard >
+                                <StyledCardImg
+                                    src={ this.state.src || "https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg"}
+                                    alt="Card image cap" 
+                                />
+                                <CardBody>
+                                    <CardTitle>
+                                        { this.state.cardName || "Card Name..."}
+                                    </CardTitle>
+                                    <CardText>
+                                        { this.state.details || "Card Details..."}
+                                    </CardText>
+                                </CardBody>
+                            </StyledCard>
+                            <StyledH5>Card Category (Hidden): {this.state.category}</StyledH5>
+                        </Col>
+                    </Row>
+                    
+                    <FormButton
+                        disabled={!(this.state.cardName && this.state.details && this.state.category)}
+                        onClick={this.handleCardSubmit}
+                    >
+                       ADD CARD
+                    </FormButton>
+                </Form>
+            </StyledContainer>
+            <StyledContainer>
+                <StyledRow>
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                    <CardItem />
+                </StyledRow>
+                <Form>    
+                    <FormButton>
+                       SUBMIT GAME & CARDS
+                    </FormButton>
+                </Form>
+            </StyledContainer>
     </>
     );
   }
