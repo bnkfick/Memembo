@@ -172,17 +172,21 @@ class PlayGame extends React.Component {
             .catch(err => console.log(err));
     }
 
-    resetGame = () => {
+    resetGame = (level) => {
         // == Make a deep copy of an object
         let newGame = JSON.parse(JSON.stringify(this.state.game));
         console.log(newGame);
         newGame.cardArray.map(card => {
             card.clicked = false;
         });
+        let selectedLevel = level;
+        if (level)  selectedLevel = level
+        else selectedLevel = this.state.level;
 
         this.setState({
             game: newGame,
-            score: 0
+            score: 0,
+            level: selectedLevel
         });
         return true;
     };
@@ -191,15 +195,17 @@ class PlayGame extends React.Component {
         event.preventDefault();
         console.log("++++++++++++++++++++++++++++++");
         console.log(level);
-        if (level === null || level === "") {
-            this.setState({
-                level: "1"
-            });
-        } else {
-            this.setState({
-                level
-            })
-        }
+        // if (level === null || level === "") {
+        //     this.setState({
+        //         level: "1"
+        //     });
+        // } else {
+        //     this.setState({
+        //         level
+        //     })
+        // }
+        this.resetGame(level);
+
     }
 
     shuffleClick = () => {
