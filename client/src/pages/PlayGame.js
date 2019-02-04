@@ -47,7 +47,9 @@ class PlayGame extends React.Component {
             score: 0,
             highScore: 0,
             msg: "",
-            msgcolor: "info"
+            msgcolor: "info",
+            user: '',
+            loggedIn: false
         };
     }
 
@@ -151,21 +153,22 @@ class PlayGame extends React.Component {
             id = this.props.match.params.id;
         }
 
-        this.getGame(id);
-    }
-
-
-    getGame = (id) => {
-        console.log(id);
-
-        API.getGame(id).then(res => {
-            let array = this.shuffle(res.data.cardArray);
-            let dbgame = res.data;
-            dbgame.cardArray = array;
-            this.setState({
-                game: dbgame
+        API.getGame(id)
+            .then(res => {
+                let array = this.shuffle(res.data.cardArray);
+                let dbgame = res.data;
+                dbgame.cardArray = array;
+                API.isLoggedIn()
+                    .then(user => {
+                        this.setState({
+                            loggedIn: user.data.loggedIn,
+                            user: user.data.user,
+                            game: dbgame
+                        })
+                    }).catch(err => {
+                        console.log(err);
+                    });
             })
-        })
             .catch(err => console.log(err));
     }
 
@@ -200,7 +203,7 @@ class PlayGame extends React.Component {
     }
 
     shuffleClick = () => {
-            // == Make a deep copy of an object
+        // == Make a deep copy of an object
         let gameCopy = JSON.parse(JSON.stringify(this.state.game));
         console.log(gameCopy);
         gameCopy.cardArray = this.shuffle(gameCopy.cardArray);
@@ -314,7 +317,7 @@ class PlayGame extends React.Component {
                             })
                         }
                     </Row>
-                </StyledContainer>         
+                </StyledContainer>
                 {/* =================== END DISPLAY THE GAME CARDS =================== */}
 
             </>
