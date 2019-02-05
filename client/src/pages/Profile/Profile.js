@@ -74,9 +74,9 @@ class Profile extends Component {
                     <div className="profileBox">
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>
                         <ul>
-                            { this.state.user.games.map(game => {
+                            { this.state.user.gameArray.map(game => {
                                 return (
-                                    <li>
+                                    <li key = {`${game}`}>
                                         <a key = {`${game}`} href={`/play/${game}`}>
                                         {game}
                                         </a>
