@@ -41,13 +41,14 @@ class Auth extends Component {
                 username: this.state.username,
                 password: this.state.password
             }).then(user => {
-                console.log(user);
+                // console.log(user);
                 if(user.data.loggedIn) {
                     this.setState({
                         loggedIn: true,
                         user: user.data.user
                     });
                     console.log("login successful");
+                    console.log(this.state.user);
                     this.setState({
                         username: "",
                         password: ""
@@ -68,7 +69,7 @@ class Auth extends Component {
         console.log("logout hit");
             API.logout()
             .then(user => {
-                console.log(user);
+                // console.log(user);
                 if(!user.data.loggedIn) {
                     console.log("logout successful");
                     this.setState({

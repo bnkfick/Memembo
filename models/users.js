@@ -35,7 +35,7 @@ const usersSchema = new Schema({
           required: false,
         }
     ],
-    gameArray: [
+    games: [
         {
           type: Schema.Types.ObjectId,
           ref: "Game"

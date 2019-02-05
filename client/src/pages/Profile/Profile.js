@@ -56,7 +56,7 @@ class Profile extends Component {
             console.log(err);
         });
 
-        console.log(this.props)
+        // console.log(this.props)
     }
 
     loading() {
@@ -74,7 +74,15 @@ class Profile extends Component {
                     <div className="profileBox">
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>
                         <ul>
-                            <li>Games You've Made: {this.state.user.gameArray}</li>
+                            { this.state.user.games.map(game => {
+                                return (
+                                    <li>
+                                        <a key = {`${game}`} href={`/play/${game}`}>
+                                        {game}
+                                        </a>
+                                    </li>
+                                    );
+                                 })}
                         </ul>
                         <ul>
                             <li>High Scores: {this.state.user.highscores}</li>
@@ -85,7 +93,7 @@ class Profile extends Component {
                         {!this.state.loading ? (
                             <>
                                 <h1>please log in</h1>
-                                <Link className="loginLink" to="/login"><FormButton className="loginBtn" color="info" block>Login</FormButton></Link>
+                                <Link className="loginLink" to="/login"><FormButton className="loginBtn" color="info" >Login</FormButton></Link>
                             </>
                         ) : (
                             <p>Loading</p>

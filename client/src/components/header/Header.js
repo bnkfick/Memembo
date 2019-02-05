@@ -56,7 +56,7 @@ export default class Header extends Component {
                 <NavLink href="/login">LogIn/LogOut</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#">Profile Settings</NavLink>
+                <NavLink href="/profile">Profile Settings</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
