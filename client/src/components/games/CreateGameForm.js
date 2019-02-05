@@ -100,10 +100,14 @@ export default class CreateGameForm extends Component {
         this.setState({ [name]: value })
     }
 
-    handleGameSubmit = event => {
+    handleGameSubmit = (event) => {
         event.preventDefault();
 
-        if (this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType) {
+        if (this.state.gameGroup 
+            && this.state.audience 
+            && this.state.gameName 
+            && this.state.gameCategories 
+            && this.state.cardDetailsType) {
             API.saveGame({
                 gameGroup: this.state.gameGroup,
                 audience: this.state.audience,
@@ -112,10 +116,11 @@ export default class CreateGameForm extends Component {
                 gameCategoryType: this.state.gameCategoryType,
                 cardDetailsType: this.state.cardDetailsType,
             })
-                .then(res => this.loadGame())
+                .then(res =>  this.loadGame())
                 .catch(err => console.log(err));
         }
     };
+    
     render() {
         return (
 

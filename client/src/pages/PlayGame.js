@@ -46,6 +46,7 @@ class PlayGame extends React.Component {
             selectedCategory: '',
             score: 0,
             highScore: 0,
+            gameInProgress: false,
             msg: "",
             msgcolor: "info",
             user: '',
@@ -68,11 +69,75 @@ class PlayGame extends React.Component {
         });
     }
 
-    nameCheck = (level, cardName) => {
+    //== LEVEL TWO (ADVANCED) Game Checker
+    nameCheck = (level, cardId, cardName) => {
+
         console.log("nameCheck");
-        console.log(cardName);
+        // Check to see that it is not an empty string
+        // Check to see if the answer is correct
+        // In order to check and see if the answer is correct
+        // You need to copy the cardArray
+        // == Copy cardArray to flip clicked flag ==/
+        let newGame = JSON.parse(JSON.stringify(this.state.game));
+
+        // == Get the index of the clicked card
+        let tileIdx = newGame.cardArray.findIndex(tile => tile._id === cardId);
+        newGame.cardArray[tileIdx].clicked = true;
+
+        let gameOver = this.allAnswered(newGame.cardArray);
+        // == Check to see if the userInput answer matches the stored/correct answer
+        if (cardName !== newGame.cardArray[tileIdx].cardName) {
+            if (gameOver) {
+                this.setState({
+                    msg: "Wrong Answer. GAME OVER.  Play Again.",
+                    msgcolor: "danger",
+                    game: newGame,
+                    gameInProgress: true
+                });
+                this.resetGame();
+            } else {
+                this.setState({
+                    msg: "Wrong Answer. Try Again.",
+                    msgcolor: "danger",
+                    game: newGame,
+                    gameInProgress: true
+                });
+            }
+        } else {
+            let newScore = this.state.score;
+            newScore++;
+
+            //DRY THIS UP ALSO IN cardClick
+            if (gameOver) {
+                this.setState({
+                    msg: "+1 Good Answer!",
+                    msgcolor: "success",
+                    score: newScore,
+                    highScore: this.checkHighScore(newScore),
+                    game: newGame,
+                    gameInProgress: true
+                })
+                this.resetGame();
+            } else {
+                this.setState({
+                    msg: "+1 Good Answer!",
+                    msgcolor: "success",
+                    score: newScore,
+                    highScore: this.checkHighScore(newScore),
+                    game: newGame,
+                    gameInProgress: true
+                })
+            }
+        }
     }
 
+    allAnswered = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].clicked === false) { return false; }
+        }
+        return true;
+    }
+    //== LEVEL ONE (BEGINNER) Game Checker
     cardClick = (clickedId, category) => {
         console.log(clickedId);
         console.log(category);
@@ -102,8 +167,8 @@ class PlayGame extends React.Component {
             return;
         }
 
-        //disable click if click===true
-        //check if this tile is the correct category
+
+        //== Check if this tile is the correct category
         if (category !== this.state.selectedCategory) {
             console.log("Wrong Answer");
             this.setState({
@@ -114,6 +179,7 @@ class PlayGame extends React.Component {
         } else {
             let newScore = this.state.score;
             newScore++;
+
             if (newScore === updatedTiles.length) {
                 this.setState({
                     msg: "WINNER! That's the best possible score!",
@@ -122,6 +188,7 @@ class PlayGame extends React.Component {
                 });
                 this.resetGame();
             } else {
+                //DRY THIS UP ALSO IN nameCheck
                 updatedTiles[tileIdx].clicked = true;
                 this.setState({
                     msg: "+1 Good Answer!",
@@ -133,6 +200,7 @@ class PlayGame extends React.Component {
             }
         }
     };
+
 
     checkHighScore = (currentScore) => {
         //-- Already incremented if correct answer, but not setState yet --//
@@ -175,16 +243,19 @@ class PlayGame extends React.Component {
     resetGame = (level) => {
         // == Make a deep copy of an object
         let newGame = JSON.parse(JSON.stringify(this.state.game));
-        console.log(newGame);
+
         newGame.cardArray.map(card => {
             card.clicked = false;
         });
         let selectedLevel = level;
-        if (level)  selectedLevel = level
+        if (level) selectedLevel = level
         else selectedLevel = this.state.level;
+
+        let newGameInProgress = false;
 
         this.setState({
             game: newGame,
+            gameInProgress: newGameInProgress,
             score: 0,
             level: selectedLevel
         });
@@ -193,19 +264,7 @@ class PlayGame extends React.Component {
 
     setLevel = (event, level) => {
         event.preventDefault();
-        console.log("++++++++++++++++++++++++++++++");
-        console.log(level);
-        // if (level === null || level === "") {
-        //     this.setState({
-        //         level: "1"
-        //     });
-        // } else {
-        //     this.setState({
-        //         level
-        //     })
-        // }
         this.resetGame(level);
-
     }
 
     shuffleClick = () => {
@@ -316,6 +375,7 @@ class PlayGame extends React.Component {
                                             image={card.src}
                                             category={card.category}
                                             clicked={card.clicked}
+                                            gameInProgress={this.state.gameInProgress}
                                             handleClick={this.cardClick}
                                             handleClick2={this.nameCheck}
                                         />

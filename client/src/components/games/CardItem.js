@@ -8,6 +8,7 @@ const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
     border: 1px solid white;
     max-width: 15rem;
+    height:100%;
     margin-bottom:1em;
     border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
 `
@@ -28,7 +29,7 @@ const displayDetails = (props) => {
 const CardItem = (props) => {
   return (
     <div>
-      <StyledCard clicked= { props.clicked ? props.clicked.toString() : "false" }>
+      <StyledCard clicked={ props.clicked ? props.clicked.toString() : "false" }>
         <StyledCardImg top width="100%" 
         src={ props.image || "https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg"} 
         alt="Card image cap" 
@@ -37,7 +38,7 @@ const CardItem = (props) => {
         <CardBody>
 
           {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
-          <CardName name={props.name} handleClick={props.handleClick2} level={props.level}/>
+          <CardName name={props.name} gameInProgress={props.gameInProgress} clicked={props.clicked} handleClick={props.handleClick2} cardId={props.id} level={props.level}/>
           {/* <Button>Button</Button> */}
         </CardBody>
       </StyledCard>
