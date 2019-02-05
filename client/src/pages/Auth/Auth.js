@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Login from "../../components/Login";
 import Signup from "../../components/Signup";
 import API from "../../utils/API";
-// import "./Auth.scss"
+
 
 class Auth extends Component {
 
@@ -14,6 +14,17 @@ class Auth extends Component {
         user: null,
         message: ""
     }
+
+    componentDidMount(){
+        API.isLoggedIn().then(user => {
+            if(user.data.loggedIn){
+                this.setState({
+                    loggedIn: true,
+                    user: user.data,
+                })
+            }
+        })
+    };
 
     handleInputChange = event => {
         const value = event.target.value;
@@ -30,13 +41,18 @@ class Auth extends Component {
                 username: this.state.username,
                 password: this.state.password
             }).then(user => {
-                console.log(user);
+                // console.log(user);
                 if(user.data.loggedIn) {
                     this.setState({
                         loggedIn: true,
                         user: user.data.user
                     });
                     console.log("login successful");
+                    console.log(this.state.user);
+                    this.setState({
+                        username: "",
+                        password: ""
+                    })
                     window.location.href = '/profile';
                 }
                 else if (user.data.message) {
@@ -46,6 +62,34 @@ class Auth extends Component {
                 }
             });
         }
+    };
+
+    handleLogout = event => {
+        event.preventDefault();
+        console.log("logout hit");
+            API.logout()
+            .then(user => {
+                // console.log(user);
+                if(!user.data.loggedIn) {
+                    console.log("logout successful");
+                    this.setState({
+                        loggedIn: false,
+                        username: "",
+                        password: "",
+                        confirmPassword: "",
+                        user: null,
+                        message: "" 
+                    })
+                    console.log("This should take us to /");
+                    window.location.pathname = '/';
+                }
+                else if (user.data.message) {
+                    this.setState({
+                        message: user.data.message
+                    })
+                }
+            });
+        
     };
 
     handleSignup = event => {
@@ -61,13 +105,21 @@ class Auth extends Component {
                         user: user.data.user
                     });
                     console.log("login successful");
+                    this.setState({
+                        username: "",
+                        password: ""
+                    });
                     window.location.href = '/profile';
                 } else {
                     console.log("Something went wrong:(");
                     console.log(user.data);
                     this.setState({
-                        message: user.data
+                        message: user.data,
+                        username: "",
+                        password: "",
+                        confirmPassword: ""
                     });
+                    
                 }
             });
         }
@@ -83,6 +135,8 @@ class Auth extends Component {
                         handleLogin={this.handleLogin}
                         handleInputChange={this.handleInputChange}
                         message={this.state.message}
+                        loggedIn={this.state.loggedIn}
+                        handleLogout={this.handleLogout}
                     />
                 ) : (
                     <Signup
