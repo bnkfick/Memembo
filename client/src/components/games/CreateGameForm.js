@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {PropTypes} from 'react'
+// import {PropTypes} from 'react'
 import API from "../../utils/API"
-import { Row, Container, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Row, Container, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import styled from 'styled-components';
 
 const FormButton =  styled(Container)`
@@ -113,7 +113,7 @@ export default class CreateGameForm extends Component {
                     console.log("Game ID returned after save", res.data._id);
                     this.setState({ game_id: res.data._id });
                 })
-                .then((props)=> this.props.getGameId(this.state.game_id))
+                .then((props)=> this.props.getGameInfo(this.state.game_id, this.state.gameCategories))
                 .catch(err => console.log(err));
         }
     };
@@ -125,9 +125,6 @@ export default class CreateGameForm extends Component {
                 
                 <Row>
                     <Col sm={6}>
-                    <Button
-                onClick = {() => this.props.getGameId(this.state.game_id)}
-                >Sanity Check</Button>
                         <FormGroup row>
                             <Label for="gameGroup" sm={4}>Game Group:</Label>
                             <Col sm={8}>
@@ -290,7 +287,7 @@ export default class CreateGameForm extends Component {
                     // disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
                     onClick={this.handleGameSubmit}
                 >
-                SAVE GAME SHELL & CONTINUE
+                {this.state.game_id ? ( <>CONGRATS! YOUR GAME SAVED!</> ) : (<>SAVE GAME SHELL & CONTINUE</>)}
                 </FormButton>
             </Form>
             

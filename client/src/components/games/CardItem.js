@@ -1,7 +1,6 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button } from 'reactstrap';
-  import styled from 'styled-components';
+import { Card, CardImg, CardBody, CardTitle} from 'reactstrap';
+import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
