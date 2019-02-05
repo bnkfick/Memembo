@@ -311,6 +311,10 @@ class PlayGame extends React.Component {
         return true;
     }
 
+    testExpert = (cardId) => {
+        console.log("testExpert");
+        console.log(cardId);
+    }
     render() {
 
         if (this.isEmpty(this.state.game)) {
@@ -365,7 +369,7 @@ class PlayGame extends React.Component {
                         {
                             this.state.game.cardArray.map((card, index) => {
                                 return (
-                                    <Col sm={3} key={`col-${index}`}>
+                                    <Col sm={this.state.level === "3" ? "6": "3"} key={`col-${index}`}>
                                         <CardItem
                                             id={card._id}
                                             key={card._id}
@@ -378,6 +382,7 @@ class PlayGame extends React.Component {
                                             gameInProgress={this.state.gameInProgress}
                                             handleClick={this.cardClick}
                                             handleClick2={this.nameCheck}
+                                            handleClick3={this.testExpert}
                                         />
                                     </Col>)
                             })
