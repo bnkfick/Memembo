@@ -2,11 +2,17 @@ const mongoose = require("mongoose");
 const db = require("../models");
 
 // This file empties the Books collection and inserts the books below
+//If deployed, use the deployed database.  Otherwise use the local mongo database
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/memoryGame"
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-  "mongodb://localhost/memoryGame"
-);
+mongoose
+  .connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true })
+  .then(() => console.log('MongoDB Seeded...'))
+
+// mongoose.connect(
+//   process.env.MONGODB_URI ||
+//   "mongodb://localhost/memoryGame"
+// );
 
 let gameSeed = 
   {
@@ -149,19 +155,21 @@ const cardSeed = [
 ];
 
 db.Card
-  .remove({})
+  .deleteMany({})
   .then(() => db.Card.collection.insertMany(cardSeed))
   .then(data => {
     console.log(data.result.n + " cards inserted!");
-    console.log(data.insertedIds);
+    // console.log(data.insertedIds);
     for (let key in data.insertedIds) {
       gameSeed.cardArray.push(data.insertedIds[key]);
     }
     db.Game
-      .remove({})
+      .deleteMany({})
       .then(() => db.Game.collection.insertOne(gameSeed))
       .then(data => {
-        console.log(data.result.n + " games inserted!");
+        console.log(data.result.n + " game inserted!");
+        console.log("Game _ID: ", data.insertedId);
+        console.log("Game Data:", data.ops[0]);
         process.exit(0);
       })
       .catch(err => {
