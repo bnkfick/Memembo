@@ -3,19 +3,25 @@ import React from 'react';
 class MultipleChoice extends React.Component {
 
     state = {
-        cardName: '',
+        options: [],
         answered: this.props.clicked
     }
 
-    componentDidMount() {
-        this.props.handleClick(this.props.cardId);
+    componentWillMount() {
+        this.setState({ 
+            options: this.props.handleClick(this.props.cardId) 
+        });
     }
 
     render() {
-
-        return (
-            <h1>MULTIPLE CHOICE HERE</h1>
-        );
+        console.log("=============options");
+        console.log(this.state.options);
+            return (
+            this.state.options.map(choice => {
+                return (<>{choice}<br /></>);                           
+            })
+            )
+        
     }
 }
 
