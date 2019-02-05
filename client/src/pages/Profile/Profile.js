@@ -1,7 +1,37 @@
 import React, {Component} from "react";
-import { Button } from "reactstrap";
+import { Container } from 'reactstrap';
 import { Link } from "react-router-dom"
 import API from "../../utils/API"
+import styled from 'styled-components';
+
+const StyledContainer = styled(Container)`
+    margin: 2rem auto;
+    width: 75%;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 1rem 1rem 0 1rem;
+`
+
+const FormButton =  styled(Container)`
+    background-color: rgb(48, 19, 84);
+    border: 1px solid rgb(25, 9, 45);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    height: 4rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 1rem;
+
+    padding-top: 0.75rem;
+    text-align: center;
+    width: calc(70% + 2rem);
+    
+    &:hover{
+        background-color: rgb(25, 9, 45);
+        border: 1px solid white;
+        cursor: pointer
+    }
+        
+`
 
 class Profile extends Component {
     state = {
@@ -26,7 +56,7 @@ class Profile extends Component {
             console.log(err);
         });
 
-        console.log(this.props)
+        // console.log(this.props)
     }
 
     loading() {
@@ -39,25 +69,38 @@ class Profile extends Component {
 
     render() {
         return (
-            <div className="profilePage">
+            <StyledContainer className="profilePage">
                 {this.state.loggedIn ? (
                     <div className="profileBox">
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>
+                        <ul>
+                            { this.state.user.gameArray.map(game => {
+                                return (
+                                    <li key = {`${game}`}>
+                                        <a key = {`${game}`} href={`/play/${game}`}>
+                                        {game}
+                                        </a>
+                                    </li>
+                                    );
+                                 })}
+                        </ul>
+                        <ul>
+                            <li>High Scores: {this.state.user.highscores}</li>
+                        </ul>
                     </div>
                 ) : (
                     <div className="noUser">
                         {!this.state.loading ? (
                             <>
                                 <h1>please log in</h1>
-                                <Link className="loginLink" to="/login"><Button className="loginBtn" color="info" block>Login</Button></Link>
+                                <Link className="loginLink" to="/login"><FormButton className="loginBtn" color="info" >Login</FormButton></Link>
                             </>
                         ) : (
                             <p>Loading</p>
-                            // <img id="loadingIcon" src="./assets/images/loading.gif" alt="loading"/>
                         )}
                     </div> 
                 )}
-            </div>
+            </StyledContainer>
         )
     }
 }
