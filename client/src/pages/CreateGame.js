@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import API from "../utils/API"
 import { Row, Container, Col, Button, Form, FormGroup, Label, Input, Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle} from 'reactstrap';
@@ -65,16 +65,29 @@ const StyledH5 = styled.h5`
     text-align: center;
 `
 export default class CreateGame extends Component {
-    state = {
-        games: [],
-        cards: [],
-
-        src: "",
-        cardName: "",
-        details: [],
-        category: ""
+    
+    constructor() {
+        super()
+        this.state = {
+            game_id: "",
+            
+            cards: [],
+            src: "",
+            cardName: "",
+            details: [],
+            category: ""
+        }
+        this.getGameId = this.getGameId.bind(this)
+        // this.handleClick = this.handleClick.bind(this)
     }
     
+    
+    
+    getGameId(id){
+        console.log("This is getGameId", id)
+        this.setState({ game_id: id })
+
+    };
     // componentDidMount() {
     //     this.loadGames();
     //     this.loadCards();
@@ -95,6 +108,11 @@ export default class CreateGame extends Component {
     //         )
     //         .catch(err => console.log(err))
     // };
+
+    // handleClick(event) {
+    //     event.preventDefault()
+    //     console.log('sanity check');
+    // }
 
     deleteCard = id => {
         API.deleteCard(id)
@@ -144,8 +162,11 @@ export default class CreateGame extends Component {
     render() {
     return (
         <>
+            
             <StyledContainer>
-                <CreateGameForm />
+                <CreateGameForm
+                    getGameId = {this.getGameId}
+                />
             </StyledContainer>
         
             <StyledContainer>

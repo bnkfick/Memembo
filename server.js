@@ -41,7 +41,7 @@ app.use(routes);
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/memoryGame"
 
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true })
+  .connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true  })
   .then(() => console.log('MongoDB Connected...'))
 
 // Send every other request to the React app

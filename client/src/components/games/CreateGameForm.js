@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
+import {PropTypes} from 'react'
 import API from "../../utils/API"
 import { Row, Container, Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import styled from 'styled-components';
 
-const StyledButton = styled(Button)`
-    background-color: rgb(48, 19, 84);
-    border: 1px solid rgb(25, 9, 45);
-    font-size: 1.5rem;
-    width: 100%;
-    /* margin-left: 0 !important;
-    padding-left: 0 !important; */
-
-    &:hover{
-        background-color: rgb(25, 9, 45);
-        border: 1px solid white;
-        /* transform: scale(1.12); */
-    }
-`
 const FormButton =  styled(Container)`
     background-color: rgb(48, 19, 84);
     border: 1px solid rgb(25, 9, 45);
@@ -52,24 +39,34 @@ const InstructionFormGroup = styled(Col)`
     }
 `
 export default class CreateGameForm extends Component {
-    
-    state = {
-        games: [],
-        cards: [],
-        gameGroup: "",
-        audience: [],
-        gameName: "",
-        gameCategories: [],
-        gameCategoryType: "",
-        cardDetailsType: "",
+    constructor(props) {
+        super(props)
+        this.state = {
+            game_id: "",
+            gameGroup: "",
+            audience: [],
+            gameName: "",
+            gameCategories: [],
+            gameCategoryType: "",
+            cardDetailsType: "",
+        }
+       
     }
+    
+    // componentDidUpdate() {
+    //     this.props.getGameId(this.state.game_id)
+    // }
 
-    // loadGame = () => {
+    // loadGame = (res) => {
+    //     console.log("Game ID to be retrieved from DB:", res.data._id);
+    //     alert(`${res.data.gameName} Saved Successfully!`);
+    //     let id = res.data._id
+     
     //     API.getGame(id)
-    //         .then(res =>
-    //             this.setState({ games: res.data, gameGroup: res.data.gameGroup, audience: res.data.audience, gameName: res.data.gameName, gameCategories: res.data.gameCategories, gameCategoryType: res.data.gameCategoryType, cardDetailsType: res.data.cardDetailsType})
-    //         )
-    //         .then(res => console.log(res.data) )
+    //         .then(res => {
+    //             console.log("Game ID from database: ", res.data._id);
+    //             this.setState({ _id: res.data._id, gameGroup: res.data.gameGroup, audience: res.data.audience, gameName: res.data.gameName, gameCategories: res.data.gameCategories, gameCategoryType: res.data.gameCategoryType, cardDetailsType: res.data.cardDetailsType });
+    //         })
     //         .catch(err => console.log(err))
     // };
 
@@ -100,7 +97,7 @@ export default class CreateGameForm extends Component {
         this.setState({ [name]: value })
     }
 
-    handleGameSubmit = event => {
+    handleGameSubmit = (event) => {
         event.preventDefault();
 
         if (this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType) {
@@ -112,23 +109,32 @@ export default class CreateGameForm extends Component {
                 gameCategoryType: this.state.gameCategoryType,
                 cardDetailsType: this.state.cardDetailsType,
             })
-                .then(res => this.loadGame())
+                .then(res => {
+                    console.log("Game ID returned after save", res.data._id);
+                    this.setState({ game_id: res.data._id });
+                })
+                .then((props)=> this.props.getGameId(this.state.game_id))
                 .catch(err => console.log(err));
         }
     };
+
     render() {
         return (
 
             <Form>
+                
                 <Row>
                     <Col sm={6}>
+                    <Button
+                onClick = {() => this.props.getGameId(this.state.game_id)}
+                >Sanity Check</Button>
                         <FormGroup row>
                             <Label for="gameGroup" sm={4}>Game Group:</Label>
                             <Col sm={8}>
                                 <Input type="select"
                                     name="gameGroup"
                                     id="gameGroup"
-                                    required
+                                    // required
                                     value={this.state.gameGroup}
                                     onChange={this.handleSelectChange}
                                 >
@@ -162,7 +168,8 @@ export default class CreateGameForm extends Component {
                                 <Input type="select"
                                     name="audience"
                                     id="audience"
-                                    multiple required
+                                    multiple 
+                                    // required
                                     value={this.state.audience}
                                     onChange={this.handleSelectChange}
                                 >
@@ -183,7 +190,7 @@ export default class CreateGameForm extends Component {
                                     name="gameName"
                                     id="gameName"
                                     placeholder="(Required)"
-                                    required
+                                    // required
                                     value={this.state.gameName}
                                     onChange={this.handleInputChange}
                                 />
@@ -197,7 +204,7 @@ export default class CreateGameForm extends Component {
                                     name="gameCategories"
                                     id="gameCategories"
                                     placeholder="Comma Separated (Required)"
-                                    required
+                                    // required
                                     value={this.state.gameCategories}
                                     onChange={this.handleInputChange}
                                 />
@@ -224,7 +231,7 @@ export default class CreateGameForm extends Component {
                                     name="cardDetailsType"
                                     id="cardDetailsType"
                                     placeholder="(Required)"
-                                    required
+                                    // required
                                     value={this.state.cardDetailsType}
                                     onChange={this.handleInputChange}
                                 />
@@ -280,7 +287,7 @@ export default class CreateGameForm extends Component {
                 </Row>
                 
                 <FormButton
-                    disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
+                    // disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
                     onClick={this.handleGameSubmit}
                 >
                 SAVE GAME SHELL & CONTINUE
