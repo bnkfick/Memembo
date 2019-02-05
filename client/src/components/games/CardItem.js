@@ -39,7 +39,7 @@ const CardItem = (props) => {
 
           {/* <Button>Button</Button> */}
         </CardBody>
-      {/* </StyledCard> */}
+      </StyledCard>
     </div>
   );
 };

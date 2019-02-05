@@ -28,7 +28,7 @@ class GameList extends Component {
             { this.state.games.map(game => {
                 return (
                 <li>
-                        <p>GAME: {game._id}</p>
+                        {/* <p>GAME: {game._id}</p> */}
                         <a href={`/play/${game._id}`}>
                         {game.gameName}
                         </a>

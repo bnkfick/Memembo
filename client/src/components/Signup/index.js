@@ -1,6 +1,35 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
+import { Container, Form, FormText, FormGroup, Label, Input, Alert} from 'reactstrap';
 import { Link } from "react-router-dom";
+import styled from 'styled-components';
+
+const StyledContainer = styled(Container)`
+    margin: 2rem auto;
+    width: 75%;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 1rem 1rem 0 1rem;
+`
+
+const FormButton =  styled(Container)`
+    background-color: rgb(48, 19, 84);
+    border: 1px solid rgb(25, 9, 45);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    height: 4rem;
+    letter-spacing: 0.3rem;
+
+    padding-top: 0.75rem;
+    text-align: center;
+    width: calc(70% + 2rem);
+    
+    &:hover{
+        background-color: rgb(25, 9, 45);
+        border: 1px solid white;
+        cursor: pointer
+    }
+        
+`
 
 class Signup extends Component {
     state = {
@@ -58,7 +87,7 @@ class Signup extends Component {
 
     render() {
         return(
-            <div>
+            <StyledContainer>
                 <h2 className="loginTitle title-font">Signup</h2>
                 <hr />
                 {this.props.message?(
@@ -80,15 +109,15 @@ class Signup extends Component {
                     </FormGroup>
                                         {/* if all fields are valid, allow the user to submit the form */}
                                         {(this.state.validUsername && this.state.validPassword && this.state.confirmPassword) ? (
-                        <Button onClick={this.props.handleSignup} color="success" block>Signup</Button>
+                        <FormButton onClick={this.props.handleSignup} color="success" block>Signup</FormButton>
                     ) : (
-                        <Button onClick={this.props.handleSignup} color="danger" block disabled>Signup</Button>
+                        <FormButton onClick={this.props.handleSignup} color="danger" block disabled>Signup</FormButton>
                     )}
                     <p className="signupLink">
                         <Link to="/login">already have an account?  Sign in here</Link>
                     </p>
                 </Form>
-            </div>
+            </StyledContainer>
         );
     }
 }

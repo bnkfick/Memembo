@@ -15,6 +15,17 @@ class Auth extends Component {
         message: ""
     }
 
+    componentDidMount(){
+        API.isLoggedIn().then(user => {
+            if(user.data.loggedIn){
+                this.setState({
+                    loggedIn: true,
+                    user: user.data,
+                })
+            }
+        })
+    };
+
     handleInputChange = event => {
         const value = event.target.value;
         const name = event.target.name;
@@ -50,6 +61,34 @@ class Auth extends Component {
                 }
             });
         }
+    };
+
+    handleLogout = event => {
+        event.preventDefault();
+        console.log("logout hit");
+            API.logout()
+            .then(user => {
+                console.log(user);
+                if(!user.data.loggedIn) {
+                    console.log("logout successful");
+                    this.setState({
+                        loggedIn: false,
+                        username: "",
+                        password: "",
+                        confirmPassword: "",
+                        user: null,
+                        message: "" 
+                    })
+                    console.log("This should take us to /");
+                    window.location.pathname = '/';
+                }
+                else if (user.data.message) {
+                    this.setState({
+                        message: user.data.message
+                    })
+                }
+            });
+        
     };
 
     handleSignup = event => {
@@ -95,6 +134,8 @@ class Auth extends Component {
                         handleLogin={this.handleLogin}
                         handleInputChange={this.handleInputChange}
                         message={this.state.message}
+                        loggedIn={this.state.loggedIn}
+                        handleLogout={this.handleLogout}
                     />
                 ) : (
                     <Signup
