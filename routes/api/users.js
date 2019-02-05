@@ -2,6 +2,7 @@ const router = require("express").Router();
 const passport = require("../../config/passport");
 const db = require("../../models");
 const authMiddleware = require ("../../config/middleware/authMiddleware");
+const userController = require ("../../controllers/userController");
 
 // /api/users/login
 // route to login the user
@@ -79,5 +80,8 @@ router.get("/admin", authMiddleware.isAdmin, function(req, res, next) {
         loggedIn: true
     });
 });
+
+router.route("/userGames/:id")
+    .get(userController.findById)
 
 module.exports = router;
