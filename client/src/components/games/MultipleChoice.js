@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class MultipleChoice extends React.Component {
 
     state = {
@@ -14,14 +15,21 @@ class MultipleChoice extends React.Component {
     }
 
     render() {
-        console.log("=============options");
-        console.log(this.state.options);
-            return (
-            this.state.options.map(choice => {
-                return (<>{choice}<br /></>);                           
-            })
-            )
-        
+
+        return (
+
+            <>
+            { this.state.options.map(choice => {
+                return (
+                <>
+                <input type='radio'/>
+                 {choice}<br/>
+                </>
+                );
+            })}
+            </>
+
+        )        
     }
 }
 
