@@ -294,4 +294,3 @@ export default class CreateGameForm extends Component {
     }
 }
 
-
