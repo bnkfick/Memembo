@@ -49,6 +49,12 @@ class Profile extends Component {
                 this.setState({
                     loggedIn: true,
                     user: user.data.user
+                }, () =>{
+                    API.getUserGames(this.state.user._id).then(
+                        res => this.setState({
+                            user: res.data
+                        })
+                    ).catch(err => console.log(err))
                 });
             }
             console.log(this.state.user);
@@ -76,9 +82,9 @@ class Profile extends Component {
                         <ul>
                             { this.state.user.gameArray.map(game => {
                                 return (
-                                    <li key = {`${game}`}>
-                                        <a key = {`${game}`} href={`/play/${game}`}>
-                                        {game}
+                                    <li key = {game._id}>
+                                        <a key = {game._id} href={`/play/${game._id}`}>
+                                            {game.gameName}
                                         </a>
                                     </li>
                                     );

@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default {
+    // populates the user with their games
+    getUserGames: function(id) {
+        return axios.get(`/api/users/userGames/${id}`);
+    },
     //logs in user
     login: function(loginInfo) {
         return axios.post("/api/users/login", loginInfo);
