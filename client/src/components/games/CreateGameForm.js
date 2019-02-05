@@ -110,10 +110,11 @@ export default class CreateGameForm extends Component {
                 gameCategoryType: this.state.gameCategoryType,
                 cardDetailsType: this.state.cardDetailsType,
                 userid: this.state.userid
+
             })
                 .then(res => {
-                    console.log("Game ID returned after save", res.data._id);
-                    this.setState({ game_id: res.data._id });
+                    console.log("Game ID returned after save", res);
+                    this.setState({ game_id: res.data});
                 })
                 .then((props)=> this.props.getGameInfo(this.state.game_id, this.state.gameCategories))
                 .catch(err => console.log(err));
