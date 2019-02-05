@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import API from "../utils/API"
-import { Row, Container, Col, Button, Form, FormGroup, Label, Input, Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle} from 'reactstrap';
+import { Row, Container, Col, Form, FormGroup, Label, Input, Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap';
 import CreateGameForm from '../components/games/CreateGameForm';
-import CardForm from '../components/games/CardForm';
-import CardItem from '../components/games/CardItem';
+// import CardForm from '../components/games/CardForm';
+import CardDisplay from '../components/games/CardDisplay';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
@@ -14,20 +13,20 @@ const StyledContainer = styled(Container)`
     border-radius: 5px;
     padding: 1rem 1rem 0 1rem;
 `
-const StyledButton = styled(Button)`
-    background-color: rgb(48, 19, 84);
-    border: 1px solid rgb(25, 9, 45);
-    font-size: 1.5rem;
-    width: 100%;
-    /* margin-left: 0 !important;
-    padding-left: 0 !important; */
+// const StyledButton = styled(Button)`
+//     background-color: rgb(48, 19, 84);
+//     border: 1px solid rgb(25, 9, 45);
+//     font-size: 1.5rem;
+//     width: 100%;
+//     /* margin-left: 0 !important;
+//     padding-left: 0 !important; */
 
-    &:hover{
-        background-color: rgb(25, 9, 45);
-        border: 1px solid white;
-        /* transform: scale(1.12); */
-    }
-`
+//     &:hover{
+//         background-color: rgb(25, 9, 45);
+//         border: 1px solid white;
+//         /* transform: scale(1.12); */
+//     }
+// `
 const FormButton =  styled(Container)`
     background-color: rgb(48, 19, 84);
     border: 1px solid rgb(25, 9, 45);
@@ -65,16 +64,31 @@ const StyledH5 = styled.h5`
     text-align: center;
 `
 export default class CreateGame extends Component {
-    state = {
-        games: [],
-        cards: [],
+    
+    constructor() {
+        super()
+        this.state = {
+            game_id: "",
+            gameCategories: [],
 
-        src: "",
-        cardName: "",
-        details: [],
-        category: ""
+            cardArray: [],
+            cardIdArray: [],
+            src: "",
+            cardName: "",
+            details: [],
+            category: ""
+        }
+        this.getGameInfo = this.getGameInfo.bind(this)
+        // this.handleClick = this.handleClick.bind(this)
     }
     
+    
+    
+    getGameInfo(id, gameCategories){
+        console.log("This is getGameId", id)
+        this.setState({ game_id: id, gameCategories: gameCategories })
+
+    };
     // componentDidMount() {
     //     this.loadGames();
     //     this.loadCards();
@@ -95,6 +109,7 @@ export default class CreateGame extends Component {
     //         )
     //         .catch(err => console.log(err))
     // };
+
 
     deleteCard = id => {
         API.deleteCard(id)
@@ -131,21 +146,34 @@ export default class CreateGame extends Component {
 
     handleCardSubmit = event => {
         event.preventDefault();
-        if (this.state.src && this.state.cardName && this.state.details && this.state.category) {
+        // if (this.state.src && this.state.cardName && this.state.details && this.state.category) {
             API.saveCard({
                 src: this.state.src,
                 cardName: this.state.cardName,
                 details: this.state.details,
                 category: this.state.category
             })
-        }
+            .then(res => {
+                console.log("Card ID returned after save", res.data._id);
+                this.setState({ cardIdArray: [...this.state.cardIdArray, res.data._id] });
+                this.setState({ cardArray: [...this.state.cardArray, res.data] });
+            })
+            .then(() => {
+            this.setState({src: "", cardName: "", details: [], category: "" })
+            })
+            // .then((props)=> this.props.getGameInfo(this.state.game_id, this.state.gameCategories))
+            .catch(err => console.log(err));
+        // }
     }
   
     render() {
     return (
         <>
+            
             <StyledContainer>
-                <CreateGameForm />
+                <CreateGameForm
+                    getGameInfo = {this.getGameInfo}
+                />
             </StyledContainer>
         
             <StyledContainer>
@@ -206,10 +234,14 @@ export default class CreateGame extends Component {
                                         onChange={this.handleSelectChange}
                                     >
                                         <option>Pick One</option>
-                                        <option>[gameCategories-1]</option>
-                                        <option>[gameCategories-2]</option>
-                                        <option>[gameCategories-3]</option>
-                                        <option>[gameCategories-4]</option>
+                                        {this.state.gameCategories.length ? (
+                                    <>
+                                        {
+                                            this.state.gameCategories.map(category => (
+                                                <option key={category}>{category}</option>
+                                            ))}
+                                    </>
+                                            ) : ("")}
                                     </Input>
                                 </Col>
                             </FormGroup>
@@ -234,27 +266,30 @@ export default class CreateGame extends Component {
                     </Row>
                     
                     <FormButton
-                        disabled={!(this.state.cardName && this.state.details && this.state.category)}
+                        // disabled={!(this.state.cardName && this.state.details && this.state.category)}
                         onClick={this.handleCardSubmit}
                     >
-                       ADD CARD
+                       {this.state.cardIdArray.length ? ( <>YOUR CARD SAVED!  ADD ANOTHER...</> ) : (<>ADD CARD</>)}
                     </FormButton>
                 </Form>
             </StyledContainer>
             <StyledContainer>
                 <StyledRow>
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
-                    <CardItem />
+                {this.state.cardArray.length ? (
+                    <>
+                        {
+                            this.state.cardArray.map(card => (
+                                <CardDisplay
+                                    key={card._id}
+                                    cardName={card.cardName}
+                                    src={card.src}
+                                    details={card.details}
+                                    category={card.category}
+
+                                />
+                            ))}
+                    </>
+                            ) : ("")}
                 </StyledRow>
                 <Form>    
                     <FormButton>
