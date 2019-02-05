@@ -311,6 +311,53 @@ class PlayGame extends React.Component {
         return true;
     }
 
+    createAnswerOption = (options, card) =>  {
+
+        var option = this.state.game.cardArray[Math.floor(Math.random() * this.state.game.cardArray.length)];
+        console.log(`option.details: ${option.details}`);
+        console.log(`card.details: ${card.details}`);
+        //if (DEBUG) console.log("card.details " + card.details);
+        //if (DEBUG) console.log("option.answer " + option.answer);
+        //if (DEBUG) console.log("options.indexOf(options['answer'] " + options.indexOf(options["answer"]));
+        //Stop a wrong answer from repeating within the answer choices array
+        //if the selected choice is the same as the answer try again
+        //or if the selected choice is already in the list of answer choices, try again
+        if (option.details.join('') === card.details.join('') || options.indexOf(option) !== -1) {
+            return this.createAnswerOption(options, card);
+        }
+
+        return option.details;
+    }
+
+    testExpert = (cardId) => {
+        console.log("testExpert");
+        console.log(cardId);
+
+        //get the card with the id
+        let tileIdx = this.state.game.cardArray.findIndex(tile => tile._id === cardId);
+        console.log(tileIdx);
+        let card = this.state.game.cardArray[tileIdx];
+        console.log(`card in testExpert: ${card}`);
+
+        // ====================================================
+
+        let options = []; //an array of 3 possible answers
+
+        let option1 = this.createAnswerOption(options, card);
+        options.push(option1);
+
+        var option2 = this.createAnswerOption(options, card);
+        options.push(option2);
+
+        //Add the actual answer to a random spot in the array
+        options.splice(Math.floor((Math.random() * options.length + 1)), 0, card.details);
+
+        console.log("OPTIONS", options);
+        return options;
+
+
+    }
+
     render() {
 
         if (this.isEmpty(this.state.game)) {
@@ -365,7 +412,7 @@ class PlayGame extends React.Component {
                         {
                             this.state.game.cardArray.map((card, index) => {
                                 return (
-                                    <Col sm={3} key={`col-${index}`}>
+                                    <Col sm={this.state.level === "3" ? "12" : "3"} key={`col-${index}`}>
                                         <CardItem
                                             id={card._id}
                                             key={card._id}
@@ -378,6 +425,7 @@ class PlayGame extends React.Component {
                                             gameInProgress={this.state.gameInProgress}
                                             handleClick={this.cardClick}
                                             handleClick2={this.nameCheck}
+                                            handleClick3={this.testExpert}
                                         />
                                     </Col>)
                             })

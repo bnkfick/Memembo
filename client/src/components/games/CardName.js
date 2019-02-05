@@ -20,7 +20,7 @@ class CardName extends React.Component {
   componentWillReceiveProps(props) {
     const { gameInProgress } = this.props.gameInProgress;
     if (props.gameInProgress !== gameInProgress && props.gameInProgress === false) {
-      this.setState({cardName: ""})
+      this.setState({ cardName: "" })
     }
   }
 
@@ -57,7 +57,9 @@ class CardName extends React.Component {
         </>);
       }
     } else {
-      return (<CardTitle>{this.props.name || "Card Title"}</CardTitle>);
+      return (
+        <CardTitle>{this.props.name || "Card Title"}</CardTitle>
+      );
     }
   }
 }
