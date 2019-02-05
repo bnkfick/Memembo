@@ -171,7 +171,8 @@ export default class CreateGame extends Component {
                 src: this.state.src,
                 cardName: this.state.cardName,
                 details: this.state.details,
-                category: this.state.category
+                category: this.state.category,
+                game_id: this.state.game_id
             })
             .then(res => {
                 console.log("Card ID returned after save", res.data._id);

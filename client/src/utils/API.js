@@ -72,7 +72,7 @@ export default {
         return axios.delete(`/api/cards/${id}`);
     },
     // Saves a card to the database
-    saveCard: function(cardData) {
+    saveCard: function(cardData, gameID) {
         return axios.post("/api/cards", cardData);
     }
 };
