@@ -27,6 +27,7 @@ module.exports = {
     
   },
   create: function(req, res) {
+    console.log("create game: ", req.body)
     db.Game
       .create({
         gameGroup: req.body.gameGroup,
@@ -36,7 +37,10 @@ module.exports = {
         gameCategoryType: req.body.gameCategoryType,
         cardDetailsType: req.body.cardDetailsType,
       })
-      .then((game) => db.Users.findOneAndUpdate({ _id: req.body.userid }, { $push: { gameArray: game._id } }, { new: true }))
+      .then((game) => {
+        console.log("game saved: ", req.body)
+        db.Users.findOneAndUpdate({ _id: req.body.userid }, { $push: { gameArray: game._id } }, { new: true })
+      })
       .then(user => res.json(user))
       .catch(err => res.status(422).json(err));
   },
