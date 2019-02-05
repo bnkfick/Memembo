@@ -64,6 +64,8 @@ const StyledH5 = styled.h5`
     text-align: center;
 `
 export default class CreateGame extends Component {
+
+    
     
     constructor() {
         super()
@@ -76,10 +78,27 @@ export default class CreateGame extends Component {
             src: "",
             cardName: "",
             details: [],
-            category: ""
+            category: "",
+            userid: ""
         }
         this.getGameInfo = this.getGameInfo.bind(this)
         // this.handleClick = this.handleClick.bind(this)
+    }
+
+    componentDidMount() {
+
+
+        API.isLoggedIn().then(user => {
+            if (user.data.loggedIn) {
+                this.setState({
+                    loggedIn: true,
+                    userid: user.data.user._id
+                })
+            }
+            console.log(this.state.userid);
+        }).catch(err => {
+            console.log(err);
+        });
     }
     
     
@@ -152,7 +171,8 @@ export default class CreateGame extends Component {
                 src: this.state.src,
                 cardName: this.state.cardName,
                 details: this.state.details,
-                category: this.state.category
+                category: this.state.category,
+                game_id: this.state.game_id
             })
             .then(res => {
                 console.log("Card ID returned after save", res.data._id);

@@ -27,9 +27,23 @@ module.exports = {
     
   },
   create: function(req, res) {
+    // console.log("create game: ", req.body)
+    let gameID = "";
     db.Game
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .create({
+        gameGroup: req.body.gameGroup,
+        audience: req.body.audience,
+        gameName: req.body.gameName,
+        gameCategories: req.body.gameCategories,
+        gameCategoryType: req.body.gameCategoryType,
+        cardDetailsType: req.body.cardDetailsType,
+      })
+      .then((game) => {
+        gameID = game._id
+        console.log("game id: ", game._id)
+        db.User.findOneAndUpdate({ _id: req.body.userid }, { $push: { gameArray: game._id } }, { new: true })
+      })
+      .then(user => res.json(gameID))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {

@@ -81,7 +81,12 @@ router.get("/admin", authMiddleware.isAdmin, function(req, res, next) {
     });
 });
 
+
 router.route("/userGames/:id")
     .get(userController.findById)
+    .put(userController.update)
+    .delete(userController.remove);
+
+
 
 module.exports = router;

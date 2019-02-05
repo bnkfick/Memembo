@@ -17,8 +17,16 @@ module.exports = {
   },
   create: function(req, res) {
     db.Card
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .create({
+        //Have to break out since also passing game_id that is not part of card
+        cardName: req.body.cardName,
+        src: req.body.src,
+        details: req.body.details,
+        category: req.body.category,
+        // clicked: false
+      })
+      .then((card) => db.Game.findOneAndUpdate({ _id: req.body.game_id }, { $push: { cardArray: card._id } }, { new: true }))
+      .then(game => res.json(game))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
