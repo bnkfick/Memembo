@@ -15,6 +15,8 @@ module.exports = {
             .findById(req.params.id)
             .populate("gameArray")
             .then(dbModel => {
+
+                
                 console.log("usercontroller");
                 console.log(dbModel);
                 res.json(dbModel);
