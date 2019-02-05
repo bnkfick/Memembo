@@ -100,14 +100,10 @@ export default class CreateGameForm extends Component {
         this.setState({ [name]: value })
     }
 
-    handleGameSubmit = (event) => {
+    handleGameSubmit = event => {
         event.preventDefault();
 
-        if (this.state.gameGroup 
-            && this.state.audience 
-            && this.state.gameName 
-            && this.state.gameCategories 
-            && this.state.cardDetailsType) {
+        if (this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType) {
             API.saveGame({
                 gameGroup: this.state.gameGroup,
                 audience: this.state.audience,
@@ -116,11 +112,10 @@ export default class CreateGameForm extends Component {
                 gameCategoryType: this.state.gameCategoryType,
                 cardDetailsType: this.state.cardDetailsType,
             })
-                .then(res =>  this.loadGame())
+                .then(res => this.loadGame())
                 .catch(err => console.log(err));
         }
     };
-    
     render() {
         return (
 
@@ -138,14 +133,23 @@ export default class CreateGameForm extends Component {
                                     onChange={this.handleSelectChange}
                                 >
                                     <option>Pick a Group</option>
+                                    <option>Art</option>
                                     <option>Coding</option>
                                     <option>Food & Drink</option>
                                     <option>Geography</option>
+                                    <option>History</option>
                                     <option>Language</option>
                                     <option>Law</option>
                                     <option>Math</option>
+                                    <option>Music</option>
+                                    <option>Parenting</option>
                                     <option>Politics</option>
-                                    <option>Science</option>
+                                    <option>Pop-Culture</option>
+                                    <option>Science-Biology</option>
+                                    <option>Science-Chemistry</option>
+                                    <option>Science-Geology</option>
+                                    <option>Science-Medical</option>
+                                    <option>Science-Zoology</option>
                                     <option>Create New Group</option>
 
                                 </Input>
@@ -288,5 +292,4 @@ export default class CreateGameForm extends Component {
         )
     }
 }
-
 
