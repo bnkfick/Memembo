@@ -28,8 +28,16 @@ module.exports = {
   },
   create: function(req, res) {
     db.Game
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
+      .create({
+        gameGroup: req.body.gameGroup,
+        audience: req.body.audience,
+        gameName: req.body.gameName,
+        gameCategories: req.body.gameCategories,
+        gameCategoryType: req.body.gameCategoryType,
+        cardDetailsType: req.body.cardDetailsType,
+      })
+      .then((game) => db.Users.findOneAndUpdate({ _id: req.body.userid }, { $push: { gameArray: game._id } }, { new: true }))
+      .then(user => res.json(user))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {

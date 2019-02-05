@@ -64,7 +64,7 @@ export default class CreateGameForm extends Component {
                     userid: user.data.user._id
                 })
             }
-            console.log(this.state.userid);
+            console.log("User ID: ", this.state.userid);
         }).catch(err => {
             console.log(err);
         });
