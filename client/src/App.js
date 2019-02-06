@@ -8,10 +8,11 @@ import Auth from './pages/Auth'
 import Profile from './pages/Profile';
 //import PlayGame from ".pages/PlayGame"
 import PlayGame   from './pages/PlayGame'
-import Search     from './components/header/Search'
+// import Search     from './components/header/Search'
 
 import "./App.css";
-import styled from 'styled-components'
+// import styled from 'styled-components'
+
 
 
 
@@ -19,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-      <div>
+      <>
         <Header />
         <Switch>
           <Route exact path='/' component={ Dashboard } />
@@ -33,7 +34,7 @@ class App extends Component {
           {/* <Route exact path='/search' component={ Search } /> */}
           <Route component={NoMatch} />
         </Switch>
-      </div>
+      </>
       </Router>
     );
   }
