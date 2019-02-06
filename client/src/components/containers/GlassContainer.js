@@ -14,12 +14,8 @@ const StyledContainer = styled(Container)`
     -webkit-backdrop-filter: blur(5px); 
 `
 
-const GlassContainer = () => {
-  return (
-    <StyledContainer>
-          
-    </StyledContainer>
-  );
-};
+const GlassContainer = (
+  <StyledContainer />
+) 
 
 export default GlassContainer;

@@ -9,32 +9,36 @@ import Profile from './pages/Profile';
 //import PlayGame from ".pages/PlayGame"
 import PlayGame   from './pages/PlayGame'
 import Search     from './components/header/Search'
+import styled from 'styled-components'
+import GlobalStyle from './theme/GlobalStyle'
 
-import "./App.css";
-// import styled from 'styled-components'
-
-
+const AppWrapper = styled.div`
+  margin-top: 6rem;
+`
 
 
 class App extends Component {
   render() {
     return (
       <Router>
-      <>
-        <Header />
-        <Switch>
-          <Route exact path='/' component={ Dashboard } />
-          <Route exact path='/dashboard' component={ Dashboard } />
-          <Route exact path='/create-game' component={ CreateGame } />
-          <Route exact path='/play/' component={ PlayGame } />
-          <Route exact path='/play/:id' component={ PlayGame } />
-          <Route exact path='/login' render={(props) => <Auth {...props} action="login" />} />
-          <Route exact path="/signup" render={(props) => <Auth {...props} action="signup" />} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path='/search' component={ Search } />
-          <Route component={NoMatch} />
-        </Switch>
-      </>
+        <>
+          <GlobalStyle />
+          <AppWrapper>
+            <Header />
+            <Switch>
+              <Route exact path='/' component={ Dashboard } />
+              <Route exact path='/dashboard' component={ Dashboard } />
+              <Route exact path='/create-game' component={ CreateGame } />
+              <Route exact path='/play/' component={ PlayGame } />
+              <Route exact path='/play/:id' component={ PlayGame } />
+              <Route exact path='/login' render={(props) => <Auth {...props} action="login" />} />
+              <Route exact path="/signup" render={(props) => <Auth {...props} action="signup" />} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path='/search' component={ Search } />
+              <Route component={NoMatch} />
+            </Switch>
+          </AppWrapper>
+        </>
       </Router>
     );
   }

@@ -1,15 +1,11 @@
 import React, { Component} from 'react';
 import API from "../utils/API"
 import { Row, Container, Col, Form, FormGroup, Label, Input, Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap';
-
 import CreateGameForm from '../components/games/CreateGameForm';
-// import CardForm from '../components/games/CardForm';
 import CardDisplay from '../components/games/CardDisplay';
 import styled from 'styled-components';
+// import GlassContainer from '../theme/GlassContainer'
 
-const Buffer = styled.div`
-    height: 6rem;
-`
 const StyledContainer = styled(Container)`
     margin: 2rem auto;
     width: 100%;
@@ -167,7 +163,6 @@ export default class CreateGame extends Component {
     render() {
     return (
         <>
-            <Buffer></Buffer>
             <StyledContainer>
                 <CreateGameForm
                     getGameInfo = {this.getGameInfo}
