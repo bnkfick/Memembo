@@ -50,7 +50,8 @@ class PlayGame extends React.Component {
             msg: "",
             msgcolor: "info",
             user: '',
-            loggedIn: false
+            loggedIn: false,
+            expertUserAnswers: []
         };
     }
 
@@ -69,10 +70,34 @@ class PlayGame extends React.Component {
         });
     }
 
+    componentDidMount() {
+        let id = undefined;
+        if (this.props.match.params) {
+            id = this.props.match.params.id; //game._id
+        }
+
+        API.getGame(id)
+            .then(res => {
+                let array = this.shuffle(res.data.cardArray);
+                let dbgame = res.data;
+                dbgame.cardArray = array;
+                API.isLoggedIn()
+                    .then(user => {
+                        this.setState({
+                            loggedIn: user.data.loggedIn,
+                            user: user.data.user,
+                            game: dbgame
+                        })
+                    }).catch(err => {
+                        console.log(err);
+                    });
+            })
+            .catch(err => console.log(err));
+    }
+
     //== LEVEL TWO (ADVANCED) Game Checker
     nameCheck = (level, cardId, cardName) => {
 
-        console.log("nameCheck");
         // Check to see that it is not an empty string
         // Check to see if the answer is correct
         // In order to check and see if the answer is correct
@@ -86,7 +111,7 @@ class PlayGame extends React.Component {
 
         let gameOver = this.allAnswered(newGame.cardArray);
         // == Check to see if the userInput answer matches the stored/correct answer
-        if (cardName !== newGame.cardArray[tileIdx].cardName) {
+        if (cardName.toLowerCase() !== newGame.cardArray[tileIdx].cardName.toLowerCase()) {
             if (gameOver) {
                 this.setState({
                     msg: "Wrong Answer. GAME OVER.  Play Again.",
@@ -201,6 +226,40 @@ class PlayGame extends React.Component {
         }
     };
 
+    checkQuiz = () => {
+
+        let newScore = this.state.score;
+
+        if (this.state.expertUserAnswers.length == this.state.game.cardArray.length) {
+            console.log("You've answered all the questions");
+            //check answers
+            for (let i = 0; i < this.state.game.cardArray.length; i++) {
+                let cardId = this.state.game.cardArray[i]._id;
+                                         
+                let tileIdx = this.state.expertUserAnswers.findIndex(tile => tile._id === cardId);
+
+                if (this.state.game.cardArray[i].details.join('') ===
+                    this.state.expertUserAnswers[tileIdx].details.join('') ) {
+                    console.log("CORRECT ANSSER");
+                    newScore++;
+                    
+                } else {
+                    console.log("WRONG ANSWER");
+                }
+            }
+            this.setState({
+                score: newScore,
+                msg: "YOU GOT " + newScore + "/" + this.state.game.cardArray.length + " CORRECT"
+            });
+
+
+         } else {
+            this.setState({
+                msg: `You've only answered ${this.state.expertUserAnswers.length} questions out of ${this.state.game.cardArray.length}`
+            });
+        }
+
+    }
 
     checkHighScore = (currentScore) => {
         //-- Already incremented if correct answer, but not setState yet --//
@@ -213,31 +272,6 @@ class PlayGame extends React.Component {
         } else {
             return newHiScore;
         }
-    }
-
-    componentDidMount() {
-        let id = undefined;
-        if (this.props.match.params) {
-            id = this.props.match.params.id;
-        }
-
-        API.getGame(id)
-            .then(res => {
-                let array = this.shuffle(res.data.cardArray);
-                let dbgame = res.data;
-                dbgame.cardArray = array;
-                API.isLoggedIn()
-                    .then(user => {
-                        this.setState({
-                            loggedIn: user.data.loggedIn,
-                            user: user.data.user,
-                            game: dbgame
-                        })
-                    }).catch(err => {
-                        console.log(err);
-                    });
-            })
-            .catch(err => console.log(err));
     }
 
     resetGame = (level) => {
@@ -311,14 +345,29 @@ class PlayGame extends React.Component {
         return true;
     }
 
-    createAnswerOption = (options, card) =>  {
+    // == THIS IS CALLED WHEN A RADIO BUTTON IS SELECTED ON THE EXPERT PAGE
+    handleSelect = (cardId, userAnswer) => {
+    //NOT SURE WHY userAnswer details is userAnswer.choice
+        let newAnswers = [...this.state.expertUserAnswers];
+        let tileIdx = newAnswers.findIndex(tile => tile._id === cardId);
+
+        //check to see if this answer is already in the array
+        if (tileIdx > -1) {
+            newAnswers[tileIdx] = { _id: cardId, details: userAnswer.choice };
+        } else {
+            newAnswers.push({ _id: cardId, details: userAnswer.choice });
+        }
+        //set the user selection on an array
+        this.setState({
+            expertUserAnswers: newAnswers
+        })
+    }
+
+    //  == THIS SELECTS A RANDOM ANSWER FROM ALL POSSIBLE ANSWERS ==//
+    //  == FOR THE EXPERT MULTIPLE CHOICE OPTIONS ==//
+    createAnswerOption = (options, card) => {
 
         var option = this.state.game.cardArray[Math.floor(Math.random() * this.state.game.cardArray.length)];
-        console.log(`option.details: ${option.details}`);
-        console.log(`card.details: ${card.details}`);
-        //if (DEBUG) console.log("card.details " + card.details);
-        //if (DEBUG) console.log("option.answer " + option.answer);
-        //if (DEBUG) console.log("options.indexOf(options['answer'] " + options.indexOf(options["answer"]));
         //Stop a wrong answer from repeating within the answer choices array
         //if the selected choice is the same as the answer try again
         //or if the selected choice is already in the list of answer choices, try again
@@ -329,15 +378,13 @@ class PlayGame extends React.Component {
         return option.details;
     }
 
-    testExpert = (cardId) => {
-        console.log("testExpert");
-        console.log(cardId);
+    //  == FOR THE EXPERT MULTIPLE CHOICE OPTIONS ==//
+    //  == MAKE AN ARRAY OF MULTIPLE ANSWERS BASED ON POSSIBLE ANSWERS
+    makeChoices = (cardId) => {
 
         //get the card with the id
         let tileIdx = this.state.game.cardArray.findIndex(tile => tile._id === cardId);
-        console.log(tileIdx);
         let card = this.state.game.cardArray[tileIdx];
-        console.log(`card in testExpert: ${card}`);
 
         // ====================================================
 
@@ -352,11 +399,11 @@ class PlayGame extends React.Component {
         //Add the actual answer to a random spot in the array
         options.splice(Math.floor((Math.random() * options.length + 1)), 0, card.details);
 
-        console.log("OPTIONS", options);
         return options;
 
 
     }
+
 
     render() {
 
@@ -394,8 +441,8 @@ class PlayGame extends React.Component {
                         </DropdownToggle>
                         <DropdownMenu>
                             {
-                                this.state.game.gameCategories.map(category => {
-                                    return (<DropdownItem onClick={this.select}>{category}</DropdownItem>)
+                                this.state.game.gameCategories.map((category, index) => {
+                                    return (<DropdownItem key={`${this.state.game._id}-${category}`} onClick={this.select}>{category}</DropdownItem>)
                                 })
                             }
                         </DropdownMenu>
@@ -423,9 +470,10 @@ class PlayGame extends React.Component {
                                             category={card.category}
                                             clicked={card.clicked}
                                             gameInProgress={this.state.gameInProgress}
-                                            handleClick={this.cardClick}
-                                            handleClick2={this.nameCheck}
-                                            handleClick3={this.testExpert}
+                                            handleClick={this.cardClick}      //BEGINNER
+                                            nameCheck={this.nameCheck}        //ADVANCED
+                                            makeChoices={this.makeChoices}    //EXPERT
+                                            handleSelect={this.handleSelect}  //EXPERT
                                         />
                                     </Col>)
                             })
@@ -433,7 +481,15 @@ class PlayGame extends React.Component {
                     </Row>
                 </StyledContainer>
                 {/* =================== END DISPLAY THE GAME CARDS =================== */}
-
+                {this.state.level === "3" ?
+                    (<StyledButton
+                        onClick={() => this.checkQuiz()}
+                        color="primary">Submit</StyledButton>)
+                    : ""
+                }
+                <StyledButton
+                        onClick={() => this.resetGame()}
+                        color="danger">Reset Game</StyledButton>
             </>
         );
     }
