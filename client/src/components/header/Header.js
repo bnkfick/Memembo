@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import Search from './Search';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Container, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import styled from 'styled-components';
 
+const StyledNavbar = styled(Navbar)`
+  overflow: hidden;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 1000;
+`
 const StyledRow = styled.div `
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `
-const StyledNavbarBrand = styled(NavbarBrand)`
-  color: rgb(232, 216, 255);
+const StyledNavbarBrand = styled.a`
+  /* color: rgba(95, 5, 250, 1); */
+  font-family: 'Fredericka the Great', cursive;
   font-size: 2.5rem;
   font-weight: bold;
   letter-spacing: 0.35rem;
+  /* margin-right: 3rem; */
   padding: 0;
+
 `
 
 export default class Header extends Component {
@@ -34,8 +44,9 @@ export default class Header extends Component {
   }
   render() {
     return (
-      <>
-        <Navbar color="dark" dark>
+      
+        <StyledNavbar color="dark" dark>
+        <Container>
           <StyledRow>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             {/* <NavbarSearch> */}
@@ -60,8 +71,10 @@ export default class Header extends Component {
               </NavItem>
             </Nav>
           </Collapse>
-        </Navbar>
-      </>
+          </Container>
+        </StyledNavbar>
+      
+    
     );
   }
 }
