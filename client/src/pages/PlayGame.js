@@ -98,7 +98,6 @@ class PlayGame extends React.Component {
     //== LEVEL TWO (ADVANCED) Game Checker
     nameCheck = (level, cardId, cardName) => {
 
-        console.log("nameCheck");
         // Check to see that it is not an empty string
         // Check to see if the answer is correct
         // In order to check and see if the answer is correct
@@ -112,7 +111,7 @@ class PlayGame extends React.Component {
 
         let gameOver = this.allAnswered(newGame.cardArray);
         // == Check to see if the userInput answer matches the stored/correct answer
-        if (cardName !== newGame.cardArray[tileIdx].cardName) {
+        if (cardName.toLowerCase() !== newGame.cardArray[tileIdx].cardName.toLowerCase()) {
             if (gameOver) {
                 this.setState({
                     msg: "Wrong Answer. GAME OVER.  Play Again.",
@@ -228,20 +227,16 @@ class PlayGame extends React.Component {
     };
 
     checkQuiz = () => {
-        console.log("check quiz");
+
         let newScore = this.state.score;
-        console.log(this.state.expertUserAnswers);
-        //if (this.state.expertUserAnswers.length == this.state.game.cardArray.length) {
+
+        if (this.state.expertUserAnswers.length == this.state.game.cardArray.length) {
             console.log("You've answered all the questions");
             //check answers
             for (let i = 0; i < this.state.game.cardArray.length; i++) {
                 let cardId = this.state.game.cardArray[i]._id;
                                          
                 let tileIdx = this.state.expertUserAnswers.findIndex(tile => tile._id === cardId);
-                console.log(tileIdx);
-                console.log(this.state.game.cardArray[i].details);
-                console.log(this.state.expertUserAnswers[tileIdx].details);
-
 
                 if (this.state.game.cardArray[i].details.join('') ===
                     this.state.expertUserAnswers[tileIdx].details.join('') ) {
@@ -256,11 +251,13 @@ class PlayGame extends React.Component {
                 score: newScore,
                 msg: "YOU GOT " + newScore + "/" + this.state.game.cardArray.length + " CORRECT"
             });
-            this.resetGame("3");
 
-        // } else {
-        //     console.log(`You've answered ${this.state.expertUserAnswers.length} question out of ${this.state.game.cardArray.length}`);
-        //}
+
+         } else {
+            this.setState({
+                msg: `You've only answered ${this.state.expertUserAnswers.length} questions out of ${this.state.game.cardArray.length}`
+            });
+        }
 
     }
 
@@ -490,6 +487,9 @@ class PlayGame extends React.Component {
                         color="primary">Submit</StyledButton>)
                     : ""
                 }
+                <StyledButton
+                        onClick={() => this.resetGame()}
+                        color="danger">Reset Game</StyledButton>
             </>
         );
     }
