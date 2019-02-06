@@ -119,7 +119,7 @@ class PlayGame extends React.Component {
                     game: newGame,
                     gameInProgress: true
                 });
-                this.resetGame();
+                this.resetGame(this.state.level);
             } else {
                 this.setState({
                     msg: "Wrong Answer. Try Again.",
@@ -142,7 +142,7 @@ class PlayGame extends React.Component {
                     game: newGame,
                     gameInProgress: true
                 })
-                this.resetGame();
+                this.resetGame(this.state.level);
             } else {
                 this.setState({
                     msg: "+1 Good Answer!",
@@ -177,14 +177,14 @@ class PlayGame extends React.Component {
         }
         // == Copy cardArray to flip clicked flag ==/
         const updatedTiles = [...this.state.game.cardArray];
-        console.log(updatedTiles);
+
         // == Get the index of the clicked card
         let tileIdx = updatedTiles.findIndex(tile => tile._id === clickedId);
-        console.log(tileIdx);
+
         // check if this tile has been clicked before
         // == If the tile has already been clicked, prompt the user
         if (this.state.game.cardArray[tileIdx].clicked === true) {
-            console.log("You've clicked this already");
+
             this.setState({
                 msg: "You've clicked that Tile already. Try Again.",
                 msgcolor: "warning"
@@ -200,7 +200,7 @@ class PlayGame extends React.Component {
                 msg: "Wrong Answer. Try Again.",
                 msgcolor: "danger"
             });
-            this.resetGame();
+            this.resetGame(this.state.level);
         } else {
             let newScore = this.state.score;
             newScore++;
@@ -211,7 +211,7 @@ class PlayGame extends React.Component {
                     msgcolor: "success",
                     highScore: this.checkHighScore(newScore),
                 });
-                this.resetGame();
+                this.resetGame(this.state.level);
             } else {
                 //DRY THIS UP ALSO IN nameCheck
                 updatedTiles[tileIdx].clicked = true;
@@ -291,7 +291,7 @@ class PlayGame extends React.Component {
             game: newGame,
             gameInProgress: newGameInProgress,
             score: 0,
-            level: selectedLevel
+            level: selectedLevel,
         });
         return true;
     };
@@ -488,7 +488,7 @@ class PlayGame extends React.Component {
                     : ""
                 }
                 <StyledButton
-                        onClick={() => this.resetGame()}
+                        onClick={() => this.resetGame(this.state.level)}
                         color="danger">Reset Game</StyledButton>
             </>
         );
