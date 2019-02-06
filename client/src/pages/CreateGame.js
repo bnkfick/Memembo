@@ -44,20 +44,28 @@ const StyledRow = styled(Row)`
     justify-content: space-evenly;
 `
 const StyledCard = styled(Card)`
-    background-color: rgba(19, 18, 18, 0.45);
-    backdrop-filter: blur(5px);   
-    -webkit-backdrop-filter: blur(5px);
+    background-color: rgb(25, 9, 45);
     border: 1px solid white;
-    width: 80%;
-    margin: auto;
+    max-width: 25rem;
+    margin: 0 auto 1em auto;
+
+    h5 {
+      text-align: center;
+      border-bottom: 1px solid white;
+    }
+`
+const StyledDiv = styled.div`
+  width: 100%;
+  height: 25rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 `
 const StyledCardImg = styled(CardImg)`
-    max-height: 23rem;
+  min-height: 100%;
+  min-width: 100%;
 `
-const StyledH5 = styled.h5`
-    margin: 1.5rem auto;
-    text-align: center;
-`
+
 export default class CreateGame extends Component {
 
     
@@ -139,7 +147,7 @@ export default class CreateGame extends Component {
 
     handleCardSubmit = event => {
         event.preventDefault();
-        if (this.state.src && this.state.cardName && this.state.details && this.state.category) {
+        // if (this.state.src && this.state.cardName && this.state.details && this.state.category) {
             API.saveCard({
                 src: this.state.src,
                 cardName: this.state.cardName,
@@ -148,16 +156,16 @@ export default class CreateGame extends Component {
                 game_id: this.state.game_id
             })
             .then(res => {
-                console.log("Card ID returned after save", res.data._id);
+                console.log("Card Data: ", res.data);
                 this.setState({ cardIdArray: [...this.state.cardIdArray, res.data._id] });
                 this.setState({ cardArray: [...this.state.cardArray, res.data] });
             })
             .then(() => {
             this.setState({src: "", cardName: "", details: [], category: "" })
             })
-            .then((props)=> this.props.getGameInfo(this.state.game_id, this.state.gameCategories))
+            // .then((props)=> this.props.getGameInfo(this.state.game_id, this.state.gameCategories))
             .catch(err => console.log(err));
-        }
+        // }
     }
   
     render() {
@@ -241,35 +249,37 @@ export default class CreateGame extends Component {
                         </Col>
                         <Col sm={6}>
                             <StyledCard >
+                                <StyledDiv style={{backgroundImage: `url(${this.state.src || "https://dummyimage.com/500x500/623bd9/efeff2.png&text=Square+Images+Look+Best!"})`}}>
                                 <StyledCardImg
-                                    src={ this.state.src || "https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg"}
+                                    src={ this.state.src || "https://dummyimage.com/500x500/623bd9/efeff2.png&text=Square+Images+Look+Best!"}
                                     alt="Card image cap" 
                                 />
+                                </StyledDiv>
                                 <CardBody>
-                                    <CardTitle>
+                                    <h5>
                                         { this.state.cardName || "Card Name..."}
-                                    </CardTitle>
-                                    <CardText>
+                                    </h5>
+                                    <p>
                                         { this.state.details || "Card Details..."}
-                                    </CardText>
+                                    </p>
+                                    <p>Card Category (Hidden): {this.state.category}</p>
                                 </CardBody>
                             </StyledCard>
-                            <StyledH5>Card Category (Hidden): {this.state.category}</StyledH5>
                         </Col>
                     </Row>
                     
                     <FormButton
-                        disabled={!(this.state.cardName && this.state.details && this.state.category)}
+                        // disabled={!(this.state.cardName && this.state.details && this.state.category)}
                         onClick={this.handleCardSubmit}
                     >
                        {this.state.cardIdArray.length ? ( <>YOUR CARD SAVED!  ADD ANOTHER...</> ) : (<>ADD CARD</>)}
                     </FormButton>
                 </Form>
             </StyledContainer>
-            <StyledContainer>
-                <StyledRow>
+            
                 {this.state.cardArray.length ? (
-                    <>
+                    <StyledContainer>
+                    <StyledRow>
                         {
                         this.state.cardArray.map(card => (
                             <CardDisplay
@@ -281,10 +291,10 @@ export default class CreateGame extends Component {
 
                             />
                         ))}
-                    </>
-                        ) : ("")}
-                </StyledRow>
+                 </StyledRow>
             </StyledContainer>
+                        ) : (<></>)}
+                
     </>
     );
   }
