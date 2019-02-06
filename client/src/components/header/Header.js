@@ -22,6 +22,7 @@ const StyledNavbarBrand = styled.a`
   font-size: 2.5rem;
   font-weight: bold;
   letter-spacing: 0.35rem;
+  margin-right: 3rem;
   padding: 0;
 
 `
