@@ -1,6 +1,14 @@
 import axios from "axios";
 
 export default {
+
+    updateUserGames: function(id) {
+        return axios.put(`/api/users/userGames/${id}`);
+    },
+    // populates the user with their games
+    getUserGames: function(id) {
+        return axios.get(`/api/users/userGames/${id}`);
+    },
     //logs in user
     login: function(loginInfo) {
         return axios.post("/api/users/login", loginInfo);
@@ -64,7 +72,7 @@ export default {
         return axios.delete(`/api/cards/${id}`);
     },
     // Saves a card to the database
-    saveCard: function(cardData) {
+    saveCard: function(cardData, gameID) {
         return axios.post("/api/cards", cardData);
     }
 };

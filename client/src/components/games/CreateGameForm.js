@@ -49,26 +49,26 @@ export default class CreateGameForm extends Component {
             gameCategories: [],
             gameCategoryType: "",
             cardDetailsType: "",
+            userid: ""
         }
        
     }
     
-    // componentDidUpdate() {
-    //     this.props.getGameId(this.state.game_id)
-    // }
+    componentDidMount() {
 
-    // loadGame = (res) => {
-    //     console.log("Game ID to be retrieved from DB:", res.data._id);
-    //     alert(`${res.data.gameName} Saved Successfully!`);
-    //     let id = res.data._id
-     
-    //     API.getGame(id)
-    //         .then(res => {
-    //             console.log("Game ID from database: ", res.data._id);
-    //             this.setState({ _id: res.data._id, gameGroup: res.data.gameGroup, audience: res.data.audience, gameName: res.data.gameName, gameCategories: res.data.gameCategories, gameCategoryType: res.data.gameCategoryType, cardDetailsType: res.data.cardDetailsType });
-    //         })
-    //         .catch(err => console.log(err))
-    // };
+
+        API.isLoggedIn().then(user => {
+            if (user.data.loggedIn) {
+                this.setState({
+                    loggedIn: true,
+                    userid: user.data.user._id
+                })
+            }
+            console.log("User ID: ", this.state.userid);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -109,10 +109,12 @@ export default class CreateGameForm extends Component {
                 gameCategories: this.state.gameCategories,
                 gameCategoryType: this.state.gameCategoryType,
                 cardDetailsType: this.state.cardDetailsType,
+                userid: this.state.userid
+
             })
                 .then(res => {
-                    console.log("Game ID returned after save", res.data._id);
-                    this.setState({ game_id: res.data._id });
+                    console.log("Game ID returned after save", res);
+                    this.setState({ game_id: res.data});
                 })
                 .then((props)=> this.props.getGameInfo(this.state.game_id, this.state.gameCategories))
                 .catch(err => console.log(err));
