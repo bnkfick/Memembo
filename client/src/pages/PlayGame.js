@@ -270,10 +270,10 @@ class PlayGame extends React.Component {
         } else if (this.state.highScore === this.state.game.cardArray.length) {
             return this.state.game.cardArray.length;
         } else {
-            console.log(this.state.user);
-            if (this.state.user != undefined && this.state.user != '') {
-                API.setHighScore(this.state.user._id, {game: this.state.game._id, highScore: newHiScore});
-            }
+            // console.log(this.state.user);
+            // if (this.state.user != undefined && this.state.user != '') {
+            //     API.setHighScore(this.state.user._id, {game: this.state.game._id, highScore: newHiScore});
+            // }
             return newHiScore;
         }
     }

@@ -24,10 +24,13 @@ const ExpertWrapper = styled.div`
 `
 
 const AnswerContainer = styled.div`
+    position: relative;
     background-color: rgb(25, 9, 45);
     border: 1px solid white;
-    max-width: 15rem;
+    max-width: 40rem;
     height:100%;
+    text-align: left;
+    padding: 2rem;
     margin-bottom:1em;
     border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
 `
