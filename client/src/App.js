@@ -8,7 +8,7 @@ import Auth from './pages/Auth'
 import Profile from './pages/Profile';
 //import PlayGame from ".pages/PlayGame"
 import PlayGame   from './pages/PlayGame'
-// import Search     from './components/header/Search'
+import Search     from './components/header/Search'
 
 import "./App.css";
 // import styled from 'styled-components'

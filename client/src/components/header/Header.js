@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Container, Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import styled from 'styled-components';
 
 const StyledNavbar = styled(Navbar)`
@@ -46,6 +46,7 @@ export default class Header extends Component {
     return (
       
         <StyledNavbar color="dark" dark>
+        <Container>
           <StyledRow>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             {/* <NavbarSearch> */}
@@ -70,7 +71,9 @@ export default class Header extends Component {
               </NavItem>
             </Nav>
           </Collapse>
+          </Container>
         </StyledNavbar>
+      
     
     );
   }

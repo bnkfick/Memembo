@@ -80,14 +80,13 @@ export default class CreateGameForm extends Component {
         // console.log([name]);
         // console.log([value]);
         if ([name][0] === 'gameCategories') {
-            let gameCategories = ([value][0].split(", "));
-            console.log(gameCategories);
+            let gameCategories = ([value][0].split(",").map(function(a){return a.trim()}));
             this.setState({ gameCategories: gameCategories });
         } else {
             this.setState({ [name]: value });
         }
     };
-
+    // this.setState({ cardIdArray: [...this.state.cardIdArray, res.data._id] });
 
     // https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react
     handleSelectChange = event => {
