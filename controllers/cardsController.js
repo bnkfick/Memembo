@@ -27,7 +27,7 @@ module.exports = {
         // clicked: false
       })
       .then((card) => {
-      // cardAdded = card;
+      // cardAdded = card;f
       // console.log("Card Object: ", card)
       db.Game.findOneAndUpdate({ _id: req.body.game_id }, { $push: { cardArray: card._id } }, { new: true })
       })
