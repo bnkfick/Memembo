@@ -31,7 +31,7 @@ class App extends Component {
           <Route exact path='/login' render={(props) => <Auth {...props} action="login" />} />
           <Route exact path="/signup" render={(props) => <Auth {...props} action="signup" />} />
           <Route exact path="/profile" component={Profile} />
-          {/* <Route exact path='/search' component={ Search } /> */}
+          <Route exact path='/search' component={ Search } />
           <Route component={NoMatch} />
         </Switch>
       </>

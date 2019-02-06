@@ -49,7 +49,7 @@ export default class Header extends Component {
           <StyledRow>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             {/* <NavbarSearch> */}
-              <Search />
+              {/* <Search /> */}
             {/* </NavbarSearch> */}
              <StyledNavbarBrand href="/">M&#477;&#8901;mem&#8901;bo&#772;</StyledNavbarBrand>
           </StyledRow>
