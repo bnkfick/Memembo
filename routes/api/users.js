@@ -82,6 +82,44 @@ router.get("/admin", authMiddleware.isAdmin, function(req, res, next) {
 });
 
 
+router.post("/userScores/:id", function(req,res,next) {
+    console.log("/api/userScores/:id");
+    console.log(req.body);
+    // == This should only be called if a user is logged in
+    // == checking is a precaution
+    if (!req.body.userid && !req.params.id) {
+        console.log("NO USER ID");
+        return res.end();
+    }
+
+    // db.User
+    // .findOneAndUpdate({ _id: req.params.id, highScores: [{gameid: req.body.gameId}]}, 
+    //                   {$push: {req.body.highScore}})
+    // .then((data) => {
+    //     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    //     console.log(data);
+    //     res.json(dbModel)
+    // })
+    // .catch(err => res.status(422).json(err));
+
+    // db.User.findOne({_id: req.body.userid, highScore: [{gameid: req.body.gameId}]}, 
+    //     function(err, gameHiScore) {
+    //         if (err) throw err;
+    //         if (gameHiScore) {
+    //             console.log("gameHiScore already exists");
+    //             return res.json("gameHiScore already exists");
+    //     }
+    //     if (!gameHiScore) {
+    //         let newHiScore = new db.User({
+    //             highScore: req.body.username,
+    //             gameId: req.body.password
+    //         })
+    //     }
+    // });
+});
+
+    
+
 router.route("/userGames/:id")
     .get(userController.findById)
     .put(userController.update)
