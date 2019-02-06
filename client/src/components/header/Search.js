@@ -28,11 +28,12 @@ const SearchInput = styled(Input)`
     background-color: rgb(232, 216, 255);
 `
 
-const Search = () => {
+const Search = (props) => {
     return (
         <>
             <StyledInputGroup>
-                <SearchInput
+                <SearchInput 
+                    onChange={props.onChange}
                     placeholder="Search Games"
                 />
                 <InputGroupAddon addonType="append">
