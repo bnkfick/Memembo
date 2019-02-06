@@ -50,15 +50,7 @@ class GameList extends Component {
             // console.log(res.data);
             this.setState({
                games: res.data
-            },() =>{
-                API.getUserGames(this.state.user._id).then(
-                    res => this.setState({
-                        user: res.data
-                    })
-                ).catch(err => console.log(err))
-            }, () => {
-                console.log(this.state.games);
-            });
+            })
         }).catch(err => console.log(err));
     }
 
