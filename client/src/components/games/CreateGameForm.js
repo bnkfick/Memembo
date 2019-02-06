@@ -75,7 +75,7 @@ export default class CreateGameForm extends Component {
         // console.log([name]);
         // console.log([value]);
         if ([name][0] === 'gameCategories') {
-            let gameCategories = ([value][0].split(", "));
+            let gameCategories = ([value][0].split(",")).map(function(a){return a.trim()});
             console.log(gameCategories);
             this.setState({ gameCategories: gameCategories });
         } else {

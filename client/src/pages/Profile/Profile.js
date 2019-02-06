@@ -32,6 +32,37 @@ const FormButton =  styled(Container)`
     }
         
 `
+const GameButton = styled(Container)`
+    background-color: rgb(48, 19, 84);
+    border: 1px solid rgb(25, 9, 45);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    height: 20rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+
+    padding-top: 0.75rem;
+    text-align: center;
+    width: calc(20% + 2rem);
+
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
+                        2px 2px 2px inset rgba(255,255,255,0.5), 
+                        -2px -2px 2px inset rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
+                     2px 2px 2px inset rgba(255,255,255,0.5), 
+                    -2px -2px 2px inset rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
+                2px 2px 2px inset rgba(255,255,255,0.5), 
+                -2px -2px 2px inset rgba(0,0,0,0.2);
+  
+
+    &:hover{
+        background-color: rgb(25, 9, 45);
+        border: 1px solid white;
+        cursor: pointer
+}
+`
 
 class Profile extends Component {
     state = {
@@ -79,17 +110,16 @@ class Profile extends Component {
                 {this.state.loggedIn ? (
                     <div className="profileBox">
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>
-                        <ul>
-                            { this.state.user.gameArray.map(game => {
-                                return (
-                                    <li key = {game._id}>
-                                        <a key = {game._id} href={`/play/${game._id}`}>
-                                            {game.gameName}
-                                        </a>
-                                    </li>
-                                    );
-                                 })}
-                        </ul>
+                        
+                        
+                        { this.state.user.gameArray.map(game => {
+                            return (
+                                    <a key = {game._id} href={`/play/${game._id}`}>
+                                    <GameButton>{game.gameName}</GameButton>
+                                    </a>
+                                );
+                                })}
+                    
                         <ul>
                             <li>High Scores: {this.state.user.highscores}</li>
                         </ul>
