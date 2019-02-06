@@ -37,14 +37,13 @@ const GameButton = styled(Container)`
     border: 1px solid rgb(25, 9, 45);
     border-radius: 5px;
     font-size: 1.5rem;
-    height: 20rem;
     letter-spacing: 0.3rem;
     margin-bottom: 1rem;
     text-decoration: none;
 
     padding-top: 0.75rem;
     text-align: center;
-    width: calc(20% + 2rem);
+    width: calc(40% + 2rem);
 
     -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
                         2px 2px 2px inset rgba(255,255,255,0.5), 
@@ -68,7 +67,7 @@ class Profile extends Component {
     state = {
         loggedIn: false,
         user: null,
-        loading: true
+        loading: true,
     }
 
     componentDidMount() {
@@ -88,7 +87,7 @@ class Profile extends Component {
                     ).catch(err => console.log(err))
                 });
             }
-            console.log(this.state.user);
+            console.log(this.state.user.gameArray);
         }).catch(err => {
             console.log(err);
         });
@@ -115,7 +114,10 @@ class Profile extends Component {
                         { this.state.user.gameArray.map(game => {
                             return (
                                     <a key = {game._id} href={`/play/${game._id}`}>
-                                    <GameButton>{game.gameName}</GameButton>
+                                        <GameButton>
+                                            <img src="https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg" alt="Card image cap" class="sc-jTzLTM cVlYDB card-img"/>
+                                            {game.gameName}
+                                        </GameButton>
                                     </a>
                                 );
                                 })}
