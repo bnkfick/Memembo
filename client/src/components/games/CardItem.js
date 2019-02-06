@@ -62,7 +62,9 @@ const CardItem = (props) => {
           </CardBody>
         </StyledCard>
         <AnswerContainer>
-        <MultipleChoice  name={props.name} gameInProgress={props.gameInProgress} clicked={props.clicked} handleClick={props.handleClick3} cardId={props.id} level={props.level} >Multiple Choice goes here</MultipleChoice>
+        <MultipleChoice  name={props.name} gameInProgress={props.gameInProgress} clicked={props.clicked} 
+        handleClick={props.handleClick3} 
+        handleSelect={props.handleSelect} cardId={props.id} level={props.level} >Multiple Choice goes here</MultipleChoice>
         </AnswerContainer>
       </ExpertWrapper>
     );

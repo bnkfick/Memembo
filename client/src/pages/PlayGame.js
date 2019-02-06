@@ -50,7 +50,8 @@ class PlayGame extends React.Component {
             msg: "",
             msgcolor: "info",
             user: '',
-            loggedIn: false
+            loggedIn: false,
+            expertUserAnswers: []
         };
     }
 
@@ -311,14 +312,15 @@ class PlayGame extends React.Component {
         return true;
     }
 
+    handleSelect = () => {
+        console.log("handleSelect");
+    }
+
     createAnswerOption = (options, card) =>  {
 
         var option = this.state.game.cardArray[Math.floor(Math.random() * this.state.game.cardArray.length)];
         console.log(`option.details: ${option.details}`);
         console.log(`card.details: ${card.details}`);
-        //if (DEBUG) console.log("card.details " + card.details);
-        //if (DEBUG) console.log("option.answer " + option.answer);
-        //if (DEBUG) console.log("options.indexOf(options['answer'] " + options.indexOf(options["answer"]));
         //Stop a wrong answer from repeating within the answer choices array
         //if the selected choice is the same as the answer try again
         //or if the selected choice is already in the list of answer choices, try again
@@ -329,7 +331,7 @@ class PlayGame extends React.Component {
         return option.details;
     }
 
-    testExpert = (cardId) => {
+    makeChoices = (cardId) => {
         console.log("testExpert");
         console.log(cardId);
 
@@ -425,7 +427,8 @@ class PlayGame extends React.Component {
                                             gameInProgress={this.state.gameInProgress}
                                             handleClick={this.cardClick}
                                             handleClick2={this.nameCheck}
-                                            handleClick3={this.testExpert}
+                                            handleClick3={this.makeChoices}
+                                            handleSelect={this.handleSelect}
                                         />
                                     </Col>)
                             })

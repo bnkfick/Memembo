@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { FormGroup, Label, Input } from 'reactstrap';
 
 class MultipleChoice extends React.Component {
 
@@ -9,8 +9,8 @@ class MultipleChoice extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({ 
-            options: this.props.handleClick(this.props.cardId) 
+        this.setState({
+            options: this.props.handleClick(this.props.cardId)
         });
     }
 
@@ -19,17 +19,22 @@ class MultipleChoice extends React.Component {
         return (
 
             <>
-            { this.state.options.map(choice => {
-                return (
-                <>
-                <input type='radio'/>
-                 {choice}<br/>
-                </>
-                );
-            })}
+                <FormGroup check>
+                    {this.state.options.map(choice => {
+                        return (
+                            <>
+                                <Label check>
+                                    <Input type="radio" onClick={() => this.props.handleSelect()} name="radio1" />{' '}
+                                    {choice}
+                                </Label><br/>
+
+                            </>
+                        );
+                    })}
+                </FormGroup>
             </>
 
-        )        
+        )
     }
 }
 
