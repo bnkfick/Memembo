@@ -55,21 +55,30 @@ const CardItem = (props) => {
             onClick={() => props.handleClick(props.id, props.category)}
           />
           <CardBody>
-
-            {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
-            <CardName name={props.name} gameInProgress={props.gameInProgress} clicked={props.clicked} handleClick={props.handleClick3} cardId={props.id} level={props.level} />
-            {/* <Button>Button</Button> */}
+            <CardName 
+            name={props.name} 
+            gameInProgress={props.gameInProgress} 
+            clicked={props.clicked} 
+            handleClick={props.handleClick3} 
+            cardId={props.id} 
+            level={props.level} />
           </CardBody>
         </StyledCard>
         <AnswerContainer>
-        <MultipleChoice  name={props.name} gameInProgress={props.gameInProgress} clicked={props.clicked} 
-        handleClick={props.handleClick3} 
-        handleSelect={props.handleSelect} cardId={props.id} level={props.level} >Multiple Choice goes here</MultipleChoice>
+          <MultipleChoice
+            key={`multiple-choice-${props.id}`}
+            name={props.name}
+            gameInProgress={props.gameInProgress}
+            clicked={props.clicked}
+            makeChoices={props.makeChoices}
+            handleSelect={props.handleSelect}
+            cardId={props.id}
+            level={props.level} />
         </AnswerContainer>
       </ExpertWrapper>
     );
   } else {
-  // == BEGINNER AND ADVANCED LEVEL ===//
+    // == BEGINNER AND ADVANCED LEVEL ===//
     return (
       <div>
         <StyledCard clicked={props.clicked ? props.clicked.toString() : "false"}>
@@ -79,10 +88,13 @@ const CardItem = (props) => {
             onClick={() => props.handleClick(props.id, props.category)}
           />
           <CardBody>
-
-            {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
-            <CardName name={props.name} gameInProgress={props.gameInProgress} clicked={props.clicked} handleClick={props.handleClick2} cardId={props.id} level={props.level} />
-            {/* <Button>Button</Button> */}
+            <CardName 
+            name={props.name} 
+            gameInProgress={props.gameInProgress} 
+            clicked={props.clicked} 
+            handleClick={props.nameCheck} 
+            cardId={props.id} 
+            level={props.level} />
           </CardBody>
         </StyledCard>
       </div>
