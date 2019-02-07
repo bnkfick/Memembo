@@ -56,9 +56,13 @@ class CardName extends React.Component {
           Correct Answer: {this.props.name}
         </>);
       }
-    } else {
+    } else if (this.props.level === "1") {
       return (
         <CardTitle>{this.props.name || "Card Title"}</CardTitle>
+      );
+    } else if (this.props.level === "3") {
+      return (
+        <CardTitle></CardTitle>
       );
     }
   }

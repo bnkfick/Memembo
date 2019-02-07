@@ -9,7 +9,7 @@ import MultipleChoice from './MultipleChoice';
 
 const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
-    border: 1px solid white;
+    border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
     max-width: 17rem;
     margin-bottom:1em;
 
@@ -17,13 +17,6 @@ const StyledCard = styled(Card)`
       text-align: center;
       border-bottom: 1px solid white;
     }
-`
-const StyledDiv = styled.div`
-  width: 100%;
-  height: 17rem;
-  background-position: center center;
-  background-repeat: no-repeat;
-  overflow: hidden;
 `
 const StyledCardImg = styled(CardImg)`
   min-height: 100%;
@@ -33,18 +26,23 @@ const StyledCardImg = styled(CardImg)`
 
 const ExpertWrapper = styled.div`
   display: inline-flex;
+  width: 100%;
+  background-color: rgba(19, 18, 18, 0.45);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid white;
 `
 
 const AnswerContainer = styled.div`
-    position: relative;
-    background-color: rgb(25, 9, 45);
-    border: 1px solid white;
-    max-width: 40rem;
+
     height:100%;
     text-align: left;
     padding: 2rem;
     margin-bottom:1em;
-    border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
+
 `
 
 const displayDetails = (props) => {

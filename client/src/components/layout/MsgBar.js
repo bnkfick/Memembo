@@ -9,20 +9,10 @@ const MessageBar = styled(Col)`
     border-radius: 10px;
     padding: 1.5rem;
     margin-bottom: 1rem;
-
+    border: 1px solid white;
     h4 {
         border-bottom: 1px solid white;
     }
-`
-const StyledBar = styled.div`
-    background-color: #eaeaea;
-    margin-top: 1em;
-`
-
-const Text = styled.div`
-    padding-top: .5em;
-    background-color: #eaeaea;
-    color: #333;
 `
 
 const Score = styled.div`

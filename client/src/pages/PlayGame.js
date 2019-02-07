@@ -27,7 +27,7 @@ const StyledFormButton = styled(Button)`
     text-align: center;
     width: calc(30% + 1rem);
 
-    .selected {
+    .active {
         background-color: rgba(95, 5, 250, .95);
         cursor: not-allowed;
     }
@@ -42,25 +42,18 @@ const StyledFormButton = styled(Button)`
     
 `
 
-const StyledButton = styled(Button)`
-    font-size: 1.5rem;
-    margin: .5rem;
-    width: 20%;
-    /* margin-left: 0 !important;
-    padding-left: 0 !important; */
+const InstructionsDiv = styled.div`
+    background-color: rgba(19, 18, 18, 0.45);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
 
-    &:hover{
-        border: 1px solid white;
-        /* transform: scale(1.12); */
-    }
-
-    .active {
-        cursor: not-allowed;
-    }
 `
 const easyInstructions = "Click on cards that are ";
 const advancedInstructions = "Enter the Name of each ";
-const expertInstructions = "Select the correct ingredients for each ";
+const expertInstructions = "Select the correct answer for each ";
 
 class PlayGame extends React.Component {
     constructor(props) {
@@ -78,7 +71,8 @@ class PlayGame extends React.Component {
             score: 0,
             highScore: 0,
             gameInProgress: false,
-            msg: "",
+
+            msg: `M${String.fromCharCode(477)}${String.fromCharCode(8901)}mem${String.fromCharCode(8901)}bo${String.fromCharCode(772)}`,
             msgcolor: "info",
             user: '',
             loggedIn: false,
@@ -278,7 +272,9 @@ class PlayGame extends React.Component {
                     console.log("WRONG ANSWER");
                 }
             }
+
             this.setState({
+                highScore: this.checkHighScore(newScore),
                 score: newScore,
                 msg: "YOU GOT " + newScore + "/" + this.state.game.cardArray.length + " CORRECT"
             });
@@ -448,20 +444,20 @@ class PlayGame extends React.Component {
 
         return (
             <>
-                {/* <HeaderBuffer></HeaderBuffer> */}
+
                 {/* === THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
                 <StyledContainer>
                     <StyledFormButton className={
                         this.state.level === "1"
-                            ? "selected"
+                            ? "active"
                             : ''} key="level-1" level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledFormButton>{' '}
                     <StyledFormButton className={
                         this.state.level === "2"
-                            ? "selected"
+                            ? "active"
                             : ''} key="level-2" level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledFormButton>{' '}
                     <StyledFormButton className={
                         this.state.level === "3"
-                            ? "selected"
+                            ? "active"
                             : ''} key="level-3" level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledFormButton>
                 </StyledContainer>
                 {/* === END THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
@@ -469,27 +465,45 @@ class PlayGame extends React.Component {
                 {/* ===================  DISPLAY THE INSTRUCTIONS  =================== */}
                 {/* ============ EMBEDDED MSGBAR WITH SCORE AND THE TOP SCORE ======== */}
                 <StyledContainer>
-                    Click on the cards that are{' '}
-                    <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                        <DropdownToggle caret color="primary">
-                            {this.state.value}
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            {
-                                this.state.game.gameCategories.map((category, index) => {
-                                    return (<DropdownItem key={`${this.state.game._id}-${category}`} onClick={this.select}>{category}</DropdownItem>)
-                                })
-                            }
-                        </DropdownMenu>
-                    </ButtonDropdown>{' '}
-                    {this.state.game.gameCategoryType}
+                   
                     {/* =================== DISPLAY THE SCORE AND THE TOP SCORE =================== */}
                     <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg} msgcolor={this.state.msgcolor}></MsgBar>
+                    {this.state.level === "1" ?
+                        (<InstructionsDiv>
+                            Click on the cards that are{' '}
+                            <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                <DropdownToggle caret color="primary">
+                                    {this.state.value}
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    {
+                                        this.state.game.gameCategories.map((category, index) => {
+                                            return (<DropdownItem key={`${this.state.game._id}-${category}`} onClick={this.select}>{category}</DropdownItem>)
+                                        })
+                                    }
+                                </DropdownMenu>
+                            </ButtonDropdown>{' '}
+                            {this.state.game.gameCategoryType}</InstructionsDiv>)
+                        : ""
+                    }
+                    {this.state.level === "2" ?
+                        (<InstructionsDiv>
+                            {advancedInstructions}</InstructionsDiv>)
+                        : ""
+                    }
+                    {this.state.level === "3" ?
+                        (<InstructionsDiv>
+                            {expertInstructions}</InstructionsDiv>)
+                        : ""
+                    }
+
+                
                 </StyledContainer>
 
 
                 {/* =================== DISPLAY THE GAME CARDS =================== */}
                 <StyledContainer>
+                    
                     <Row>
                         {
                             this.state.game.cardArray.map((card, index) => {
@@ -514,17 +528,23 @@ class PlayGame extends React.Component {
                             })
                         }
                     </Row>
+                    <Row>
+                        <Col>
+                            {this.state.level === "3" ?
+                                (<StyledFormButton
+                                    onClick={() => this.checkQuiz()}
+                                    color="primary">Submit</StyledFormButton>)
+                                : ""
+                            }
+                            <StyledFormButton
+                                onClick={() => this.resetGame(this.state.level)}
+                                color="danger">Reset Game</StyledFormButton>
+                        </Col>
+                    </Row>
+                    <p></p>
                 </StyledContainer>
                 {/* =================== END DISPLAY THE GAME CARDS =================== */}
-                {this.state.level === "3" ?
-                    (<StyledButton
-                        onClick={() => this.checkQuiz()}
-                        color="primary">Submit</StyledButton>)
-                    : ""
-                }
-                <StyledButton
-                    onClick={() => this.resetGame(this.state.level)}
-                    color="danger">Reset Game</StyledButton>
+
             </>
         );
     }
