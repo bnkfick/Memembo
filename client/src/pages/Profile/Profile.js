@@ -42,13 +42,44 @@ const FormButton =  styled(Container)`
     }
         
 `
+const GameButton = styled(Container)`
+    background-color: rgb(48, 19, 84);
+    border: 1px solid rgb(25, 9, 45);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    text-decoration: none;
+
+    padding-top: 0.75rem;
+    text-align: center;
+    width: calc(40% + 2rem);
+
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
+                        2px 2px 2px inset rgba(255,255,255,0.5), 
+                        -2px -2px 2px inset rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
+                     2px 2px 2px inset rgba(255,255,255,0.5), 
+                    -2px -2px 2px inset rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
+                2px 2px 2px inset rgba(255,255,255,0.5), 
+                -2px -2px 2px inset rgba(0,0,0,0.2);
+  
+
+    &:hover{
+        background-color: rgb(25, 9, 45);
+        border: 1px solid white;
+        cursor: pointer
+}
+`
 
 
 class Profile extends Component {
     state = {
         loggedIn: false,
         user: null,
-        loading: true
+        loading: true,
     }
 
     componentDidMount() {
@@ -68,7 +99,7 @@ class Profile extends Component {
                     ).catch(err => console.log(err))
                 });
             }
-            console.log(this.state.user);
+            console.log(this.state.user.gameArray);
         }).catch(err => {
             console.log(err);
         });
@@ -89,18 +120,20 @@ class Profile extends Component {
             <StyledContainer className="profilePage">
                 {this.state.loggedIn ? (
                     <div className="profileBox">
-                        <h1 id="userTitle">WELCOME {this.state.user.username}</h1>
-                        <ul>
-                            { this.state.user.gameArray.map(game => {
-                                return (
-                                    <li key = {game._id}>
-                                        <a key = {game._id} href={`/play/${game._id}`}>
+                        <h1 id="userTitle">Welcome {this.state.user.username}</h1>
+                        
+                        
+                        { this.state.user.gameArray.map(game => {
+                            return (
+                                    <a key = {game._id} href={`/play/${game._id}`}>
+                                        <GameButton>
+                                            <img src="https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg" alt="Card image cap" class="sc-jTzLTM cVlYDB card-img"/>
                                             {game.gameName}
-                                        </a>
-                                    </li>
-                                    );
-                                 })}
-                        </ul>
+                                        </GameButton>
+                                    </a>
+                                );
+                                })}
+                    
                         <ul>
                             <li>High Scores: {this.state.user.highscores}</li>
                         </ul>

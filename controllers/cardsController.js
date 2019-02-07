@@ -27,11 +27,11 @@ module.exports = {
         // clicked: false
       })
       .then((card) => {
-      // cardAdded = card;f
-      // console.log("Card Object: ", card)
-      db.Game.findOneAndUpdate({ _id: req.body.game_id }, { $push: { cardArray: card._id } }, { new: true })
+      cardAdded = card;
+      console.log("Card Object: ", cardAdded);
+      return db.Game.findOneAndUpdate({ _id: req.body.game_id }, { $push: { cardArray: card._id } }, { new: true })
       })
-      .then(game => res.json(game))
+      .then(game => res.json(cardAdded))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {

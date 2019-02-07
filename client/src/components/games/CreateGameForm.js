@@ -80,7 +80,8 @@ export default class CreateGameForm extends Component {
         // console.log([name]);
         // console.log([value]);
         if ([name][0] === 'gameCategories') {
-            let gameCategories = ([value][0].split(",").map(function(a){return a.trim()}));
+            let gameCategories = ([value][0].split(",")).map(function(a){return a.trim()});
+            console.log(gameCategories);
             this.setState({ gameCategories: gameCategories });
         } else {
             this.setState({ [name]: value });
@@ -105,7 +106,7 @@ export default class CreateGameForm extends Component {
     handleGameSubmit = (event) => {
         event.preventDefault();
 
-        if (this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType) {
+        // if (this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType) {
             API.saveGame({
                 gameGroup: this.state.gameGroup,
                 audience: this.state.audience,
@@ -122,7 +123,7 @@ export default class CreateGameForm extends Component {
                 })
                 .then((props)=> this.props.getGameInfo(this.state.game_id, this.state.gameCategories))
                 .catch(err => console.log(err));
-        }
+        // }
     };
 
     render() {
@@ -290,7 +291,7 @@ export default class CreateGameForm extends Component {
                 </Row>
                 
                 <FormButton
-                    disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
+                    // disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
                     onClick={this.handleGameSubmit}
                 >
                 {this.state.game_id ? ( <>CONGRATS! YOUR GAME SAVED!</> ) : (<>SAVE GAME SHELL & CONTINUE</>)}
