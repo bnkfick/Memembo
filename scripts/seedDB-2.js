@@ -133,7 +133,7 @@ const cardSeed = [
   },
   {
     cardName: "Vincent van Gogh",
-    category: "Impressionist",
+    category: "Post Impressionist",
     details: ["Café Terrace"],
     clicked: false,
     src: "https://www.vincentvangogh.org/images/paintings/cafe-terrace-at-night.jpg"

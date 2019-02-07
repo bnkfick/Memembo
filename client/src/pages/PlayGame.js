@@ -77,6 +77,7 @@ class PlayGame extends React.Component {
             score: 0,
             highScore: 0,
             gameInProgress: false,
+            gameOver: false,
             showAnswers: false,
             msg: `M${String.fromCharCode(477)}${String.fromCharCode(8901)}mem${String.fromCharCode(8901)}bo${String.fromCharCode(772)}`,
             msgcolor: "info",
@@ -280,6 +281,7 @@ class PlayGame extends React.Component {
             this.setState({
                 highScore: this.checkHighScore(newScore),
                 score: newScore,
+                gameOver: true,
                 showAnswers: true,
                 msg: "YOU GOT " + newScore + "/" + this.state.game.cardArray.length + " CORRECT"
             });
@@ -327,6 +329,7 @@ class PlayGame extends React.Component {
             game: newGame,
             gameInProgress: newGameInProgress,
             showAnswers: false,
+            msg: `M${String.fromCharCode(477)}${String.fromCharCode(8901)}mem${String.fromCharCode(8901)}bo${String.fromCharCode(772)}`,
             score: 0,
             level: selectedLevel,
         });
@@ -526,6 +529,7 @@ class PlayGame extends React.Component {
                                             category={card.category}
                                             clicked={card.clicked}
                                             gameInProgress={this.state.gameInProgress}
+                                            gameOver={this.state.gameOver}    //EXPERT
                                             handleClick={this.cardClick}      //BEGINNER
                                             nameCheck={this.nameCheck}        //ADVANCED
                                             makeChoices={this.makeChoices}    //EXPERT
@@ -548,7 +552,9 @@ class PlayGame extends React.Component {
                                 >Reset Game</StyledFormButton>
                         </Col>
                     </Row>
-                    <p></p>
+                    <Row><Col> <br/>
+                    <MsgBar score={this.state.score} highScore={this.state.highScore} msg={this.state.msg} msgcolor={this.state.msgcolor}></MsgBar>
+                    <br/></Col></Row>
                 </StyledContainer>
                 {/* =================== END DISPLAY THE GAME CARDS =================== */}
 

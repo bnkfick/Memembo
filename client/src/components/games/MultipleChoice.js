@@ -36,8 +36,9 @@ class MultipleChoice extends React.Component {
                 </FormGroup>
             </Form>
 
-            {this.props.gameOver ? this.props.name : this.props.name}
-            {this.props.name}
+            {console.log(this.props.gameOver)}
+            {this.props.name}<br/>
+            {this.props.gameOver ? this.props.details:''}
             </>
         )
         

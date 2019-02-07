@@ -34,7 +34,7 @@ class CardName extends React.Component {
   };
 
   render() {
-    console.log(`this.props.gameInProgress: ${this.props.gameInProgress}`);
+    //console.log(`this.props.gameInProgress: ${this.props.gameInProgress}`);
     if (this.props.level === "2") {
 
       if (this.props.clicked === false) {
