@@ -61,7 +61,7 @@ class CardName extends React.Component {
       );
     } else if (this.props.level === "3") {
       return (
-        <CardTitle></CardTitle>
+        <></>
       );
     }
   }
