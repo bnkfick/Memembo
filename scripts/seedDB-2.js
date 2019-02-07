@@ -27,8 +27,15 @@ let gameSeed =
 
 const cardSeed = [
   {
-    cardName: "Post Impressionist",
-    category: "Vincent van Gogh",
+    cardName: "Edgar Degas",
+    category: "Impressionist",
+    details: ["Two Dancers on Stage"],
+    clicked: false,
+    src: "https://artisticjunkie.com/wp-content/uploads/2017/08/Edgar-Degas-Two-Dancers-on-Stage.jpg"
+  },
+  {
+    cardName: "Vincent van Gogh",
+    category: "Post Impressionist",
     details: ["The Starry Night"],
     clicked: false,
     src: "http://www.moma.org/media/W1siZiIsIjEzMzA3NSJdLFsicCIsImNvbnZlcnQiLCItcmVzaXplIDIwMDB4MjAwMFx1MDAzZSJdXQ.jpg?sha=df9568c2c27b4c27"
@@ -92,7 +99,7 @@ const cardSeed = [
   {
     cardName: "Claude Monet",
     category: "Impressionist",
-    details: ["Water Lilies, Green Harmony."],
+    details: ["Water Lilies, Green Harmony"],
     clicked: false,
     src: "https://www.claude-monet.com/images/paintings/water-lilies-green-harmony.jpg"
   },

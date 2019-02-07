@@ -37,7 +37,7 @@ const ExpertWrapper = styled.div`
 `
 
 const AnswerContainer = styled.div`
-
+    font-size:1.25rem;
     height:100%;
     text-align: left;
     padding: 2rem;
@@ -82,6 +82,7 @@ const CardItem = (props) => {
             key={`multiple-choice-${props.id}`}
             name={props.name}
             gameInProgress={props.gameInProgress}
+            gameOver={props.gameOver} 
             clicked={props.clicked}
             makeChoices={props.makeChoices}
             handleSelect={props.handleSelect}

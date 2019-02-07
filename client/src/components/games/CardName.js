@@ -45,7 +45,6 @@ class CardName extends React.Component {
             id="cardName"
             value={this.state.cardName}
             onChange={this.handleInputChange}
-            placeholder="Name?"
           /><Button
             onClick={() => this.props.handleClick(this.props.level, this.props.cardId, this.state.cardName)}
             color="success">&#x2713;</Button>{' '}

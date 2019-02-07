@@ -16,9 +16,8 @@ class MultipleChoice extends React.Component {
 
       
     render() {
-
         return (
-
+            <>
             <Form>
                 <FormGroup check>
                     {this.state.options.map((choice, index) => {
@@ -29,7 +28,7 @@ class MultipleChoice extends React.Component {
                                     onClick={() => this.props.handleSelect(this.props.cardId, {choice})} 
                                     key={`radio-${index}-${this.props.cardId}`} name="{`radio-${index}`}" />{' '}
                                     {choice}
-                                </Label><br/>
+                                </Label><br/><br/>
 
                             </>
                         );
@@ -37,7 +36,11 @@ class MultipleChoice extends React.Component {
                 </FormGroup>
             </Form>
 
+            {this.props.gameOver ? this.props.name : this.props.name}
+            {this.props.name}
+            </>
         )
+        
     }
 }
 

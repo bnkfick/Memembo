@@ -7,31 +7,27 @@ const MessageBar = styled(Col)`
     backdrop-filter: blur(5px);   
     -webkit-backdrop-filter: blur(5px); 
     border-radius: 10px;
-    padding: 1.5rem;
+    padding-top: 1rem;
     margin-bottom: 1rem;
     border: 1px solid white;
+    font-size: 1.5rem;
     h4 {
         border-bottom: 1px solid white;
     }
 `
+const Msg = styled.div`
 
-const Score = styled.div`
-    background-color: #eaeaea;
+    background-color: ${ props => props.color  ? props.color : "rgba(19,18,18,0.45)"};
     border-radius: 10px;
-    text-align: right;
-    padding-right: 1em;
-    padding-bottom: .5em;
-    color: #333;
+
+    margin-bottom: 1rem;
 `
 
 
 function MsgBar(props) {
   return (
     <MessageBar>
-    <Alert color={props.msgcolor}>{props.msg}</Alert>
-    <Score>
-          <div>SCORE: {props.score} | TOP SCORE: {props.highScore}</div>
-    </Score>
+    <Msg color={props.msgcolor}>{props.msg}</Msg>
     </MessageBar>
   )
 }
