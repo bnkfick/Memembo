@@ -83,6 +83,7 @@ const CardItem = (props) => {
             name={props.name}
             gameInProgress={props.gameInProgress}
             gameOver={props.gameOver} 
+            details={props.details}
             clicked={props.clicked}
             makeChoices={props.makeChoices}
             handleSelect={props.handleSelect}

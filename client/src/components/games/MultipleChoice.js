@@ -13,7 +13,6 @@ class MultipleChoice extends React.Component {
             options: this.props.makeChoices(this.props.cardId)
         });
     }
-
       
     render() {
         return (
@@ -27,7 +26,7 @@ class MultipleChoice extends React.Component {
                                     <Input type="radio"  
                                     onClick={() => this.props.handleSelect(this.props.cardId, {choice})} 
                                     key={`radio-${index}-${this.props.cardId}`} name="{`radio-${index}`}" />{' '}
-                                    {choice}
+                                    {choice.join(', ')}
                                 </Label><br/><br/>
 
                             </>
@@ -36,8 +35,9 @@ class MultipleChoice extends React.Component {
                 </FormGroup>
             </Form>
 
-            {this.props.gameOver ? this.props.name : this.props.name}
-            {this.props.name}
+            {console.log(this.props.gameOver)}
+            {this.props.name}<br/>
+            {this.props.gameOver ? this.props.details:''}
             </>
         )
         
