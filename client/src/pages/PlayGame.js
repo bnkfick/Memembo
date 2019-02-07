@@ -61,6 +61,10 @@ const easyInstructions = "Click on cards that are ";
 const advancedInstructions = "Enter the Name of Each Item";
 const expertInstructions = "Select the Correct Answer for Each Item";
 
+const CardRow = styled(Row) `
+    z-index: -10000;
+`
+
 class PlayGame extends React.Component {
     constructor(props) {
         super(props);
@@ -511,7 +515,7 @@ class PlayGame extends React.Component {
                 {/* =================== DISPLAY THE GAME CARDS =================== */}
                 <StyledContainer>
 
-                    <Row>
+                    <CardRow>
                         {
                             this.state.game.cardArray.map((card, index) => {
                                 return (
@@ -534,7 +538,7 @@ class PlayGame extends React.Component {
                                     </Col>)
                             })
                         }
-                    </Row>
+                    </CardRow>
                     <Row>
                         <Col>
                             {this.state.level === "3" ?
