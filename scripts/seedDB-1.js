@@ -156,18 +156,6 @@ const cardSeed = [
 ];
 
 
-<<<<<<< HEAD
-=======
-// createMany: function (req, res) {
-//   console.log("in insert Many")
-//   db.Brewery
-//     .insertMany()
-//     .then(dbModel => res.json(dbModel))
-//     .catch(err => res.status(422).json(err));
-//   //passing it an array, change it to handle multiple documents at once - insert many and then send one response
-// },
-
->>>>>>> c67b3f904c7d6493d2c4e805f6d7a43b2d5829a4
 db.Card
   .deleteMany({})
   .then(() => db.Card.collection.insertMany(cardSeed))
