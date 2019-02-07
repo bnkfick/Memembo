@@ -2,9 +2,9 @@ import React, { Component} from 'react';
 import API from "../utils/API"
 import { Row, Container, Col, Form, FormGroup, Label, Input, Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap';
 import CreateGameForm from '../components/games/CreateGameForm';
-// import CardForm from '../components/games/CardForm';
 import CardDisplay from '../components/games/CardDisplay';
 import styled from 'styled-components';
+// import GlassContainer from '../theme/GlassContainer'
 
 const StyledContainer = styled(Container)`
     margin: 2rem auto;
@@ -12,23 +12,15 @@ const StyledContainer = styled(Container)`
     border: 1px solid white;
     border-radius: 5px;
     padding: 1rem 1rem 0 1rem;
+    background-color: rgba(19, 18, 18, 0.671);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
 `
-// const StyledButton = styled(Button)`
-//     background-color: rgb(48, 19, 84);
-//     border: 1px solid rgb(25, 9, 45);
-//     font-size: 1.5rem;
-//     width: 100%;
-//     /* margin-left: 0 !important;
-//     padding-left: 0 !important; */
 
-//     &:hover{
-//         background-color: rgb(25, 9, 45);
-//         border: 1px solid white;
-//         /* transform: scale(1.12); */
-//     }
-// `
 const FormButton =  styled(Container)`
-    background-color: rgb(48, 19, 84);
+    background-color: rgba(95, 5, 250, 0.50);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
     border: 1px solid rgb(25, 9, 45);
     border-radius: 5px;
     font-size: 1.5rem;
@@ -40,29 +32,40 @@ const FormButton =  styled(Container)`
     width: calc(100% + 2rem);
     
     &:hover{
-        background-color: rgb(25, 9, 45);
+        background-color: rgba(95, 5, 250, 0.75);
+        backdrop-filter: blur(5px);   
+        -webkit-backdrop-filter: blur(5px);
         border: 1px solid white;
-        cursor: pointer
+        cursor: pointer;
     }
         
 `
-
 const StyledRow = styled(Row)`
     justify-content: space-evenly;
 `
 const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
     border: 1px solid white;
-    width: 80%;
-    margin: auto;
+    max-width: 25rem;
+    margin: 0 auto 1em auto;
+
+    h5 {
+      text-align: center;
+      border-bottom: 1px solid white;
+    }
+`
+const StyledDiv = styled.div`
+  width: 100%;
+  height: 25rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 `
 const StyledCardImg = styled(CardImg)`
-    max-height: 23rem;
+  min-height: 100%;
+  min-width: 100%;
 `
-const StyledH5 = styled.h5`
-    margin: 1.5rem auto;
-    text-align: center;
-`
+
 export default class CreateGame extends Component {
 
     
@@ -108,27 +111,6 @@ export default class CreateGame extends Component {
         this.setState({ game_id: id, gameCategories: gameCategories })
 
     };
-    // componentDidMount() {
-    //     this.loadGames();
-    //     this.loadCards();
-    // };
-
-    // loadGames = () => {
-    //     API.getGames()
-    //         .then(res =>
-    //             this.setState({ games: res.data, gameGroup: "", audience: [], gameName: "", gameCategories: [], gameCategoryType: "", cardDetailsType: "" })
-    //         )
-    //         .catch(err => console.log(err))
-    // };
-    
-    // loadCards = () => {
-    //     API.getCards()
-    //         .then(res =>
-    //             this.setState({ cards: res.data, src: "", cardName: "", details: [], category: "" })
-    //         )
-    //         .catch(err => console.log(err))
-    // };
-
 
     deleteCard = id => {
         API.deleteCard(id)
@@ -148,7 +130,6 @@ export default class CreateGame extends Component {
             this.setState({ [name]: value });
         }
     };
-
 
     // https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react
     handleSelectChange = event => {
@@ -175,7 +156,7 @@ export default class CreateGame extends Component {
                 game_id: this.state.game_id
             })
             .then(res => {
-                console.log("Card ID returned after save", res.data._id);
+                console.log("Card Data: ", res.data);
                 this.setState({ cardIdArray: [...this.state.cardIdArray, res.data._id] });
                 this.setState({ cardArray: [...this.state.cardArray, res.data] });
             })
@@ -190,7 +171,6 @@ export default class CreateGame extends Component {
     render() {
     return (
         <>
-            
             <StyledContainer>
                 <CreateGameForm
                     getGameInfo = {this.getGameInfo}
@@ -269,20 +249,22 @@ export default class CreateGame extends Component {
                         </Col>
                         <Col sm={6}>
                             <StyledCard >
+                                <StyledDiv style={{backgroundImage: `url(${this.state.src || "https://dummyimage.com/500x500/623bd9/efeff2.png&text=Square+Images+Look+Best!"})`}}>
                                 <StyledCardImg
-                                    src={ this.state.src || "https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg"}
+                                    src={ this.state.src || "https://dummyimage.com/500x500/623bd9/efeff2.png&text=Square+Images+Look+Best!"}
                                     alt="Card image cap" 
                                 />
+                                </StyledDiv>
                                 <CardBody>
-                                    <CardTitle>
+                                    <h5>
                                         { this.state.cardName || "Card Name..."}
-                                    </CardTitle>
-                                    <CardText>
+                                    </h5>
+                                    <p>
                                         { this.state.details || "Card Details..."}
-                                    </CardText>
+                                    </p>
+                                    <p>Card Category (Hidden): {this.state.category}</p>
                                 </CardBody>
                             </StyledCard>
-                            <StyledH5>Card Category (Hidden): {this.state.category}</StyledH5>
                         </Col>
                     </Row>
                     
@@ -294,30 +276,25 @@ export default class CreateGame extends Component {
                     </FormButton>
                 </Form>
             </StyledContainer>
-            <StyledContainer>
-                <StyledRow>
+            
                 {this.state.cardArray.length ? (
-                    <>
+                    <StyledContainer>
+                    <StyledRow>
                         {
-                            this.state.cardArray.map(card => (
-                                <CardDisplay
-                                    key={card._id}
-                                    cardName={card.cardName}
-                                    src={card.src}
-                                    details={card.details}
-                                    category={card.category}
+                        this.state.cardArray.map(card => (
+                            <CardDisplay
+                                key={card._id}
+                                cardName={card.cardName}
+                                src={card.src}
+                                details={card.details}
+                                category={card.category}
 
-                                />
-                            ))}
-                    </>
-                            ) : ("")}
-                </StyledRow>
-                <Form>    
-                    <FormButton>
-                       SUBMIT GAME & CARDS
-                    </FormButton>
-                </Form>
+                            />
+                        ))}
+                 </StyledRow>
             </StyledContainer>
+                        ) : (<></>)}
+                
     </>
     );
   }

@@ -5,31 +5,39 @@ import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
     margin: 2rem auto;
-    width: 75%;
+    width: 100%;
     border: 1px solid white;
     border-radius: 5px;
     padding: 1rem 1rem 0 1rem;
+    background-color: rgba(19, 18, 18, 0.671);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
 `
 
 const FormButton =  styled(Container)`
-    background-color: rgb(48, 19, 84);
+    background-color: rgba(95, 5, 250, 0.50);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
     border: 1px solid rgb(25, 9, 45);
     border-radius: 5px;
     font-size: 1.5rem;
     height: 4rem;
     letter-spacing: 0.3rem;
-
+    margin-left: -1rem;
     padding-top: 0.75rem;
     text-align: center;
-    width: calc(70% + 2rem);
+    width: calc(100% + 2rem);
     
     &:hover{
-        background-color: rgb(25, 9, 45);
+        background-color: rgba(95, 5, 250, 0.75);
+        backdrop-filter: blur(5px);   
+        -webkit-backdrop-filter: blur(5px);
         border: 1px solid white;
-        cursor: pointer
+        cursor: pointer;
     }
         
 `
+
 
 class Signup extends Component {
     state = {
@@ -107,15 +115,16 @@ class Signup extends Component {
                         <Input type="password" name="confirmPassword" id="confirmPassword" placeholder="confirm password" value={this.props.confirmPassword} onChange={this.props.handleInputChange} valid={this.state.confirmPassword} />
                         <FormText>at least 8 characters, 1 capital & 1 number</FormText>
                     </FormGroup>
+                    <p className="signupLink">
+                        <Link to="/login">already have an account?  Sign in here</Link>
+                    </p>
+
                                         {/* if all fields are valid, allow the user to submit the form */}
                                         {(this.state.validUsername && this.state.validPassword && this.state.confirmPassword) ? (
                         <FormButton onClick={this.props.handleSignup} color="success" block>Signup</FormButton>
                     ) : (
                         <FormButton onClick={this.props.handleSignup} color="danger" block disabled>Signup</FormButton>
                     )}
-                    <p className="signupLink">
-                        <Link to="/login">already have an account?  Sign in here</Link>
-                    </p>
                 </Form>
             </StyledContainer>
         );

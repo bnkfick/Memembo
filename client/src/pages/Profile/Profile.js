@@ -6,29 +6,39 @@ import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
     margin: 2rem auto;
-    width: 75%;
+    width: 100%;
     border: 1px solid white;
     border-radius: 5px;
     padding: 1rem 1rem 0 1rem;
+    background-color: rgba(19, 18, 18, 0.671);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
+
+    h1 {
+        text-align: center;
+    }
 `
 
 const FormButton =  styled(Container)`
-    background-color: rgb(48, 19, 84);
+    background-color: rgba(95, 5, 250, 0.50);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
     border: 1px solid rgb(25, 9, 45);
     border-radius: 5px;
     font-size: 1.5rem;
     height: 4rem;
     letter-spacing: 0.3rem;
-    margin-bottom: 1rem;
-
+    margin-left: -1rem;
     padding-top: 0.75rem;
     text-align: center;
-    width: calc(70% + 2rem);
+    width: calc(100% + 2rem);
     
     &:hover{
-        background-color: rgb(25, 9, 45);
+        background-color: rgba(95, 5, 250, 0.75);
+        backdrop-filter: blur(5px);   
+        -webkit-backdrop-filter: blur(5px);
         border: 1px solid white;
-        cursor: pointer
+        cursor: pointer;
     }
         
 `
@@ -62,6 +72,7 @@ const GameButton = styled(Container)`
         cursor: pointer
 }
 `
+
 
 class Profile extends Component {
     state = {
@@ -130,7 +141,7 @@ class Profile extends Component {
                     <div className="noUser">
                         {!this.state.loading ? (
                             <>
-                                <h1>please log in</h1>
+                                <h1>PLEASE LOG IN</h1>
                                 <Link className="loginLink" to="/login"><FormButton className="loginBtn" color="info" >Login</FormButton></Link>
                             </>
                         ) : (
