@@ -12,6 +12,36 @@ const StyledContainer = styled(Container)`
     width: 100%;
     text-align: center;
 `
+const StyledFormButton = styled(Button)`
+    background-color: rgba(95, 5, 250, 0.50);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
+    border: 1px solid rgb(25, 9, 45);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    height: 4rem;
+    letter-spacing: 0.3rem;
+    margin-left: 0.75rem;
+    margin-top:0.75rem;
+    padding-top: 0.75rem;
+    text-align: center;
+    width: calc(30% + 1rem);
+
+    .selected {
+        background-color: rgba(95, 5, 250, .95);
+        cursor: not-allowed;
+    }
+
+    &:hover{
+        background-color: rgba(95, 5, 250, 0.75);
+        backdrop-filter: blur(5px);   
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid white;
+        cursor: pointer;
+    }
+    
+`
+
 const StyledButton = styled(Button)`
     font-size: 1.5rem;
     margin: .5rem;
@@ -236,14 +266,14 @@ class PlayGame extends React.Component {
             //check answers
             for (let i = 0; i < this.state.game.cardArray.length; i++) {
                 let cardId = this.state.game.cardArray[i]._id;
-                                         
+
                 let tileIdx = this.state.expertUserAnswers.findIndex(tile => tile._id === cardId);
 
                 if (this.state.game.cardArray[i].details.join('') ===
-                    this.state.expertUserAnswers[tileIdx].details.join('') ) {
+                    this.state.expertUserAnswers[tileIdx].details.join('')) {
                     console.log("CORRECT ANSSER");
                     newScore++;
-                    
+
                 } else {
                     console.log("WRONG ANSWER");
                 }
@@ -254,7 +284,7 @@ class PlayGame extends React.Component {
             });
 
 
-         } else {
+        } else {
             this.setState({
                 msg: `You've only answered ${this.state.expertUserAnswers.length} questions out of ${this.state.game.cardArray.length}`
             });
@@ -352,7 +382,7 @@ class PlayGame extends React.Component {
 
     // == THIS IS CALLED WHEN A RADIO BUTTON IS SELECTED ON THE EXPERT PAGE
     handleSelect = (cardId, userAnswer) => {
-    //NOT SURE WHY userAnswer details is userAnswer.choice
+        //NOT SURE WHY userAnswer details is userAnswer.choice
         let newAnswers = [...this.state.expertUserAnswers];
         let tileIdx = newAnswers.findIndex(tile => tile._id === cardId);
 
@@ -421,18 +451,18 @@ class PlayGame extends React.Component {
                 {/* <HeaderBuffer></HeaderBuffer> */}
                 {/* === THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
                 <StyledContainer>
-                    <StyledButton color="success" className={
+                    <StyledFormButton className={
                         this.state.level === "1"
-                            ? "active"
-                            : ''} key="level-1" level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledButton>{' '}
-                    <StyledButton color="warning" className={
+                            ? "selected"
+                            : ''} key="level-1" level={this.BEGINNER} onClick={(e) => this.setLevel(e, "1")}>BEGINNER</StyledFormButton>{' '}
+                    <StyledFormButton className={
                         this.state.level === "2"
-                            ? "active"
-                            : ''} key="level-2" level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledButton>{' '}
-                    <StyledButton color="danger" className={
+                            ? "selected"
+                            : ''} key="level-2" level={this.ADVANCED} onClick={(e) => this.setLevel(e, "2")}>ADVANCED</StyledFormButton>{' '}
+                    <StyledFormButton className={
                         this.state.level === "3"
-                            ? "active"
-                            : ''} key="level-3" level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledButton>
+                            ? "selected"
+                            : ''} key="level-3" level={this.EXPERT} onClick={(e) => this.setLevel(e, "3")}>EXPERT</StyledFormButton>
                 </StyledContainer>
                 {/* === END THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
 
@@ -493,8 +523,8 @@ class PlayGame extends React.Component {
                     : ""
                 }
                 <StyledButton
-                        onClick={() => this.resetGame(this.state.level)}
-                        color="danger">Reset Game</StyledButton>
+                    onClick={() => this.resetGame(this.state.level)}
+                    color="danger">Reset Game</StyledButton>
             </>
         );
     }

@@ -155,6 +155,7 @@ const cardSeed = [
   },
 ];
 
+
 db.Card
   .deleteMany({})
   .then(() => db.Card.collection.insertMany(cardSeed))

@@ -94,7 +94,7 @@ router.post("/userScores/:id", function(req,res,next) {
 
     // db.User
     // .findOneAndUpdate({ _id: req.params.id, highScores: [{gameid: req.body.gameId}]}, 
-    //                   { $push: {req.body}})
+    //                   { $push: {req.body.highScore}})
     // .then((data) => {
     //     console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     //     console.log(data);

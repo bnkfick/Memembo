@@ -10,13 +10,25 @@ import MultipleChoice from './MultipleChoice';
 const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
     border: 1px solid white;
-    max-width: 15rem;
-    height:100%;
+    max-width: 17rem;
     margin-bottom:1em;
-    border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
+
+    h5 {
+      text-align: center;
+      border-bottom: 1px solid white;
+    }
+`
+const StyledDiv = styled.div`
+  width: 100%;
+  height: 17rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 `
 const StyledCardImg = styled(CardImg)`
-
+  min-height: 100%;
+  min-width: 100%;
+  
 `
 
 const ExpertWrapper = styled.div`

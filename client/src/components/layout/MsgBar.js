@@ -1,7 +1,19 @@
 import React from "react";
-import { Alert } from 'reactstrap';
+import { Alert, Col } from 'reactstrap';
 import styled from 'styled-components';
 
+const MessageBar = styled(Col)`
+    background-color: rgba(19, 18, 18, 0.45);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+
+    h4 {
+        border-bottom: 1px solid white;
+    }
+`
 const StyledBar = styled.div`
     background-color: #eaeaea;
     margin-top: 1em;
@@ -15,6 +27,7 @@ const Text = styled.div`
 
 const Score = styled.div`
     background-color: #eaeaea;
+    border-radius: 10px;
     text-align: right;
     padding-right: 1em;
     padding-bottom: .5em;
@@ -24,12 +37,12 @@ const Score = styled.div`
 
 function MsgBar(props) {
   return (
-    <StyledBar>
+    <MessageBar>
     <Alert color={props.msgcolor}>{props.msg}</Alert>
     <Score>
           <div>SCORE: {props.score} | TOP SCORE: {props.highScore}</div>
     </Score>
-    </StyledBar>
+    </MessageBar>
   )
 }
 
