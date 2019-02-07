@@ -11,6 +11,7 @@ const GameButton = styled(Container)`
     font-size: 1.5rem;
     letter-spacing: 0.3rem;
     margin-bottom: 1rem;
+    margin-top: 1rem;
     text-decoration: none;
 
     padding-top: 0.75rem;
@@ -69,7 +70,7 @@ class GameList extends Component {
 
         return<a key = {game._id} href={`/play/${game._id}`}>
         <GameButton>
-            <img src="https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg" alt="Card image cap" class="sc-jTzLTM cVlYDB card-img"/>
+            <img src="https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg" alt="Card image cap" className="sc-jTzLTM cVlYDB card-img"/>
             {game.gameName}
         </GameButton>
     </a>

@@ -48,7 +48,7 @@ const GameButton = styled(Container)`
     border-radius: 5px;
     font-size: 1.5rem;
     letter-spacing: 0.3rem;
-    margin-bottom: 1rem;
+    margin: 1rem;
     text-decoration: none;
 
     padding-top: 0.75rem;
