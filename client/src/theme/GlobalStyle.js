@@ -19,7 +19,12 @@ const GlobalStyle = createGlobalStyle`
     }
 
     a {
-    color:rgb(232, 216, 255);
+        color:rgb(232, 216, 255);
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: none;
+        color: white;
     }
 
     i {

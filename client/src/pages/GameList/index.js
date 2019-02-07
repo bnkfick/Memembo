@@ -10,30 +10,33 @@ const GameButton = styled(Container)`
     border-radius: 5px;
     font-size: 1.5rem;
     letter-spacing: 0.3rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin: 1.5rem;
     text-decoration: none;
 
     padding-top: 0.75rem;
     text-align: center;
-    width: calc(40% + 2rem);
-
-    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
-                        2px 2px 2px inset rgba(255,255,255,0.5), 
-                        -2px -2px 2px inset rgba(0,0,0,0.2);
-    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
-                     2px 2px 2px inset rgba(255,255,255,0.5), 
-                    -2px -2px 2px inset rgba(0,0,0,0.2);
-    box-shadow: 2px 2px 2px rgba(0,0,0,0.5), 
-                2px 2px 2px inset rgba(255,255,255,0.5), 
-                -2px -2px 2px inset rgba(0,0,0,0.2);
-  
+    width: 17rem;
 
     &:hover{
         background-color: rgb(25, 9, 45);
         border: 1px solid white;
+        transform: scale(1.025);
         cursor: pointer
-}
+    }
+
+    & h3{
+        margin: 0.75rem auto;
+    }
+`
+
+const SearchWrapper = styled(Row)`
+    justify-content: center;
+    margin-bottom: 1.5rem;
+`
+
+const GameWrapper = styled(Row)`
+    display: flex
+    justify-content: space-evenly;
 `
 
 // Exporting both GameList and GameListItem from this file
@@ -71,25 +74,28 @@ class GameList extends Component {
         return<a key = {game._id} href={`/play/${game._id}`}>
         <GameButton>
             <img src="https://i.pinimg.com/originals/79/4b/06/794b064076875b743c533b0c8b070fe3.jpg" alt="Card image cap" className="sc-jTzLTM cVlYDB card-img"/>
-            {game.gameName}
+           <h3> {game.gameName} </h3>  
         </GameButton>
     </a>
     }
 
     render() {
         return (
-
             <>
-            <Search
-                query={this.state.query}
-                onChange={this.onChange}
+                <SearchWrapper>
+                    <Search
+                        query={this.state.query}
+                        onChange={this.onChange}
 
-            />
-            <ul>
-            { this.state.games.map(game => {
-                return this.renderGame(game);
-            })}
-            </ul>
+                    />
+                </SearchWrapper>
+                <GameWrapper>
+                    
+                    { this.state.games.map(game => {
+                        return this.renderGame(game);
+                    })}
+                
+                </GameWrapper>
             </>
         )
     }
