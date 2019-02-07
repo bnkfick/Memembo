@@ -134,8 +134,11 @@ class Profile extends Component {
                                 );
                                 })}
                     
+                        <h2>High Scores: {this.state.user.highscores}</h2>
                         <ul>
-                            <li>High Scores: {this.state.user.highscores}</li>
+                            <li>Famous Artwork: 11</li>
+                            <li>Mixology: 10</li>
+                            <li>Colors and Numbers: 16</li>
                         </ul>
                     </div>
                 ) : (
