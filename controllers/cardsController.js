@@ -16,6 +16,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
+    // let cardAdded = {};
     db.Card
       .create({
         //Have to break out since also passing game_id that is not part of card
@@ -25,7 +26,11 @@ module.exports = {
         category: req.body.category,
         // clicked: false
       })
-      .then((card) => db.Game.findOneAndUpdate({ _id: req.body.game_id }, { $push: { cardArray: card._id } }, { new: true }))
+      .then((card) => {
+      // cardAdded = card;f
+      // console.log("Card Object: ", card)
+      db.Game.findOneAndUpdate({ _id: req.body.game_id }, { $push: { cardArray: card._id } }, { new: true })
+      })
       .then(game => res.json(game))
       .catch(err => res.status(422).json(err));
   },

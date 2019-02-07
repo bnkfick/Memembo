@@ -6,12 +6,17 @@ import { Card, CardImg, CardText, CardBody,
 const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
     border: 1px solid white;
-    max-width: 20rem;
+    max-width: 17rem;
     margin-bottom:1em;
+
+    h5 {
+      text-align: center;
+      border-bottom: 1px solid white;
+    }
 `
 const StyledDiv = styled.div`
-  width: 20rem;
-  height: 20rem;
+  width: 100%;
+  height: 17rem;
   background-position: center center;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -19,12 +24,7 @@ const StyledDiv = styled.div`
 const StyledCardImg = styled(CardImg)`
   min-height: 100%;
   min-width: 100%;
-  /* IE 8 */
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  /* IE 5-7 */
-  filter: alpha(opacity=0);
-  /* modern browsers */
-  opacity: 0;
+  
 `
 
 const CardDisplay = (props) => {
@@ -37,13 +37,13 @@ const CardDisplay = (props) => {
         />
       </StyledDiv>
       <CardBody>
-        <CardTitle>{props.cardName || "Card Title"}</CardTitle>
-        <CardText>
-          {props.details}
-        </CardText>
-        <CardText>
-          {props.category} (Will be Hidden)
-        </CardText>
+        <h5>{props.cardName || "Card Title"}</h5>
+        <p>
+          {props.details || "Card Details"}
+        </p>
+        <p>
+          {props.category || "Card Category (Will be Hidden)" }
+        </p>
       </CardBody>
     </StyledCard>
   );

@@ -5,7 +5,9 @@ import { Row, Container, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import styled from 'styled-components';
 
 const FormButton =  styled(Container)`
-    background-color: rgb(48, 19, 84);
+    background-color: rgba(95, 5, 250, 0.50);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
     border: 1px solid rgb(25, 9, 45);
     border-radius: 5px;
     font-size: 1.5rem;
@@ -17,19 +19,19 @@ const FormButton =  styled(Container)`
     width: calc(100% + 2rem);
     
     &:hover{
-        background-color: rgb(25, 9, 45);
+        background-color: rgba(95, 5, 250, 0.75);
+        backdrop-filter: blur(5px);   
+        -webkit-backdrop-filter: blur(5px);
         border: 1px solid white;
         cursor: pointer;
-    }
-
-    &:disabled{
-        background-color: rgb(25, 9, 45);
     }
         
 `
 
 const InstructionFormGroup = styled(Col)`
-    background-color: rgb(25, 9, 45);
+    background-color: rgba(19, 18, 18, 0.45);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
     border-radius: 10px;
     padding: 1.5rem;
     margin-bottom: 1rem;
@@ -38,6 +40,9 @@ const InstructionFormGroup = styled(Col)`
         border-bottom: 1px solid white;
     }
 `
+
+
+
 export default class CreateGameForm extends Component {
     constructor(props) {
         super(props)
@@ -75,14 +80,13 @@ export default class CreateGameForm extends Component {
         // console.log([name]);
         // console.log([value]);
         if ([name][0] === 'gameCategories') {
-            let gameCategories = ([value][0].split(", "));
-            console.log(gameCategories);
+            let gameCategories = ([value][0].split(",").map(function(a){return a.trim()}));
             this.setState({ gameCategories: gameCategories });
         } else {
             this.setState({ [name]: value });
         }
     };
-
+    // this.setState({ cardIdArray: [...this.state.cardIdArray, res.data._id] });
 
     // https://stackoverflow.com/questions/28624763/retrieving-value-from-select-with-multiple-option-in-react
     handleSelectChange = event => {
@@ -125,7 +129,6 @@ export default class CreateGameForm extends Component {
         return (
 
             <Form>
-                
                 <Row>
                     <Col sm={6}>
                         <FormGroup row>
@@ -163,7 +166,7 @@ export default class CreateGameForm extends Component {
                         </FormGroup>
 
                         <FormGroup row>
-                            <Label for="audience" sm={4}>Target Audience: (Select Multiple if Needed)</Label>
+                            <Label for="audience" sm={4}>Target Audiences:</Label>
                             <Col sm={8}>
                                 <Input type="select"
                                     name="audience"
@@ -287,7 +290,7 @@ export default class CreateGameForm extends Component {
                 </Row>
                 
                 <FormButton
-                    // disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
+                    disabled={!(this.state.gameGroup && this.state.audience && this.state.gameName && this.state.gameCategories && this.state.cardDetailsType)}
                     onClick={this.handleGameSubmit}
                 >
                 {this.state.game_id ? ( <>CONGRATS! YOUR GAME SAVED!</> ) : (<>SAVE GAME SHELL & CONTINUE</>)}

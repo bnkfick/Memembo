@@ -3,6 +3,7 @@ import CardItem from "../components/games/CardItem";
 import MsgBar from "../components/layout/MsgBar";
 import API from "../utils/API";
 import { Container, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+// import HeaderBuffer from "../components/containers/HeaderBuffer"
 import styled from 'styled-components';
 
 
@@ -417,7 +418,7 @@ class PlayGame extends React.Component {
 
         return (
             <>
-
+                {/* <HeaderBuffer></HeaderBuffer> */}
                 {/* === THE GAME LEVEL BUTTONS FOR BEGINNER ADVANCED AND EXPERT ===*/}
                 <StyledContainer>
                     <StyledButton color="success" className={
