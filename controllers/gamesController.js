@@ -27,7 +27,7 @@ module.exports = {
     
   },
   create: function(req, res) {
-    // console.log("create game: ", req.body)
+    console.log("create game: ", req.body)
     let gameID = "";
     db.Game
       .create({
@@ -41,7 +41,7 @@ module.exports = {
       .then((game) => {
         gameID = game._id
         console.log("game id: ", game._id)
-        db.User.findOneAndUpdate({ _id: req.body.userid }, { $push: { gameArray: game._id } }, { new: true })
+        return db.User.findOneAndUpdate({ _id: req.body.userid }, { $push: { gameArray: game._id } }, { new: true })
       })
       .then(user => res.json(gameID))
       .catch(err => res.status(422).json(err));
