@@ -329,7 +329,6 @@ class PlayGame extends React.Component {
             game: newGame,
             gameInProgress: newGameInProgress,
             showAnswers: false,
-            msg: `M${String.fromCharCode(477)}${String.fromCharCode(8901)}mem${String.fromCharCode(8901)}bo${String.fromCharCode(772)}`,
             score: 0,
             level: selectedLevel,
         });
@@ -338,6 +337,9 @@ class PlayGame extends React.Component {
 
     setLevel = (event, level) => {
         event.preventDefault();
+        this.setState({
+            msg: `M${String.fromCharCode(477)}${String.fromCharCode(8901)}mem${String.fromCharCode(8901)}bo${String.fromCharCode(772)}`,
+        })
         this.resetGame(level);
     }
 
