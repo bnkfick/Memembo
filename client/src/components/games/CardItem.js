@@ -9,27 +9,40 @@ import MultipleChoice from './MultipleChoice';
 
 const StyledCard = styled(Card)`
     background-color: rgb(25, 9, 45);
-    border: 1px solid white;
-    max-width: 15rem;
-    height:100%;
-    margin-bottom:1em;
     border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
+    max-width: 17rem;
+    margin-bottom:1em;
+
+    h5 {
+      text-align: center;
+      border-bottom: 1px solid white;
+    }
 `
 const StyledCardImg = styled(CardImg)`
-
+  min-height: 100%;
+  min-width: 100%;
+  
 `
 
 const ExpertWrapper = styled.div`
   display: inline-flex;
+  width: 100%;
+  background-color: rgba(19, 18, 18, 0.45);
+    backdrop-filter: blur(5px);   
+    -webkit-backdrop-filter: blur(5px); 
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid white;
 `
 
 const AnswerContainer = styled.div`
-    background-color: rgb(25, 9, 45);
-    border: 1px solid white;
-    max-width: 15rem;
+    font-size:1.25rem;
     height:100%;
+    text-align: left;
+    padding: 2rem;
     margin-bottom:1em;
-    border: ${ props => props.clicked === "true" ? "1px solid palevioletred" : "1px solid white"};
+
 `
 
 const displayDetails = (props) => {
@@ -69,6 +82,7 @@ const CardItem = (props) => {
             key={`multiple-choice-${props.id}`}
             name={props.name}
             gameInProgress={props.gameInProgress}
+            gameOver={props.gameOver} 
             clicked={props.clicked}
             makeChoices={props.makeChoices}
             handleSelect={props.handleSelect}

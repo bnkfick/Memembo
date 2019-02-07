@@ -45,7 +45,6 @@ class CardName extends React.Component {
             id="cardName"
             value={this.state.cardName}
             onChange={this.handleInputChange}
-            placeholder="Name?"
           /><Button
             onClick={() => this.props.handleClick(this.props.level, this.props.cardId, this.state.cardName)}
             color="success">&#x2713;</Button>{' '}
@@ -56,9 +55,13 @@ class CardName extends React.Component {
           Correct Answer: {this.props.name}
         </>);
       }
-    } else {
+    } else if (this.props.level === "1") {
       return (
         <CardTitle>{this.props.name || "Card Title"}</CardTitle>
+      );
+    } else if (this.props.level === "3") {
+      return (
+        <CardTitle></CardTitle>
       );
     }
   }

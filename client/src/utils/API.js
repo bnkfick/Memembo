@@ -35,7 +35,9 @@ export default {
         return axios.get("/api/users/logout");
     },
 
-    
+    setHighScore: function(id, highScore) {
+        return axios.post(`/api/users/userScores/${id}`, highScore);
+    },
     // Gets all games
     getGames: function() {
         return axios.get("/api/games");
