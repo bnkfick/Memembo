@@ -77,3 +77,25 @@ In advanced mode, if you provided a picture, you will have to guess the name of 
 In expert mode, make sure you know your stuff. This one will be multiple choice.
 
 ### Good Luck, and Memembo everything you need to.
+
+### Built with:
+
+* Mongo
+* Express
+* React
+* Node
+* React Strap
+* Styled Components
+* Passport using Local Strategy
+* Bcrypt
+* Axios
+
+Thanks for playing from all of us at Team B.A.R.B.
+
+Barbara Fick
+
+Adam Chapman
+
+Roxanne Koven
+
+Brayden Copley
