@@ -120,7 +120,6 @@ class Profile extends Component {
             <StyledContainer className="profilePage">
                 {this.state.loggedIn ? (
                     <div className="profileBox">
-<<<<<<< HEAD
                         <h1 id="userTitle">Welcome {this.state.user.username}</h1>
                         
                         
@@ -132,20 +131,6 @@ class Profile extends Component {
                                 );
                                 })}
                     
-=======
-                        <h1 id="userTitle">WELCOME {this.state.user.username}</h1>
-                        <ul>
-                            { this.state.user.gameArray.map(game => {
-                                return (
-                                    <li key = {game._id}>
-                                        <a key = {game._id} href={`/play/${game._id}`}>
-                                            {game.gameName}
-                                        </a>
-                                    </li>
-                                    );
-                                 })}
-                        </ul>
->>>>>>> efbe646ea829e4df24f376e448001a1dc77ec1f0
                         <ul>
                             <li>High Scores: {this.state.user.highscores}</li>
                         </ul>
